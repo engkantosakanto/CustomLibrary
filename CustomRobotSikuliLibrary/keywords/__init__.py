@@ -11,5 +11,5 @@ __all__ = [
     "_ImageLibraryKeywords",
     "_LoggingKeywords",
     "_OperatingSystemKeywords",
-    "_RegionKeywords"
+    "_RegionKeywords",
 ]

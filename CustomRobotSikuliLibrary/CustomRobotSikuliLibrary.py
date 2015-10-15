@@ -11,7 +11,7 @@ class CustomRobotSikuliLibrary(
     _ImageLibraryKeywords,
     _LoggingKeywords,
     _OperatingSystemKeywords,
-    _RegionKeywords
+    _RegionKeywords,
     ):
 
     ROBOT_LIBRARY_SCOPE = 'GLOBAL'

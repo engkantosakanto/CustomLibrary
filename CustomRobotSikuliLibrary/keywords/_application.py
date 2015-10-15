@@ -7,12 +7,12 @@ class _ApplicationKeywords():
 
     # Sikuli script for assigning the default image path
     def set_application_focus(self, app_name):
-        """Sets focus to the open applicataion matching the given app_name."""
+        """Sets focus to the open application matching the given app_name."""
         self._set_application_name(app_name)
         App.focus(self.application_name)
 
     def switch_application_focus(self, app_name):
-        """Switches focus to the open applicataion matching the given app_name."""
+        """Switches focus to the open application matching the given app_name."""
         self._set_application_name(app_name)
         switchApp(self.application_name)
 
@@ -24,7 +24,7 @@ class _ApplicationKeywords():
             App.open(self.application_directory)
 
     def close_application(self, app_name):
-        """Closes the open applicataion matching the given app_name."""
+        """Closes the open application matching the given app_name."""
         self._set_application_name(app_name)
         if App(self.application_name).isRunning():
             App.close(self.application_name)
