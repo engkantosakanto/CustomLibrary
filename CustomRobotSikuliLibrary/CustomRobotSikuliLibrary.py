@@ -9,6 +9,7 @@ class CustomRobotSikuliLibrary(
     _ApplicationKeywords,
     _ElementKeywords,
     _ImageLibraryKeywords,
+    _LoggingKeywords,
     _OperatingSystemKeywords,
     _RegionKeywords
     ):
@@ -19,8 +20,12 @@ class CustomRobotSikuliLibrary(
     Settings.OcrTextRead = True
 
     def __init__(self,
-        application_coordinates = None
+        application_coordinates = None,
+        screenshot_directory = "logs/screenshots",
+        level = "debug"
         ):
         for base in CustomRobotSikuliLibrary.__bases__:
             base.__init__(self)
         self.application_coordinates = application_coordinates
+        self.screenshot_directory = screenshot_directory
+        self.level = level

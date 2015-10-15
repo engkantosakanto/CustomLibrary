@@ -5,7 +5,7 @@ class _ApplicationKeywords():
         self.application_name = None
         self.application_path = None
 
-        # Sikuli script for assigning the default image path
+    # Sikuli script for assigning the default image path
     def set_application_focus(self, app_name):
         """Sets focus to the open applicataion matching the given app_name."""
         self._set_application_name(app_name)
