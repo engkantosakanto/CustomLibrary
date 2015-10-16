@@ -1,6 +1,13 @@
-from sikuli import *
+import os
+import sys
+script_dir = os.path.dirname(os.path.realpath(__file__))
+sys.path.append('script_dir/..')
 
-class _ApplicationKeywords():
+import utils
+from sikuli import *
+from keywordgroup import KeywordGroup
+
+class _ApplicationKeywords(KeywordGroup):
     def __init__(self):
         self.application_name = None
         self.application_path = None
@@ -8,16 +15,19 @@ class _ApplicationKeywords():
     # Sikuli script for assigning the default image path
     def set_application_focus(self, app_name):
         """Sets focus to the open application matching the given app_name."""
+        self._info("Setting focus at application '%s'." % app_name)
         self._set_application_name(app_name)
         App.focus(self.application_name)
 
     def switch_application_focus(self, app_name):
         """Switches focus to the open application matching the given app_name."""
+        self._info("Switching focus to application '%s'." % app_name)
         self._set_application_name(app_name)
         switchApp(self.application_name)
 
     def open_application(self, path, app_name):
         """Opens applicataion matching the given app_name and path."""
+        self._info("Opening application '%s' in path '%s'." % (app_name, path))
         self._set_application_path(path)
         self._set_application_name(app_name)
         if not App(self.application_name).isRunning():
@@ -25,6 +35,7 @@ class _ApplicationKeywords():
 
     def close_application(self, app_name):
         """Closes the open application matching the given app_name."""
+        self._info("Closing application '%s'." % app_name)
         self._set_application_name(app_name)
         if App(self.application_name).isRunning():
             App.close(self.application_name)

@@ -8,5 +8,5 @@ java -cp "%robot_framework_jar%;%sikulix_jar%" ^
      org.robotframework.RobotFramework ^
      --pythonpath=CustomRobotSikuliLibrary ^
      --outputdir=. ^
-     --loglevel=DEBUG ^
+     --loglevel=INFO ^
      %*

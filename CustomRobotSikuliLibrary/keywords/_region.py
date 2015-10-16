@@ -1,11 +1,18 @@
-from sikuli import *
+import os
+import sys
+script_dir = os.path.dirname(os.path.realpath(__file__))
+sys.path.append('script_dir/..')
 
-class _RegionKeywords():
+from sikuli import *
+from keywordgroup import KeywordGroup
+
+class _RegionKeywords(KeywordGroup):
     def __init__(self):
         self.target_coordinates = (SCREEN.getX(), SCREEN.getY(), SCREEN.getW(), SCREEN.getH())
         self.screen = Screen()
 
     def set_search_region(self, coordinates):
+        self._info("Setting search region to '%s'." % coordinates)
         self._set_coordinates(coordinates)
         setROI(*self.target_coordinates)
 
