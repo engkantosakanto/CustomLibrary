@@ -40,6 +40,7 @@ class _ApplicationKeywords(KeywordGroup):
         if App(self.application_name).isRunning():
             App.close(self.application_name)
 
+    """***************************** Internal Methods ************************************"""
     # Private
     def _set_application_name(self, application_name):
         self.application_name = application_name

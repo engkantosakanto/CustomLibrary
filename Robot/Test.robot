@@ -1,15 +1,15 @@
 *** Settings ***
 Library           CustomRobotSikuliLibrary
-Test Setup        Set Image Library    C:/CustomLibrary/Images
-#Test Setup        Set Image Library    C:/Users/calcifer/CustomLibrary/CustomLibrary/Images
+#Test Setup        Set Image Library    C:/CustomLibrary/Images
+Test Setup        Set Image Library    C:/Users/calcifer/CustomLibrary/CustomLibrary/Images
 
 *** Test Cases ***
-Click an Image
+Sikuli Methods Test
 #    Set Image Library Directory    C:/CustomLibrary/Images
 #    Open Application
 #    ...    C:/Program Files (x86)/Freelancer.com/Freelancer Desktop App/freelancer-desktop-app.exe
 #    ...    Freelancer Desktop App
-    Set Application Focus    Freelancer Desktop App
+    Set Application Focus    Freelancer Desktop Apps
     Hover at Pattern    LoginButton.png = 0.90
     Hover At Pattern At Coordinates    LoginButton.png = 0.90    0    50
     Click Pattern    freelancerlogo.png = 0.90
