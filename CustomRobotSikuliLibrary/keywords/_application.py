@@ -3,7 +3,6 @@ import sys
 script_dir = os.path.dirname(os.path.realpath(__file__))
 sys.path.append('script_dir/..')
 
-import utils
 from sikuli import *
 from keywordgroup import KeywordGroup
 
@@ -40,8 +39,8 @@ class _ApplicationKeywords(KeywordGroup):
         if App(self.application_name).isRunning():
             App.close(self.application_name)
 
-    """***************************** Internal Methods ************************************"""
     # Private
+    """***************************** Internal Methods ************************************"""
     def _set_application_name(self, application_name):
         self.application_name = application_name
 

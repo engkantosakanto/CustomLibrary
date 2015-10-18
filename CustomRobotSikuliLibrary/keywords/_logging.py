@@ -52,4 +52,8 @@ class _LoggingKeywords(KeywordGroup):
     def _html(self, message):
         logger.info(message, True, False)
 
-
+class FindFailedError(Exception):
+    def __init__(self, value):
+        self.value = value
+    def __str__(self):
+        return self.value

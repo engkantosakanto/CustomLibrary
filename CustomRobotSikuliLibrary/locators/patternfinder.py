@@ -30,6 +30,7 @@ class PatternFinder(object):
 
     def _find_pattern(self, locator):
         assert locator is not None and len(locator) > 0
+        locator = locator.strip().lower()
         (pattern, sensitivity) = self._parse_locator(locator)
 
         if (sensitivity != None):

@@ -5,11 +5,13 @@ sys.path.append('script_dir/..')
 
 from sikuli import *
 from keywordgroup import KeywordGroup
+from locators import PatternFinder
 
 class _RegionKeywords(KeywordGroup):
     def __init__(self):
         self.target_coordinates = (SCREEN.getX(), SCREEN.getY(), SCREEN.getW(), SCREEN.getH())
         self.screen = Screen()
+        self._pattern_finder = PatternFinder()
 
     def set_search_region(self, coordinates):
         self._info("Setting search region to '%s'." % coordinates)
@@ -21,15 +23,15 @@ class _RegionKeywords(KeywordGroup):
         self._set_coordinates(coordinates)
         return self.target_coordinates
 
-    def get_active_window_coordinates(self):
+    def get_active_app_coordinates(self):
         activeWindow = App.focusedWindow();
         coordinates = (activeWindow.getX(), activeWindow.getY(), activeWindow.getW(), activeWindow.getH())
         self._set_coordinates(coordinates)
         return self.target_coordinates
 
     def get_reference_pattern_coordinates(self, pattern):
-        self.screen.find(pattern)
-        matched_pattern = getLastMatch()
+        matched_pattern = find(self._pattern_finder._find_pattern(pattern))
+        #matched_pattern = getLastMatch()
         coordinates = (matched_pattern.getX(), matched_pattern.getY(), matched_pattern.getW(), matched_pattern.getH())
         self._set_coordinates(coordinates)
         return self.target_coordinates
@@ -37,8 +39,8 @@ class _RegionKeywords(KeywordGroup):
     def get_active_screen_region(self):
         return Region(*self.get_active_screen_coordinates())
 
-    def get_active_window_region(self):
-        return Region(*self.get_active_window_coordinates())
+    def get_active_app_region(self):
+        return Region(*self.get_active_app_coordinates())
 
     def get_reference_pattern_region(self, pattern):
         return Region(*self.get_reference_pattern_coordinates(pattern))

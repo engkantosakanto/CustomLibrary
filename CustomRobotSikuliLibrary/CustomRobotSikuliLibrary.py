@@ -11,11 +11,16 @@ __version__ = VERSION
 
 class CustomRobotSikuliLibrary(
     _ApplicationKeywords,
+    _AssertionKeywords,
     _ElementKeywords,
+    _KeyboardActionsKeywords,
     _ImageLibraryKeywords,
     _LoggingKeywords,
     _OperatingSystemKeywords,
-    _RegionKeywords
+    _RegionKeywords,
+    _RunOnFailureKeywords,
+    _ScreenshotKeywords,
+    _WaitingKeywords
     ):
 
     ROBOT_LIBRARY_SCOPE = 'GLOBAL'
@@ -26,7 +31,8 @@ class CustomRobotSikuliLibrary(
     def __init__(self,
                  application_coordinates = None,
                  screenshot_directory = "logs/screenshots",
-                 level = "INFO"
+                 level = "DEBUG",
+                 run_on_failure ='Capture Screenshot Of Active App'
     ):
         for base in CustomRobotSikuliLibrary.__bases__:
             base.__init__(self)
@@ -34,4 +40,4 @@ class CustomRobotSikuliLibrary(
         self.screenshot_directory = screenshot_directory
         self.level = level
         self.ROBOT_LIBRARY_LISTENER = LibraryListener()
-        print "CustomRobotSikuliLibrary Line 33"
+        self.register_keyword_to_run_on_failure(run_on_failure)
