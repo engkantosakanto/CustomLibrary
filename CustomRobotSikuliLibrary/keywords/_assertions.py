@@ -13,11 +13,13 @@ class _AssertionKeywords(KeywordGroup):
         self._pattern_finder = PatternFinder()
 
     def assert_pattern_is_visible(self, pattern):
+        """Assert that pattern is visible on search region"""
         self._info("Asserting that pattern, '%s' is visible in app." % (pattern))
         self._set_ROI()
         assert exists(self._pattern_finder._find_pattern(pattern))
 
     def assert_pattern_is_not_visible(self, pattern):
+        """Assert that pattern is not visible on search region"""
         self._info("Asserting that pattern, '%s' is not visible in app." % (pattern))
         self._set_ROI()
         assert not exists(self._pattern_finder._find_pattern(pattern))

@@ -23,8 +23,43 @@ class CustomRobotSikuliLibrary(
     _WaitingKeywords
     ):
 
+    """CustomRobotSikuliLibrary is sikuli-based testing library for Robot Framework.
+
+    It uses the SikuliX version 1.1.0 methods internally to control matching PSMRL (pattern, string, match, region or location).
+    See http://sikulix-2014.readthedocs.org/en/latest/index.html for more information on SikuliX.
+
+    CustomRobotSikuliLibrary runs tests by matching instance of PSMRL. It should work in
+    most modern OS.
+
+    = Before running tests = 
+    SikuliX v1.1.0 must be installed.
+
+    All keywords in CustomRobotSikuliLibrary that need to find an pattern or any of the PSMRL on the screen
+    take an argument that serves as the `locator`.
+    `locator` is a string that describes how to locate an element using a syntax
+    specifying a pattern to search for in a screen, which is a representation of the element.
+
+    PNG format must be used for reference patterns for better image resolution and better image detection.
+
+    *Using locators*
+    ---------------
+    By default, when a locator value is provided, it is checked if a png with image sensitivity otherwise,
+    it is treated as a string. When a locator is a string, the Ocr setting must be set to `True`.
+
+    For example:
+    |  Click Pattern    freelancerlogo.png = 0.90
+    |  Click Pattern    freelancerlogo.png
+    |  Click Pattern    Password
+
+    The first example is evaluated as a PNG image format with image sensitivity set to 0.90.
+    The second example is evaluated as a PNG image format with image sensitivity set to the default value 0.70.
+    The third example is evaluated as a string and is matched against any string on screen.
+    """
+
     ROBOT_LIBRARY_SCOPE = 'GLOBAL'
     ROBOT_LIBRARY_VERSION = VERSION
+
+    """ Set Ocr settings to True to enable text searching and reading in patterns."""
     Settings.OcrTextSearch = True
     Settings.OcrTextRead = True
 

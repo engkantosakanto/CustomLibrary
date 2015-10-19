@@ -5,13 +5,13 @@ sys.path.append('script_dir/..')
 
 from sikuli import *
 from keywordgroup import KeywordGroup
+from _logging import FindFailedError
 
 class _ApplicationKeywords(KeywordGroup):
     def __init__(self):
         self.application_name = None
         self.application_path = None
-
-    # Sikuli script for assigning the default image path
+    
     def set_application_focus(self, app_name):
         """Sets focus to the open application matching the given app_name."""
         self._info("Setting focus at application '%s'." % app_name)
@@ -50,7 +50,10 @@ class _ApplicationKeywords(KeywordGroup):
             return self.application_name
 
     def _set_application_path(self, application_path):
-        self.application_path = application_path
+        if not self._path_exists(path):
+            raise AssertionError("Path '%s' does not exist." % (path))
+        else:
+            self.application_path = application_path
 
     def _get_application_path(self):
         # Use the image library directory if set

@@ -9,6 +9,7 @@ from locators import PatternFinder
 
 class _RegionKeywords(KeywordGroup):
     def __init__(self):
+        # Set target coordinates to Screen 1 as default
         self.target_coordinates = (SCREEN.getX(), SCREEN.getY(), SCREEN.getW(), SCREEN.getH())
         self.screen = Screen()
         self._pattern_finder = PatternFinder()
@@ -46,6 +47,7 @@ class _RegionKeywords(KeywordGroup):
         return Region(*self.get_reference_pattern_coordinates(pattern))
 
     # Private
+    """***************************** Internal Methods ************************************"""
     def _set_coordinates(self, target_coordinates):
         self.target_coordinates = target_coordinates
 

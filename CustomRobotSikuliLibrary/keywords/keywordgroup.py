@@ -1,3 +1,8 @@
+""" 
+Source Code reference: Selenium2Library
+This python file is copied from the Selenium2Library 
+"""
+
 import sys
 import inspect
 

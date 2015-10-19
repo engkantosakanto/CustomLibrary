@@ -52,6 +52,10 @@ class _LoggingKeywords(KeywordGroup):
     def _html(self, message):
         logger.info(message, True, False)
 
+    def _path_exists(self, path):
+        if (os.path.exists(path)):
+            return True
+
 class FindFailedError(Exception):
     def __init__(self, value):
         self.value = value

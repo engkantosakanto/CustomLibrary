@@ -1,10 +1,10 @@
 *** Settings ***
 Library           CustomRobotSikuliLibrary
-#Test Setup        Set Image Library    C:/CustomLibrary/Images
-Suite Setup        Set Image Library    C:/Users/calcifer/CustomLibrary/CustomLibrary/Images
+Suite Setup        Set Image Library    C:/CustomLibrary/Images
+#Suite Setup        Set Image Library    C:/Users/calcifer/CustomLibrary/CustomLibrary/Images
 
 *** Test Cases ***
-Set Application Focus Test
+Element Keywords Click Test
     Set Application Focus    Freelancer Desktop App
 Hover Test
     Hover at Pattern    LoginButton.png = 0.90
