@@ -3,6 +3,7 @@ import sys
 script_dir = os.path.dirname(os.path.realpath(__file__))
 sys.path.append('script_dir/..')
 
+import utils
 from sikuli import *
 from keywordgroup import KeywordGroup
 from locators import PatternFinder
@@ -31,11 +32,14 @@ class _RegionKeywords(KeywordGroup):
         return self.target_coordinates
 
     def get_reference_pattern_coordinates(self, pattern):
-        matched_pattern = find(self._pattern_finder._find_pattern(pattern))
-        #matched_pattern = getLastMatch()
-        coordinates = (matched_pattern.getX(), matched_pattern.getY(), matched_pattern.getW(), matched_pattern.getH())
-        self._set_coordinates(coordinates)
-        return self.target_coordinates
+        try:
+            matched_pattern = find(self._pattern_finder._find_pattern(pattern))
+            coordinates = (matched_pattern.getX(), matched_pattern.getY(), matched_pattern.getW(), matched_pattern.getH())
+            self._set_coordinates(coordinates)
+            return self.target_coordinates
+        except FindFailed, err:
+            raise AssertionError("Unable to find matching pattern '%s'." % (pattern))
+
 
     def get_active_screen_region(self):
         return Region(*self.get_active_screen_coordinates())

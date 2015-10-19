@@ -1,7 +1,10 @@
 *** Settings ***
-Library           CustomRobotSikuliLibrary
-#Test Setup        Set Image Library    C:/CustomLibrary/Images
-Suite Setup        Set Image Library    C:/Users/calcifer/CustomLibrary/CustomLibrary/Images
+Library           Remote    http://localhost:${PORT}
+Default Tags      WaitingKeywordsTest
+Suite Setup       Set Image Library    C:/CustomLibrary/Images
+
+*** Variables ***
+${PORT}           8270
 
 *** Test Cases ***
 Wait In Seconds

@@ -1,18 +1,27 @@
 *** Settings ***
-Library           CustomRobotSikuliLibrary
-Suite Setup        Set Image Library    C:/CustomLibrary/Images
-#Suite Setup        Set Image Library    C:/Users/calcifer/CustomLibrary/CustomLibrary/Images
+Suite Setup       Set Image Library    C:/CustomLibrary/Images
+Default Tags      ElementKeywordsDragDropTest
+Library           Remote    http://localhost:${PORT}
+#Library           CustomRobotSikuliLibrary
+
+*** Variables ***
+${PORT}           8270
+${APP_NAME}       Freelancer Desktop App
+${LOGO}           freelancerlogo.png
+${USERNAME_FIELD}    UsernameField.png
 
 *** Test Cases ***
 Drag and Drop
-    Switch Application Focus    Freelancer Desktop App
+    Switch Application Focus    ${APP_NAME}
     Wait In Seconds    2
-    Drag Pattern    freelancerlogo.png
-    Drop At Pattern    UsernameField.png
+    Drag Pattern    ${LOGO}
+    Drop At Pattern    ${USERNAME_FIELD}
     Drag And Drop    freelancerlogo.png    UsernameField.png
+
 Drag and Drop At Coordinates
     Drag Pattern In Coordinates    freelancerlogo.png    10    10
     Drop Pattern At Coordinates    UsernameField.png    10    10
+
 Drag and Drop xth Pattern
     Switch Application Focus    Availability Tests [Jenkins] - Mozilla Firefox
     Drag xth Pattern In Active App    greenball.png = 0.99    1

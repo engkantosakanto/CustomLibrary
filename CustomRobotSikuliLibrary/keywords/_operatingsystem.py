@@ -1,3 +1,4 @@
+import utils
 from sikuli import *
 from keywordgroup import KeywordGroup
 

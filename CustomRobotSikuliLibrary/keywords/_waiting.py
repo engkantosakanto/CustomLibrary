@@ -3,12 +3,12 @@ import sys
 script_dir = os.path.dirname(os.path.realpath(__file__))
 sys.path.append('script_dir/..')
 
+import utils
 import time
 import robot
 from sikuli import *
 from keywordgroup import KeywordGroup
 from locators import PatternFinder
-from _logging import FindFailedError
 
 class _WaitingKeywords(KeywordGroup):
     def __init__(self):
@@ -26,9 +26,8 @@ class _WaitingKeywords(KeywordGroup):
         try:
             pattern = self._pattern_finder._find_pattern(pattern)
             wait(pattern)
-        except FindFailed:
-            error_message = "Element locator '%s' did not match any elements" % (pattern)
-            raise FindFailedError(error_message)
+        except FindFailed, err:
+            raise AssertionError("Element locator '%s' did not match any elements" % (pattern))
 
     def wait_until_pattern_is_visible(self, pattern, timeout):
         self._info("Setting wait value to '%s'." % (timeout))
@@ -41,9 +40,8 @@ class _WaitingKeywords(KeywordGroup):
             else:
                 timeout = float(timeout)
                 wait(pattern, timeout)
-        except FindFailed:
-            error_message = "Element locator '%s' did not match any elements after %s" % (pattern, timeout)
-            raise FindFailedError(error_message)
+        except FindFailed, err:
+            raise AssertionError("Element locator '%s' did not match any elements after %s" % (pattern, timeout))
 
     def wait_for_pattern_to_vanish(self, pattern):
         self._info("Waiting for pattern '%s' to vanish." % (pattern))
@@ -53,8 +51,7 @@ class _WaitingKeywords(KeywordGroup):
         self._debug(hidden)
 
         if not hidden:
-           error_message  = "Element '%s' was still visible" % (pattern)
-           raise FindFailedError(error_message)
+           raise AssertionError("Element '%s' was still visible" % (pattern))
 
     def wait_until_pattern_vanish(self, pattern, timeout):
         self._info("Setting wait value to '%s'." % (timeout))
@@ -69,8 +66,7 @@ class _WaitingKeywords(KeywordGroup):
             hidden = waitVanish(pattern, timeout)
         self._debug(hidden)
         if not hidden:
-           error_message  = "Element '%s' was still visible in %s" % (pattern, timeout)
-           raise FindFailedError(error_message)
+           raise AssertionError("Element '%s' was still visible in %s" % (pattern, timeout))
 
     # Private
     """***************************** Internal methods ************************************"""

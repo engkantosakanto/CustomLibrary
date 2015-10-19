@@ -1,7 +1,9 @@
 *** Settings ***
-Library           CustomRobotSikuliLibrary
-#Test Setup        Set Image Library    C:/CustomLibrary/Images
-Suite Setup        Set Image Library    C:/Users/calcifer/CustomLibrary/CustomLibrary/Images
+Library           Remote    http://localhost:${PORT}
+Suite Setup       Set Image Library    C:/CustomLibrary/Images
+
+*** Variables ***
+${PORT}           8270
 
 *** Test Cases ***
 Get Text In Pattern

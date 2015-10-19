@@ -1,7 +1,11 @@
 *** Settings ***
-Library           CustomRobotSikuliLibrary
-#Test Setup        Set Image Library    C:/CustomLibrary/Images
-Test Setup        Set Image Library    C:/Users/calcifer/CustomLibrary/CustomLibrary/Images
+Suite Setup       Set Image Library    C:/CustomLibrary/Images
+Force Tags
+Default Tags      ScreenshotKeywordsTest
+Library           Remote    http://localhost:${PORT}
+
+*** Variables ***
+${PORT}           8270
 
 *** Test Cases ***
 Sikuli Screenshot Test

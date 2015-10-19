@@ -22,7 +22,7 @@ class _LoggingKeywords(KeywordGroup):
             if logfile != 'NONE':
                 return os.path.dirname(logfile)
             return variables['${OUTPUTDIR}']
-
+            
         except RobotNotRunningError:
             return os.getcwd()
 
@@ -55,9 +55,3 @@ class _LoggingKeywords(KeywordGroup):
     def _path_exists(self, path):
         if (os.path.exists(path)):
             return True
-
-class FindFailedError(Exception):
-    def __init__(self, value):
-        self.value = value
-    def __str__(self):
-        return self.value

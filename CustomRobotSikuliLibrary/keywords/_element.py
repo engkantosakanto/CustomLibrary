@@ -3,10 +3,10 @@ import sys
 script_dir = os.path.dirname(os.path.realpath(__file__))
 sys.path.append('script_dir/..')
 
+import utils
 from sikuli import *
 from locators import PatternFinder
 from keywordgroup import KeywordGroup
-from _logging import FindFailedError
 
 class _ElementKeywords(KeywordGroup):
     def __init__(self):
@@ -98,15 +98,24 @@ class _ElementKeywords(KeywordGroup):
 
     def drag_pattern_in_coordinates(self, pattern, xoffset, yoffset):
         self._info("Dragging element '%s' in coordinates '%s', '%s'." % (pattern, xoffset, yoffset))
-        drag(self._pattern_find(pattern, xoffset, yoffset))
+        try:
+            drag(self._pattern_find(pattern, xoffset, yoffset))
+        except FindFailed, err:
+            raise AssertionError("No matching pattern: %s found on screen." % (pattern))
 
     def drop_pattern_at_coordinates(self, pattern, xoffset, yoffset):
         self._info("Dropping element '%s' in coordinates '%s', '%s'." % (pattern, xoffset, yoffset))
-        dropAt(self._pattern_find(pattern, xoffset, yoffset))
+        try:
+            dropAt(self._pattern_find(pattern, xoffset, yoffset))
+        except FindFailed, err:
+            raise AssertionError("No matching pattern: %s found on screen." % (pattern))
 
     def drag_and_drop(self, pattern1, pattern2):
         self._info("Performing drag and drop from element '%s' to element '%s'." % (pattern1, pattern2))
-        dragDrop(self._pattern_find(pattern1, None, None), self._pattern_find(pattern2, None, None))
+        try:
+            dragDrop(self._pattern_find(pattern1, None, None), self._pattern_find(pattern2, None, None))
+        except FindFailed, err:
+            raise AssertionError("No matching pattern: %s found on screen." % (pattern))
 
     """***************************** KEYBOARD ACTIONS ************************************"""
     def paste_text_in_pattern(self, pattern, text):
@@ -184,20 +193,29 @@ class _ElementKeywords(KeywordGroup):
         self._info("Dragging '%s'xth pattern '%s' in active app." % (pattern_index, pattern))
         self._set_ROI_to_active_app()
         index = int(pattern_index) - 1
-        drag(self._get_all_patterns_in_active_app(pattern)[index])
+        try:
+            drag(self._get_all_patterns_in_active_app(pattern)[index])
+        except FindFailed, err:
+            raise AssertionError("No matching pattern: %s found on screen." % (pattern))
 
     def drop_at_xth_pattern_in_active_app(self, pattern, pattern_index):
         self._info("Dropping at '%s'xth pattern '%s' in active app." % (pattern_index, pattern))
         self._set_ROI_to_active_app()
         index = int(pattern_index) - 1
-        dropAt(self._get_all_patterns_in_active_app(pattern)[index])
+        try:
+            dropAt(self._get_all_patterns_in_active_app(pattern)[index])
+        except FindFailed, err:
+            raise AssertionError("No matching pattern: %s found on screen." % (pattern))
 
     def drag_and_drop_from_xth_pattern(self, pattern1, pattern1_index, pattern2, pattern2_index):
         self._info("Performing drag and drop from element '%s' to element '%s'." % (pattern1, pattern2))
         index1 = int(pattern1_index) - 1
         index2 = int(pattern2_index) - 1
-        dragDrop(self._get_all_patterns_in_active_app(pattern1)[index1],
-                 self._get_all_patterns_in_active_app(pattern2)[index2])
+        try:
+            dragDrop(self._get_all_patterns_in_active_app(pattern1)[index1],
+                     self._get_all_patterns_in_active_app(pattern2)[index2])
+        except FindFailed, err:
+            raise AssertionError("No matching patterns: %s, %s found on screen." % (pattern1, pattern2))
 
     def type_text_at_xth_pattern_in_active_app(self, pattern, pattern_index, text):
         self._info("Typing text '%s' in '%s'xth pattern '%s' in active app." % (text, pattern_index, pattern))
@@ -228,9 +246,8 @@ class _ElementKeywords(KeywordGroup):
             else:
                 element = active_app_window.find(matching_pattern)
             return element
-        except FindFailed:
-            message = "No matching pattern: %s found on screen." % (pattern)
-            raise FindFailedError(message)
+        except FindFailed, err:
+            raise AssertionError("No matching pattern: %s found on screen." % (pattern))
 
     def _scroll_direction_and_steps(self, pattern, scroll, xoffset, yoffset):
         """Set Scroll direction according to Sikuli methods.
