@@ -1,10 +1,8 @@
 *** Settings ***
-Library           Remote    http://localhost:${PORT}
+#Library           Remote    http://${HOST_IP}:${PORT}
+Library           CustomRobotSikuliLibrary
 Default Tags      WaitingKeywordsTest
 Suite Setup       Set Image Library    C:/CustomLibrary/Images
-
-*** Variables ***
-${PORT}           8270
 
 *** Test Cases ***
 Wait In Seconds

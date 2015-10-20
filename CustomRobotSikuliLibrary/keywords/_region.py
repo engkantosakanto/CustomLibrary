@@ -1,12 +1,8 @@
-import os
-import sys
-script_dir = os.path.dirname(os.path.realpath(__file__))
-sys.path.append('script_dir/..')
 
-import utils
 from sikuli import *
 from keywordgroup import KeywordGroup
-from locators import PatternFinder
+from CustomRobotSikuliLibrary.locators import PatternFinder
+from CustomRobotSikuliLibrary import utils
 
 class _RegionKeywords(KeywordGroup):
     def __init__(self):

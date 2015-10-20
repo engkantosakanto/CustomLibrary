@@ -1,10 +1,8 @@
 *** Settings ***
-Suite Setup       Set Image Library    C:/CustomLibrary/Images
-Default Tags      RunOnFailureTest
-Library           Remote    http://localhost:${PORT}
-
-*** Variables ***
-${PORT}           8270
+#Library            Remote    http://127.0.0.1:8270
+Library            CustomRobotSikuliLibrary
+Default Tags       RunOnFailureTest
+Suite Setup        Set Image Library    C:/CustomLibrary/Images
 
 *** Test Cases ***
 Run On Failure Test

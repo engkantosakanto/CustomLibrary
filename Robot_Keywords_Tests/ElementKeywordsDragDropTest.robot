@@ -1,9 +1,8 @@
 *** Settings ***
-Library           CustomRobotSikuliLibrary
 #Library            Remote    http://127.0.0.1:8270
+Library            CustomRobotSikuliLibrary
 Default Tags       ElementKeywordsDragDropTest
 Suite Setup        Set Image Library    C:/CustomLibrary/Images
-#Suite Setup        Set Image Library    C:/Users/calcifer/CustomLibrary/CustomLibrary/Images
 
 *** Test Cases ***
 Drag and Drop

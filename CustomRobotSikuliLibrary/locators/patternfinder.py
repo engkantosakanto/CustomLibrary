@@ -1,9 +1,4 @@
-import os
-import sys
-script_dir = os.path.dirname(os.path.realpath(__file__))
-sys.path.append('script_dir/..')
-
-import utils
+from CustomRobotSikuliLibrary import utils
 import robot
 from robot.api import logger
 from sikuli import *

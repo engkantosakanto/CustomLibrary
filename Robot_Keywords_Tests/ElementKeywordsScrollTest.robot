@@ -1,16 +1,11 @@
 *** Settings ***
-Library           Remote    http://localhost:${PORT}
-Suite Setup       Set Image Library    C:/CustomLibrary/Images
-
-*** Variables ***
-${PORT}           8270
+#Library            Remote    http://127.0.0.1:8270
+Library            CustomRobotSikuliLibrary
+Default Tags       ElementKeywordsScrollTest
+Suite Setup        Set Image Library    C:/CustomLibrary/Images
 
 *** Test Cases ***
 Sikuli Methods Test
-#    Set Image Library Directory    C:/CustomLibrary/Images
-#    Open Application
-#    ...    C:/Program Files (x86)/Freelancer.com/Freelancer Desktop App/freelancer-desktop-app.exe
-#    ...    Freelancer Desktop App
     Set Application Focus    Facebook
     Hover At Pattern    Facebook.png
     Scroll From Pattern    Facebook.png    Down = 20

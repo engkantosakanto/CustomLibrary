@@ -1,12 +1,8 @@
 *** Settings ***
-Suite Setup       Set Image Library    C:/CustomLibrary/Images
-Default Tags      ScreenshotKeywordsTest
 #Library           Remote    http://${HOST_IP}:${PORT}
-Library           CustomRobotSikuliLibrary
-
-*** Variables ***
-${PORT}           8270
-${HOST_IP}        127.0.0.1
+Library            CustomRobotSikuliLibrary
+Default Tags       ScreenshotKeywordsTest
+Suite Setup        Set Image Library    C:/CustomLibrary/Images
 
 *** Test Cases ***
 Sikuli Screenshot Test

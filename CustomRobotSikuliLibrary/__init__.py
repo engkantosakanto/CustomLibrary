@@ -1,12 +1,7 @@
-import os
 from sikuli import *
 from keywords import *
 from version import VERSION
 from utils import LibraryListener
-#from robotremoteserver import RobotRemoteServer
-
-THIS_DIR = os.path.dirname(os.path.abspath(__file__))
-execfile(os.path.join(THIS_DIR, 'version.py'))
 
 __version__ = VERSION
 
@@ -66,7 +61,7 @@ class CustomRobotSikuliLibrary(
 
     def __init__(self,
                  application_coordinates = None,
-                 screenshot_directory = "logs/screenshots",
+                 screenshot_directory = None,
                  run_on_failure ='Capture Screenshot Of Active App'
     ):
         for base in CustomRobotSikuliLibrary.__bases__:
@@ -75,12 +70,3 @@ class CustomRobotSikuliLibrary(
         self.screenshot_directory = screenshot_directory
         self.register_keyword_to_run_on_failure(run_on_failure)
         self.ROBOT_LIBRARY_LISTENER = LibraryListener()
-"""
-if __name__ == '__main__':  
-    remote_library = CustomRobotSikuliLibrary(None, None, 'Capture Screenshot Of Active App')
-    RobotRemoteServer(remote_library, 
-                    host='127.0.0.1',
-                    port=8270,
-                    port_file='C:/CustomLibrary/PortFile/port_file.txt',
-                    allow_stop=True
-                    )"""

@@ -1,9 +1,8 @@
 *** Settings ***
-Library           Remote    http://localhost:${PORT}
+#Library            Remote    http://127.0.0.1:8270
+Library            CustomRobotSikuliLibrary
+Default Tags       OperatingSystemKeywordsTest
 Suite Setup       Set Image Library    C:/CustomLibrary/Images
-
-*** Variables ***
-${PORT}           8270
 
 *** Test Cases ***
 Get Env

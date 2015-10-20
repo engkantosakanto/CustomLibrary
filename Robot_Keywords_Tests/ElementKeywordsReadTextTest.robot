@@ -1,9 +1,8 @@
 *** Settings ***
-Library           Remote    http://localhost:${PORT}
-Suite Setup       Set Image Library    C:/CustomLibrary/Images
-
-*** Variables ***
-${PORT}           8270
+#Library            Remote    http://127.0.0.1:8270
+Library            CustomRobotSikuliLibrary
+Default Tags       ElementKeywordsReadTextTest
+Suite Setup        Set Image Library    C:/CustomLibrary/Images
 
 *** Test Cases ***
 Get Text In Pattern

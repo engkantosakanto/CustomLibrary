@@ -1,6 +1,8 @@
 *** Settings ***
-Library           Remote    http://localhost:${PORT}
-Suite Setup       Set Image Library    C:/CustomLibrary/Images
+#Library            Remote    http://127.0.0.1:8270
+Library            CustomRobotSikuliLibrary
+Default Tags       AssertionKeywordsTest
+Suite Setup        Set Image Library    C:/CustomLibrary/Images
 
 *** Variables ***
 ${PORT}           8270
