@@ -5,6 +5,7 @@ sys.path.append('script_dir/..')
 
 import utils
 import time
+#from robot import *
 import robot
 from sikuli import *
 from keywordgroup import KeywordGroup

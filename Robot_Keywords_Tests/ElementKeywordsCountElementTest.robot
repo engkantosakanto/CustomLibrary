@@ -1,9 +1,7 @@
 *** Settings ***
-Library           Remote    http://localhost:${PORT}
-Suite Setup       Set Image Library    C:/CustomLibrary/Images
-
-*** Variables ***
-${PORT}           8270
+Library           CustomRobotSikuliLibrary
+Suite Setup        Set Image Library    C:/CustomLibrary/Images
+#Suite Setup        Set Image Library    C:/Users/calcifer/CustomLibrary/CustomLibrary/Images
 
 *** Test Cases ***
 Element Keywords Count Pattern Test
