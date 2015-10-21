@@ -63,6 +63,7 @@ class _WaitingKeywords(KeywordGroup):
             timeout = float(timeout)
             hidden = waitVanish(pattern, timeout)
         self._debug(hidden)
+        
         if not hidden:
            raise AssertionError("Element '%s' was still visible in %s" % (pattern, timeout))
 
