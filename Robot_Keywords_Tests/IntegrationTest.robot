@@ -1,5 +1,5 @@
 *** Settings ***
-Library            CustomRobotSikuliLibrary
+Library            FreelancerSikuliXRobotLibrary
 Library            Remote    http://127.0.0.1:8270
 Default Tags       IntegrationTest
 

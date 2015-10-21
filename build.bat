@@ -1,1 +1,1 @@
-java -jar JarFiles/sikulixapi.jar -r CustomRobotSikuliLibrary
+java -jar JarFiles/sikulixapi.jar -r FreelancerSikuliXRobotLibrary

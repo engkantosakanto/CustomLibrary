@@ -1,4 +1,4 @@
 from robotremoteserver import RobotRemoteServer
-from CustomRobotSikuliLibrary import CustomRobotSikuliLibrary
+from FreelancerSikuliXRobotLibrary import FreelancerSikuliXRobotLibrary
 
-RobotRemoteServer(CustomRobotSikuliLibrary())
+RobotRemoteServer(FreelancerSikuliXRobotLibrary())

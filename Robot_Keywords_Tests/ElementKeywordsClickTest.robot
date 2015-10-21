@@ -1,6 +1,6 @@
 *** Settings ***
 #Library            Remote    http://127.0.0.1:8270
-Library            CustomRobotSikuliLibrary
+Library            FreelancerSikuliXRobotLibrary
 Default Tags       ElementKeywordsClickTest
 Suite Setup        Set Image Library    C:/CustomLibrary/Images
 
