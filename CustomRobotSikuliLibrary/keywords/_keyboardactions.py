@@ -10,7 +10,7 @@ class _KeyboardActionsKeywords(KeywordGroup):
     Note: If the key is not in the map of supported keyboard keys, the specified string or character
     is typed instead as a string or character respectively.
     """
-    def press_key(self, key):
+    def press_keyboard_key(self, key):
         activeWindow = App.focusedWindow(); wait(0.5)
         activeWindow.type(self._map_supported_keyboard_keys(key))
 
