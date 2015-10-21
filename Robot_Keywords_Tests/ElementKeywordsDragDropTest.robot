@@ -14,9 +14,9 @@ Drag and Drop
 Drag and Drop At Coordinates
     Drag Pattern In Coordinates    freelancerlogo.png    10    10
     Drop Pattern At Coordinates    UsernameField.png    10    10
-Drag and Drop xth Pattern
+Drag and Drop nth Pattern
     Switch Application Focus    Availability Tests [Jenkins] - Mozilla Firefox
-    Drag xth Pattern In Active App    greenball.png = 0.99    1
-    Drop At xth Pattern In Active App    greenball.png = 0.99    4
-    Drag And Drop From Xth Pattern    greenball.png = 0.99    2    greenball.png = 0.99    6
-    Drag And Drop From Xth Pattern    greenball.png = 0.99    4    redball.png = 0.99    2
+    Drag nth Pattern In Active App    greenball.png = 0.99    1
+    Drop At nth Pattern In Active App    greenball.png = 0.99    4
+    Drag And Drop From nth Pattern    greenball.png = 0.99    2    greenball.png = 0.99    6
+    Drag And Drop From nth Pattern    greenball.png = 0.99    4    redball.png = 0.99    2

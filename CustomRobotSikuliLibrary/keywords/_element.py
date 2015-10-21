@@ -154,38 +154,38 @@ class _ElementKeywords(KeywordGroup):
         self._set_ROI_to_active_app()
         return len(self._get_all_patterns_in_active_app(pattern))
 
-    def click_xth_pattern_in_active_app(self, pattern, pattern_index):
-        self._info("Clicking '%s'xth pattern '%s' in active app." % (pattern_index, pattern))
+    def click_nth_pattern_in_active_app(self, pattern, pattern_index):
+        self._info("Clicking '%s'nth pattern '%s' in active app." % (pattern_index, pattern))
         self._set_ROI_to_active_app()
         index = int(pattern_index) - 1
         self._get_all_patterns_in_active_app(pattern)[index].click()
 
-    def right_click_xth_pattern_in_active_app(self, pattern, pattern_index):
-        self._info("Clicking '%s'xth pattern '%s' in active app." % (pattern_index, pattern))
+    def right_click_nth_pattern_in_active_app(self, pattern, pattern_index):
+        self._info("Clicking '%s'nth pattern '%s' in active app." % (pattern_index, pattern))
         self._set_ROI_to_active_app()
         index = int(pattern_index) - 1
         self._get_all_patterns_in_active_app(pattern)[index].rightClick()
 
-    def double_click_xth_pattern_in_active_app(self, pattern, pattern_index):
-        self._info("Double-clicking '%s'xth pattern '%s' in active app." % (pattern_index, pattern))
+    def double_click_nth_pattern_in_active_app(self, pattern, pattern_index):
+        self._info("Double-clicking '%s'nth pattern '%s' in active app." % (pattern_index, pattern))
         self._set_ROI_to_active_app()
         index = int(pattern_index) - 1
         self._get_all_patterns_in_active_app(pattern)[index].doubleClick()
 
-    def hover_at_xth_pattern_in_active_app(self, pattern, pattern_index):
-        self._info("Hovering at '%s'xth pattern '%s' in active app." % (pattern_index, pattern))
+    def hover_at_nth_pattern_in_active_app(self, pattern, pattern_index):
+        self._info("Hovering at '%s'nth pattern '%s' in active app." % (pattern_index, pattern))
         self._set_ROI_to_active_app()
         index = int(pattern_index) - 1
         self._get_all_patterns_in_active_app(pattern)[index].hover()
 
-    def highlight_xth_pattern_in_active_app(self, pattern, pattern_index):
-        self._info("Highlighting '%s'xth pattern '%s' in active app." % (pattern_index, pattern))
+    def highlight_nth_pattern_in_active_app(self, pattern, pattern_index):
+        self._info("Highlighting '%s'nth pattern '%s' in active app." % (pattern_index, pattern))
         self._set_ROI_to_active_app()
         index = int(pattern_index) - 1
         self._get_all_patterns_in_active_app(pattern)[index].highlight()
 
-    def drag_xth_pattern_in_active_app(self, pattern, pattern_index):
-        self._info("Dragging '%s'xth pattern '%s' in active app." % (pattern_index, pattern))
+    def drag_nth_pattern_in_active_app(self, pattern, pattern_index):
+        self._info("Dragging '%s'nth pattern '%s' in active app." % (pattern_index, pattern))
         self._set_ROI_to_active_app()
         index = int(pattern_index) - 1
         try:
@@ -193,8 +193,8 @@ class _ElementKeywords(KeywordGroup):
         except FindFailed, err:
             raise AssertionError("No matching pattern: %s found on screen." % (pattern))
 
-    def drop_at_xth_pattern_in_active_app(self, pattern, pattern_index):
-        self._info("Dropping at '%s'xth pattern '%s' in active app." % (pattern_index, pattern))
+    def drop_at_nth_pattern_in_active_app(self, pattern, pattern_index):
+        self._info("Dropping at '%s'nth pattern '%s' in active app." % (pattern_index, pattern))
         self._set_ROI_to_active_app()
         index = int(pattern_index) - 1
         try:
@@ -202,7 +202,7 @@ class _ElementKeywords(KeywordGroup):
         except FindFailed, err:
             raise AssertionError("No matching pattern: %s found on screen." % (pattern))
 
-    def drag_and_drop_from_xth_pattern(self, pattern1, pattern1_index, pattern2, pattern2_index):
+    def drag_and_drop_from_nth_pattern(self, pattern1, pattern1_index, pattern2, pattern2_index):
         self._info("Performing drag and drop from element '%s' to element '%s'." % (pattern1, pattern2))
         index1 = int(pattern1_index) - 1
         index2 = int(pattern2_index) - 1
@@ -212,14 +212,14 @@ class _ElementKeywords(KeywordGroup):
         except FindFailed, err:
             raise AssertionError("No matching patterns: %s, %s found on screen." % (pattern1, pattern2))
 
-    def type_text_at_xth_pattern_in_active_app(self, pattern, pattern_index, text):
-        self._info("Typing text '%s' in '%s'xth pattern '%s' in active app." % (text, pattern_index, pattern))
+    def type_text_at_nth_pattern_in_active_app(self, pattern, pattern_index, text):
+        self._info("Typing text '%s' in '%s'nth pattern '%s' in active app." % (text, pattern_index, pattern))
         self._set_ROI_to_active_app()
         index = int(pattern_index) - 1
         self._get_all_patterns_in_active_app(pattern)[index].type(text)
 
-    def paste_text_at_xth_pattern_in_active_app(self, pattern, pattern_index, text):
-        self._info("Pasting text '%s' in '%s'xth pattern '%s' in active app." % (text, pattern_index, pattern))
+    def paste_text_at_nth_pattern_in_active_app(self, pattern, pattern_index, text):
+        self._info("Pasting text '%s' in '%s'nth pattern '%s' in active app." % (text, pattern_index, pattern))
         self._set_ROI_to_active_app()
         index = int(pattern_index) - 1
         self._get_all_patterns_in_active_app(pattern)[index].type(text)

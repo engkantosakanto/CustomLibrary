@@ -12,10 +12,17 @@ class _AssertionKeywords(KeywordGroup):
         """Assert that pattern is visible on search region"""
         self._info("Asserting that pattern, '%s' is visible in app." % (pattern))
         self._set_ROI_to_active_app()
-        assert exists(self._pattern_finder._find_pattern(pattern))
+        try:
+            assert exists(self._pattern_finder._find_pattern(pattern))
+        except FindFailed, err:
+            raise AssertionError("No matching pattern: %s found in search region." % (pattern))
+
 
     def assert_pattern_is_not_visible(self, pattern):
         """Assert that pattern is not visible on search region"""
         self._info("Asserting that pattern, '%s' is not visible in app." % (pattern))
         self._set_ROI_to_active_app()
-        assert not exists(self._pattern_finder._find_pattern(pattern))
+        try:
+            assert not exists(self._pattern_finder._find_pattern(pattern))
+        except FindFailed, err:
+            raise AssertionError("Pattern: %s is visible in search region." % (pattern))
