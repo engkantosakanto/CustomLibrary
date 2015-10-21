@@ -49,6 +49,10 @@ class _ElementKeywords(KeywordGroup):
         self._info("Hovering at element '%s'." % pattern)
         self._pattern_find(pattern, None, None).hover()
 
+    """Note: Sikuli's x and y coordinates are as follows:
+    negative x means offset left of center, positive x means offset right of center
+    negative y means offset above center, positive y means offset below center
+    """
     def hover_at_pattern_at_coordinates(self, pattern, xoffset, yoffset):
         self._info("Hovering at element '%s' in coordinates '%s', '%s'." % (pattern, xoffset, yoffset))
         self._pattern_find(pattern, xoffset, yoffset).hover()
@@ -69,12 +73,17 @@ class _ElementKeywords(KeywordGroup):
     def scroll_from_pattern(self, pattern, scroll):
         self.hover_at_pattern(pattern)
         self._info("Scrolling '%s' in pattern '%s'." % (scroll, pattern))
-        self._scroll_direction_and_steps(pattern, scroll, None, None)
+        self._scroll_direction_and_steps_from_pattern(pattern, scroll, None, None)
 
     def scroll_from_pattern_at_coordinates(self, pattern, scroll, xoffset, yoffset):
         self.hover_at_pattern_at_coordinates(pattern, xoffset, yoffset)
         self._info("Scrolling '%s' in pattern '%s'  at coordinates '%s', '%s'." % (scroll, pattern, xoffset, yoffset))
-        self._scroll_direction_and_steps(pattern, scroll, xoffset, yoffset)
+        self._scroll_direction_and_steps_from_pattern(pattern, scroll, xoffset, yoffset)
+
+    def scroll_x_steps(self, scroll):
+        self._info("Scrolling '%s'." % (scroll))
+        self._scroll_direction_and_steps(scroll)
+
 
     """************************** MOUSE ACTIONS DRAG AND DROP *****************************
     `Drag Pattern` and `Drop At Pattern` keywords must be used in pairs for drag and drop actions.
@@ -244,19 +253,24 @@ class _ElementKeywords(KeywordGroup):
         except FindFailed, err:
             raise AssertionError("No matching pattern: %s found on screen." % (pattern))
 
-    def _scroll_direction_and_steps(self, pattern, scroll, xoffset, yoffset):
-        """Set Scroll direction according to Sikuli methods.
-        scroll value must be in the following format: <direction> = <steps>
-        For example:
-        |  Scroll From Pattern    Facebook.png    Down = 20
-        """
+
+    def _scroll_direction_and_steps(self, scroll):
         (scroll_direction, scroll_steps) = self._pattern_finder._parse_scroll_details(scroll)
         if (scroll_direction == "up"):
             scroll_direction = WHEEL_UP
         elif (scroll_direction == "down"):
             scroll_direction = WHEEL_DOWN
-        scroll_details = self._pattern_find(pattern, xoffset, yoffset).wheel(scroll_direction, scroll_steps)
-        return scroll_details
+        return wheel(scroll_direction, scroll_steps)
+
+
+    def _scroll_direction_and_steps_from_pattern(self, pattern, scroll, xoffset, yoffset):
+        (scroll_direction, scroll_steps) = self._pattern_finder._parse_scroll_details(scroll)
+        if (scroll_direction == "up"):
+            scroll_direction = WHEEL_UP
+        elif (scroll_direction == "down"):
+            scroll_direction = WHEEL_DOWN
+        return self._pattern_find(pattern, xoffset, yoffset).wheel(scroll_direction, scroll_steps)
+
 
     def _read_text(self, pattern, location, search_area):
         assert location is not None and len(location) > 0
