@@ -12,21 +12,30 @@ class _ApplicationKeywords(KeywordGroup):
         """Sets focus to the open application matching the given app_name."""
         self._info("Setting focus at application '%s'." % app_name)
         self._set_application_name(app_name)
-        App.focus(self.application_name)
+        try:
+            App.focus(self.application_name)
+        except FinFailed, err:
+            raise AssertionError("Application '%s' not found." % (app_name))
 
     def switch_application_focus(self, app_name):
         """Switches focus to the open application matching the given app_name."""
         self._info("Switching focus to application '%s'." % app_name)
         self._set_application_name(app_name)
-        switchApp(self.application_name)
+        try:
+            switchApp(self.application_name)
+        except FinFailed, err:
+            raise AssertionError("Application '%s' not found." % (app_name))
 
     def open_application(self, path, app_name):
         """Opens applicataion matching the given app_name and path."""
         self._info("Opening application '%s' in path '%s'." % (app_name, path))
         self._set_application_path(path)
         self._set_application_name(app_name)
-        if not App(self.application_name).isRunning():
-            App.open(self.application_directory)
+        try:
+            if not App(self.application_name).isRunning():
+                App.open(self.application_directory)
+        except FindFailed, err:
+            raise AssertionError("Application '%s' not found." % (app_name))
 
     def close_application(self, app_name):
         """Closes the open application matching the given app_name."""

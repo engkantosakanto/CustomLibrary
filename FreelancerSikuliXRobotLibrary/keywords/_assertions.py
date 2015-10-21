@@ -16,7 +16,7 @@ class _AssertionKeywords(KeywordGroup):
         self._set_ROI_to_active_app()
         try:
             assert exists(self._pattern_finder._find_pattern(pattern))
-        except FindFailed, err:
+        except AssertionError, err:
             raise AssertionError("No matching pattern: %s found in search region." % (pattern))
 
     def assert_pattern_is_not_visible(self, pattern):
@@ -25,5 +25,5 @@ class _AssertionKeywords(KeywordGroup):
         self._set_ROI_to_active_app()
         try:
             assert not exists(self._pattern_finder._find_pattern(pattern))
-        except FindFailed, err:
+        except AssertionError, err:
             raise AssertionError("Pattern: %s is visible in search region." % (pattern))
