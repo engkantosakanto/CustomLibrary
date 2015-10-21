@@ -52,7 +52,7 @@ class _KeyboardActionsKeywords(KeywordGroup):
         activeWindow = App.focusedWindow(); wait(0.5)
         activeWindow.type(string_param)
 
-    # Privatel
+    # Private
     """***************************** INTERNAL METHODS ************************************"""
     def _clean_string(self, string_param):
         string_param = str(string_param)

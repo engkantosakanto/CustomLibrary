@@ -42,7 +42,6 @@ class _ElementKeywords(KeywordGroup):
         self._info("Double-clicking element '%s' in coordinates '%s', '%s'." % (pattern, xoffset, yoffset))
         self._pattern_find(pattern, xoffset, yoffset).doubleClick()
 
-    #pattern format pattern.png = 0.7, pattern.png, string
     def highlight_pattern(self, pattern):
         self._info("Highlighting element '%s'." % pattern)
         self._pattern_find(pattern, None, None).highlight(1)
@@ -67,7 +66,7 @@ class _ElementKeywords(KeywordGroup):
         self._info("Mouse up at, '%s' button." % (mouse_button))
         mouseUp(self._mouse_button(mouse_button))
 
-    """scroll value should be in the following format: Up = 12; Down = 12"""
+    """ scroll value should be in the following format: Up = 12; Down = 12 """
     def scroll_from_pattern(self, pattern, scroll):
         self.hover_at_pattern(pattern)
         self._info("Scrolling '%s' in pattern '%s'." % (scroll, pattern))
@@ -136,6 +135,7 @@ class _ElementKeywords(KeywordGroup):
     """***************************** READ TEXTS IN PATTERN ************************************
     Note: OCR tessdata should downloaded then put in a local directory
     For Windows, it should be put inside C:\Users\<user>\AppData\Roaming\Sikulix\SikulixTesseract
+    Or: User must select the last two options in the SikuliX installation to install both the script and tesseract.
     """
     def get_text_in_pattern(self, pattern):
         self._info("Getting texts in pattern '%s'." % (pattern))

@@ -41,7 +41,6 @@ class _ApplicationKeywords(KeywordGroup):
         self.application_name = application_name
 
     def _get_application_name(self):
-        # Use the image library directory if set
         if self.application_name is not None:
             return self.application_name
 
@@ -52,6 +51,5 @@ class _ApplicationKeywords(KeywordGroup):
             self.application_path = application_path
 
     def _get_application_path(self):
-        # Use the image library directory if set
         if self.application_path is not None:
             return self.application_path
