@@ -1,6 +1,6 @@
 *** Settings ***
 #Library           Remote    http://${HOST_IP}:${PORT}
-Library           CustomRobotSikuliLibrary
+Library           FreelancerSikuliXRobotLibrary
 Default Tags      WaitingKeywordsTest
 Suite Setup       Set Image Library    C:/CustomLibrary/Images
 

@@ -3,6 +3,6 @@
 set
 set CLASSPATH=C:\\CustomLibrary\\JarFiles\sikulixapi.jar
 set JYTHONPATH=C:\\CustomLibrary\\JarFiles\sikulixapi.jar\Lib
-set PYTHONPATH=C:\\CustomLibrary\\CustomRobotSikuliLibrary\CustomRobotSikuliLibrary.py
+set PYTHONPATH=C:\\CustomLibrary\\FreelancerSikuliXRobotLibrary\FreelancerSikuliXRobotLibrary.py
 
-jython CustomRobotSikuliLibrary\\CustomRobotSikuliLibrary.py
+jython FreelancerSikuliXRobotLibrary\\FreelancerSikuliXRobotLibrary.py
