@@ -7,7 +7,7 @@ class PatternFinder(object):
     def __init__(self):
         self.locator = None
 
-    # Public
+    # Private
 
     def _parse_locator(self, locator):
         """Breaks down locator details to pattern and sensitivity"""
