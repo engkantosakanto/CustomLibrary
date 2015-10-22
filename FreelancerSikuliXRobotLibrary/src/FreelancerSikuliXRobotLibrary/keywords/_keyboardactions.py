@@ -14,40 +14,53 @@ class _KeyboardActionsKeywords(KeywordGroup):
         activeWindow = App.focusedWindow(); wait(0.5)
         activeWindow.type(self._map_supported_keyboard_keys(key))
 
-    """ Simulates pressing key combinations.
-    2-key combination example: Ctrl + Shift
-    3-key combination example: Ctrl + Shift + Delete
-    For Example:
-    | Press Two Key Combination    CTRL    A
-    | Press Two Key Combination    CTRL    SHIFT
-    | Press Three Key Combination    CTRL    ALT    DELETE
 
-    """
     def press_two_key_combination(self, first_key, second_key):
+        """ Simulates pressing key combinations.
+        2-key combination example: Ctrl + Shift
+        3-key combination example: Ctrl + Shift + Delete
+        For Example:
+        | Press Two Key Combination   | CTRL | A     | # Press Ctrl + A |
+        | Press Two Key Combination   | CTRL | Shift | # Press Ctrl + Shift |
+        | Press Three Key Combination | CTRL | Shift | Delete | # Press Ctrl + Shift + Delete |
+        """
         activeWindow = App.focusedWindow(); wait(0.5)
         first_key = self._map_supported_keyboard_keys(first_key)
         second_key = self._map_supported_keyboard_keys(second_key)
         activeWindow.type(second_key, first_key)
 
     def press_three_key_combination(self, first_key, second_key, third_key):
+        """ Simulates pressing key combinations.
+        2-key combination example: Ctrl + Shift
+        3-key combination example: Ctrl + Shift + Delete
+        Examples:
+        | Press Two Key Combination   | CTRL | A     | # Press Ctrl + A |
+        | Press Two Key Combination   | CTRL | Shift | # Press Ctrl + Shift |
+        | Press Three Key Combination | CTRL | Shift | Delete | # Press Ctrl + Shift + Delete |
+        """
         activeWindow = App.focusedWindow(); wait(0.5)
         first_key = self._map_supported_keyboard_keys(first_key)
         second_key = self._map_supported_keyboard_keys(second_key)
         third_key = self._map_supported_keyboard_keys(third_key)
         activeWindow.type(third_key, first_key + second_key)
 
-    """ Simulates pressing a key multiple times as specified by count value
-    For Example:
-    | Press Key N Times   BACKSPACE    5
-    | Press Key N Times   A    5
-    """
+
     def press_key_n_times(self, keyboard_key, count):
+        """ Simulates pressing a key multiple times as specified by count value
+        For Example:
+        | Press Key N Times | BACKSPACE | 5 | # Press Backspace key five times |
+        | Press Key N Times | A         | 8 | # Press A eight times |
+        """
         activeWindow = App.focusedWindow(); wait(0.5)
         count = int(count)
         keyboard_key = self._map_supported_keyboard_keys(keyboard_key)
         activeWindow.type(keyboard_key * count)
 
     def type_string(self, string_param):
+        """ Types a string as specified by `srtring_param`
+        For Example:
+        | Type String | A quick cat fox jumps over the mat. | # Types the specified string |
+        """
         string_param = self._clean_string(string_param)
         activeWindow = App.focusedWindow(); wait(0.5)
         activeWindow.type(string_param)

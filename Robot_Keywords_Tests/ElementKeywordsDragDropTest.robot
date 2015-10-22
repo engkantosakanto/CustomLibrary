@@ -10,7 +10,7 @@ Drag and Drop
     Wait In Seconds    2
     Drag Pattern    freelancerlogo.png
     Drop At Pattern    UsernameField.png
-    Drag And Drop    freelancerlogo.png    UsernameField.png
+    Drag And Drop Element    freelancerlogo.png    UsernameField.png
 Drag and Drop At Coordinates
     Drag Pattern In Coordinates    freelancerlogo.png    10    10
     Drop Pattern At Coordinates    UsernameField.png    10    10

@@ -11,7 +11,9 @@ class _AssertionKeywords(KeywordGroup):
     # Public
     
     def assert_pattern_is_visible(self, pattern):
-        """Assert that pattern is visible on search region"""
+        """Assert that pattern is visible on search region
+        See `introduction` for details about locating elements.
+        """
         self._info("Asserting that pattern, '%s' is visible in app." % (pattern))
         self._set_ROI_to_active_app()
         try:
@@ -20,7 +22,9 @@ class _AssertionKeywords(KeywordGroup):
             raise AssertionError("No matching pattern: %s found in search region." % (pattern))
 
     def assert_pattern_is_not_visible(self, pattern):
-        """Assert that pattern is not visible on search region"""
+        """Assert that `pattern` is not visible on search region
+        See `introduction` for details about locating elements.
+        """
         self._info("Asserting that pattern, '%s' is not visible in app." % (pattern))
         self._set_ROI_to_active_app()
         try:

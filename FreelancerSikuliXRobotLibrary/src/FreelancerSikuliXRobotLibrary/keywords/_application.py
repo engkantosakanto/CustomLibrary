@@ -9,7 +9,10 @@ class _ApplicationKeywords(KeywordGroup):
     # Public
     
     def set_application_focus(self, app_name):
-        """Sets focus to the open application matching the given app_name."""
+        """Sets focus to the open application matching the given app_name.
+        Example:
+        | Set Application Focus | My Awesome App | # Sets the focus to My Awesome App
+        """
         self._info("Setting focus at application '%s'." % app_name)
         self._set_application_name(app_name)
         try:
@@ -18,7 +21,11 @@ class _ApplicationKeywords(KeywordGroup):
             raise AssertionError("Application '%s' not found." % (app_name))
 
     def switch_application_focus(self, app_name):
-        """Switches focus to the open application matching the given app_name."""
+        """Switches focus to the open application matching the given app_name.
+        Example:
+        | Set Application Focus    | My Awesome App      | # Switches  the focus to `My Awesome App` application
+        | Switch Application Focus | My Very Awesome App | # Switches  the focus to `My Very Awesome App`
+        """
         self._info("Switching focus to application '%s'." % app_name)
         self._set_application_name(app_name)
         try:
