@@ -153,7 +153,7 @@ class _ElementKeywords(KeywordGroup):
     def scroll_x_steps(self, scroll):
         """Scroll up or down as specified by the scroll step.
 
-        This keyword must be paired with Hover at image inorder to execute scrolling action within the region.
+        This keyword must be paired with Hover at image in order to execute scrolling action within the region.
         Examples:
         | Hover At Pattern | pattern.png | # Hover at element identified by pattern.png |
         | Scroll X Steps   | Up = 10     | # Scroll up 10 steps.                        |
@@ -267,7 +267,7 @@ class _ElementKeywords(KeywordGroup):
     """
 
     def get_pattern_count_in_active_app(self, pattern):
-        """Returns the count of elements identified by `pattern` in the region of an active applciation.
+        """Returns the count of elements identified by `pattern` in the region of an active application.
 
         Search region or setROI() value is set to the application in focus as default.
         Pattern sensitivity must be set at max level (0.99) inorder to avoid false positives during image detections.
@@ -282,7 +282,7 @@ class _ElementKeywords(KeywordGroup):
         Click point is at the `center` of the nth element identified by `pattern`.
         This Keyword is useful when multiple patterns on screen is present.
         Search region or setROI() value is set to the application in focus as default.
-        Pattern sensitivity must be set at max level (0.99) inorder to avoid false positives during image detections.
+        Pattern sensitivity must be set at maximum level (0.99) inorder to avoid false positives during image detections.
         Search for matching patterns is set to top > down > left > right.
 
         Example:
@@ -316,7 +316,7 @@ class _ElementKeywords(KeywordGroup):
         Search for matching patterns is set to top > down > left > right.
 
         Example:
-        | Double Click Nth Pattern In Active App | pattern.png = 0.99 | 5 | # Double-clicks the fourth instance of an element identified by pattern.png |
+        | Double Click Nth Pattern In Active App | pattern.png = 0.99 | 5 | # Double-clicks the fifth instance of an element identified by pattern.png |
         """
 
         self._info("Double-clicking '%s'nth pattern '%s' in active app." % (pattern_index, pattern))
@@ -432,7 +432,7 @@ class _ElementKeywords(KeywordGroup):
         Search for matching patterns is set to top > down > left > right.
 
         Example:
-        | Get Text In Nth Pattern | pattern.png = 0.90 | 3 | This is a sample text. | # Retrun the text in third element identified by pattern.png |
+        | Get Text In Nth Pattern | pattern.png = 0.90 | 3 | This is a sample text. | # Return the text in third element identified by pattern.png |
         """
         self._info("Reading and getting texts in pattern '%s' nth '%s'." % (pattern_index, pattern))
         return self._get_nth_pattern(pattern, pattern_index).text()

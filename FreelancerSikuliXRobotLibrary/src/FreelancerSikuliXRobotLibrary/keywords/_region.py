@@ -21,7 +21,7 @@ class _RegionKeywords(KeywordGroup):
         setROI(*self.target_coordinates)
 
     def get_active_screen_coordinates(self):
-        """Returns the `coordintes` of the active screen.
+        """Returns the `coordinates` of the active screen.
         """
         coordinates = (SCREEN.getX(), SCREEN.getY(), SCREEN.getW(), SCREEN.getH())
         self._set_coordinates(coordinates)
@@ -31,8 +31,8 @@ class _RegionKeywords(KeywordGroup):
         """Returns the `coordinates` of the `application` in focus.
         Keyword must be combined with `Set Application Focus`.
         Example:
-        | Set Application Focus      | My Awesome App | # Sets the focus to `My Awesome App` |
-        | Get Active App Coordinates | # Gets the coordinates of `My Awesome App` |
+        | Set Application Focus      | My Awesome App | # Sets the focus to `My Awesome App`      |
+        | Get Active App Coordinates |                |# Gets the coordinates of `My Awesome App` |
         """
         activeWindow = App.focusedWindow();
         coordinates = (activeWindow.getX(), activeWindow.getY(), activeWindow.getW(), activeWindow.getH())
@@ -74,4 +74,3 @@ class _RegionKeywords(KeywordGroup):
 
     def _get_coordinates(self):
         return self.target_coordinates
-

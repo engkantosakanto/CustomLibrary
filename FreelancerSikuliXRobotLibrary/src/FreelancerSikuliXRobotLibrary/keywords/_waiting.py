@@ -9,8 +9,32 @@ from FreelancerSikuliXRobotLibrary import utils
 class _WaitingKeywords(KeywordGroup):
     def __init__(self):
         self._pattern_finder = PatternFinder()
+        self.sikulix_timeout = None
+        self.sikulix_scanrate = None
 
     # Public
+
+    def set_sikulix_timeout(self, timeout):
+        """Sets the `sikulix_timeout` value.
+
+        See `introduction` for details about `sikulix_timeout`.
+        """
+        if self.sikulix_timeout is not None:
+            self.sikulix_timeout = float(self._clean_string(timeout))
+
+        self._info("Setting sikulix timeout to '%s' seconds." % (self.sikulix_timeout))
+        Settings.AutoWaitTimeout(self.sikulix_timeout)
+
+    def set_sikulix_scanrate(self, scanrate):
+        """Sets the `sikulix_scanrate` value.
+
+        See `introduction` for details about `sikulix_scanrate`.
+        """
+        if self.sikulix_scanrate is not None:
+            self.sikulix_scanrate = float(self._clean_string(scanrate))
+
+        self._info("Setting sikulix scanrate to '%s' seconds." % (self.sikulix_scanrate))
+        Settings.AutoWaitTimeout(self.sikulix_scanrate)
 
     def wait_in_seconds(self, timeout):
         """Waits until `timeout` expires.
@@ -18,14 +42,14 @@ class _WaitingKeywords(KeywordGroup):
         See also `Wait For Pattern To Be Visible`, `Wait Until Pattern Is Visible`, 
         `Wait For Pattern To Vanish` and `Wait Until Pattern Vanish`.
         """
-        assert timeout is not None and len(timeout) > 0
+        timeout = float(self._clean_string(timeout))
         self._info("Setting wait value to '%s' seconds." % (timeout))
-        timeout = float(timeout)
         wait(timeout)
 
     def wait_for_pattern_to_be_visible(self, pattern):
-        """Waits until `pattern` appears on `application` in focus.
+        """Waits until `pattern` appears on `application` in focus. 
         Fails if `pattern` is not immediately visible on`application` in focus.
+        SikuliX's default timeout is 3 seconds.
 
         See also `Wait In Seconds`, `Wait Until Pattern Is Visible`, 
         `Wait For Pattern To Vanish` and `Wait Until Pattern Vanish`.
@@ -41,7 +65,7 @@ class _WaitingKeywords(KeywordGroup):
     def wait_until_pattern_is_visible(self, pattern, timeout):
         """Waits until `pattern` appears on `application` in focus at specified timeout.
         
-        `timeout` value may be set to and int or to "FOREVER".
+        `timeout` value may be set to an int or to "FOREVER".
 
         Using "FOREVER" as timeout will execute the script
         to inifinity unless the pattern appears
@@ -54,7 +78,7 @@ class _WaitingKeywords(KeywordGroup):
         self._info("Setting wait value to '%s'." % (timeout))
         self._set_ROI_to_active_app()
         try:
-            timeout = self._set_timeout(timeout)
+            timeout = self._clean_string(timeout)
             pattern = self._pattern_finder._find_pattern(pattern)
             if (timeout == "FOREVER"):
                 wait(pattern, FOREVER)
@@ -67,6 +91,7 @@ class _WaitingKeywords(KeywordGroup):
     def wait_for_pattern_to_vanish(self, pattern):
         """Waits until `pattern` disappears on `application` in focus.
         Fails if `pattern` is not immediately hidden on`application` in focus.
+        SikuliX's default timeout is 3 seconds.
 
         See also `Wait In Seconds`, `Wait For Pattern To Be Visible`,
         `Wait Until Pattern Is Visible`, and `Wait Until Pattern Vanish`.
@@ -84,7 +109,7 @@ class _WaitingKeywords(KeywordGroup):
 
         """Waits until `pattern` disappears on `application` in focus at specified timeout.
         
-        `timeout` value may be set to and int or to "FOREVER".
+        `timeout` value may be set to an int or to "FOREVER".
 
         Using "FOREVER" as timeout will execute the script
         to inifinity unless the pattern appears
@@ -96,7 +121,7 @@ class _WaitingKeywords(KeywordGroup):
         """
         self._info("Setting wait value to '%s'." % (timeout))
         self._set_ROI_to_active_app()
-        timeout = self._set_timeout(timeout)
+        timeout = self._clean_string(timeout)
         pattern = self._pattern_finder._find_pattern(pattern)
         hidden = None
         if (timeout == "FOREVER"):
@@ -111,7 +136,23 @@ class _WaitingKeywords(KeywordGroup):
 
     # Private
     """***************************** Internal methods ************************************"""
-    def _set_timeout(self, timeout):
-        assert timeout is not None and len(timeout) > 0
-        timeout = timeout.strip().upper()
-        return timeout
+    def _clean_string(self, string_param):
+        assert string_param is not None and len(string_param) > 0
+        string_param = string_param.strip()
+        return string_param
+
+    def _get_sikulix_timeout(self):
+        # Use sikulix_timeout value if set
+        if self.sikulix_timeout is not None:
+            return self.sikulix_timeout
+
+        # Otherwise use SikuliX's default timeout
+        return getAutoWaitTimeout()
+
+    def _get_sikulix_scanrate(self):
+        # Use sikulix_timeout value if set
+        if self.sikulix_scanrate is not None:
+            return self.sikulix_scanrate
+
+        # Otherwise use SikuliX's default scanrate
+        return getWaitScanRate()

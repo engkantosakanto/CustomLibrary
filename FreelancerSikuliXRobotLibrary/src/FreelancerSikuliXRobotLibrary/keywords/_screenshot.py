@@ -33,7 +33,7 @@ class _ScreenshotKeywords(KeywordGroup):
         self.screenshot_root_directory = path
 
     def capture_screenshot_of_active_app(self):
-        """Takes a screenshot of the application in focus
+        """Takes a screenshot of the application in focus.
         """
 
         self.capture_screenshot("activeapp")
@@ -67,17 +67,17 @@ class _ScreenshotKeywords(KeywordGroup):
         contains _{_ or _}_ characters, then the braces must be doubled.
 
         Example 1:
-        | ${file1} = | Capture Page Screenshot |
-        | File Should Exist | ${OUTPUTDIR}${/}selenium-screenshot-1.png |
-        | Should Be Equal | ${file1} | ${OUTPUTDIR}${/}selenium-screenshot-1.png |
-        | ${file2} = | Capture Page Screenshot |
-        | File Should Exist | ${OUTPUTDIR}${/}selenium-screenshot-2.png |
-        | Should Be Equal | ${file2} | ${OUTPUTDIR}${/}selenium-screenshot-2.png |
+        | ${file1} = | Capture Screenshot | activeapp |
+        | File Should Exist | ${OUTPUTDIR}${/}sikuli-screenshot-1.png |
+        | Should Be Equal | ${file1} | ${OUTPUTDIR}${/}sikuli-screenshot-1.png |
+        | ${file2} = | Capture Screenshot | activeapp |
+        | File Should Exist | ${OUTPUTDIR}${/}sikuli-screenshot-2.png |
+        | Should Be Equal | ${file2} | ${OUTPUTDIR}${/}sikuli-screenshot-2.png |
 
         Example 2:
-        | ${file1} = | Capture Page Screenshot | ${OTHER_DIR}${/}other-{index}-name.png |
-        | ${file2} = | Capture Page Screenshot | ${OTHER_DIR}${/}some-other-name-{index}.png |
-        | ${file3} = | Capture Page Screenshot | ${OTHER_DIR}${/}other-{index}-name.png |
+        | ${file1} = | Capture Screenshot | activeapp | ${OTHER_DIR}${/}other-{index}-name.png |
+        | ${file2} = | Capture Screenshot | activeapp | ${OTHER_DIR}${/}some-other-name-{index}.png |
+        | ${file3} = | Capture Screenshot | activeapp | ${OTHER_DIR}${/}other-{index}-name.png |
         | File Should Exist | ${OTHER_DIR}${/}other-1-name.png |
         | Should Be Equal | ${file1} | ${OTHER_DIR}${/}other-1-name.png |
         | File Should Exist | ${OTHER_DIR}${/}some-other-name-1.png |
@@ -86,7 +86,7 @@ class _ScreenshotKeywords(KeywordGroup):
         | Should Be Equal | ${file3} | ${OTHER_DIR}${/}other-2-name.png |
 
         Example 3:
-        | Capture Page Screenshot | ${OTHER_DIR}${/}sc-{index:06}.png |
+        | Capture Screenshot | activeapp | ${OTHER_DIR}${/}sc-{index:06}.png |
         | File Should Exist | ${OTHER_DIR}${/}sc-000001.png |
         """
         path, link = self._get_screenshot_paths(filename)
