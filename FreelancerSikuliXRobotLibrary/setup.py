@@ -41,6 +41,6 @@ setup(name         = 'robotframework-freelancersikulixrobotlibrary',
       py_modules=['ez_setup'],
       package_dir  = {'' : 'src'},
       packages     = ['FreelancerSikuliXRobotLibrary','FreelancerSikuliXRobotLibrary.keywords','FreelancerSikuliXRobotLibrary.locators',
-                      'FreelancerSikuliXRobotLibrary.utils'],
+                      'FreelancerSikuliXRobotLibrary.utils','FreelancerSikuliXRobotLibrary.utils.events'],
       include_package_data = True,
       )

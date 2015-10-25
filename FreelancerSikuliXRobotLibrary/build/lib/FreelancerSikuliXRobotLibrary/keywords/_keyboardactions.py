@@ -21,7 +21,7 @@ class _KeyboardActionsKeywords(KeywordGroup):
         | Press Two Key Combination   | CTRL + Shift          | # Press Ctrl + Shift          |
         | Press Three Key Combination | CTRL + Shift + Delete | # Press Ctrl + Shift + Delete |
         """
-        (keys, len_keys) =self._split_and_map_keys(keyboard_keys)
+        (keys, len_keys) =self._split_and_map_keys(keys)
         try:
             if (len_keys == 1):
                 type(keys[0])

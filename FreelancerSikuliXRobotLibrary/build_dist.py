@@ -53,10 +53,10 @@ def run_builds(args):
         print    
         print("Windows binary installers cannot be built on this platform!")    
 
-def run_demo_packaging():
+"""def run_demo_packaging():
     import package
     print
-    package.main()
+    package.main()"""
 
 def _run_setup(py_path, type, params, upload):
     setup_args = [py_path, os.path.join(THIS_DIR, "setup.py")]
