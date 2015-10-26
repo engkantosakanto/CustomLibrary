@@ -13,10 +13,11 @@ class _KeyboardActionsKeywords(KeywordGroup):
 
     def press_keyboard_keys(self, keyboard_keys):
         """ Simulates pressing keyboard keys.
-        Single key
-        2-key combination example: Ctrl + Shift
+        Single key; 
+        2-key combination example: Ctrl + Shift; 
         3-key combination example: Ctrl + Shift + Delete
-        For Example:
+
+        Examples:
         | Press Two Key Combination   | CTRL + A              | # Press Ctrl + A              |
         | Press Two Key Combination   | CTRL + Shift          | # Press Ctrl + Shift          |
         | Press Three Key Combination | CTRL + Shift + Delete | # Press Ctrl + Shift + Delete |
@@ -34,7 +35,8 @@ class _KeyboardActionsKeywords(KeywordGroup):
 
     def press_key_n_times(self, keyboard_key, count):
         """ Simulates pressing a key multiple times as specified by count value
-        For Example:
+
+        Examples:
         | Press Key N Times | BACKSPACE | 5 | # Press Backspace key five times |
         | Press Key N Times | A         | 8 | # Press A eight times |
         """
@@ -44,7 +46,8 @@ class _KeyboardActionsKeywords(KeywordGroup):
 
     def type_string(self, string_param):
         """ Types a string as specified by `srtring_param`
-        For Example:
+
+        Example:
         | Type String | A quick cat fox jumps over the mat. | # Types the specified string |
         """
         string_param = self._clean_string(string_param)

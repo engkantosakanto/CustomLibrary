@@ -19,13 +19,10 @@ class FreelancerSikuliXRobotLibrary(
     _WaitingKeywords
     ):
 
-    """FreelancerSikuliXRobotLibrary is a testing library for Robot Framework based on the SikuliX v1.1.0 methods.
-
-    It uses the SikuliX version 1.1.0 methods internally to control matching PSMRL (pattern, string, match, region or location).
+    """FreelancerSikuliXRobotLibrary is a gui recognition testing library for Robot Framework that leverages the SikuliX version 1.1.0 methods 
+    to control matching PSMRL (pattern, string, match, region or location).
     See http://sikulix-2014.readthedocs.org/en/latest/index.html for more information on SikuliX.
-
-    FreelancerSikuliXRobotLibrary runs tests by matching instance of PSMRL. It should work in
-    most modern OS.
+    It should work in most modern OS.
 
     = Before running tests =
     The following must be installed:
@@ -69,7 +66,7 @@ class FreelancerSikuliXRobotLibrary(
     def __init__(self,
                  sikulix_timeout = 10.0,
                  sikulix_scanrate = 3.0,
-                 application_coordinates = None,
+                 application_coordinates = (SCREEN.getX(), SCREEN.getY(), SCREEN.getW(), SCREEN.getH()),
                  screenshot_directory = None,
                  run_on_failure ='Capture Screenshot Of Active App'
     ):

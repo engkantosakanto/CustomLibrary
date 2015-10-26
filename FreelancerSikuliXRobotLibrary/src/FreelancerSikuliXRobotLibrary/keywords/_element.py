@@ -18,6 +18,40 @@ class _ElementKeywords(KeywordGroup):
     |  Click Pattern    freelancerlogo.png
     |  Click Pattern    Password
     """
+    
+    def click_region(self):
+        """Left-clicks the center x,y coordinate of a specified ROI or search region.
+        Must be paired with Set New Search Region In Active App or Set New Search Region In Active Screen.
+
+        Example:
+        | Set New Search Region In Active App | 10, 60, -20, -270 | # Sets offset values to a region of active app.        |
+        | Click Region                        |                   | # Returns the text within the specified search region. |
+        """
+        self._info("Clicking specified ROI or search region.")
+        click()
+
+    def double_click_region(self):
+        """Double-clicks the center x,y coordinate of a specified ROI or search region.
+        Must be paired with Set New Search Region In Active App or Set New Search Region In Active Screen.
+
+        Example:
+        | Set New Search Region In Active App | 10, 60, -20, -270 | # Sets offset values to a region of active app.        |
+        | Double Click Region                 |                   | # Returns the text within the specified search region. |
+        """
+        self._info("Double-clicking specified ROI or search region.")
+        doubleClick()
+
+    def right_click_region(self):
+        """Right-clicks the center x,y coordinate of a specified ROI or search region.
+        Must be paired with Set New Search Region In Active App or Set New Search Region In Active Screen.
+
+        Example:
+        | Set New Search Region In Active App | 10, 60, -20, -270 | # Sets offset values to a region of active app.        |
+        | Right Click Region                  |                   | # Returns the text within the specified search region. |
+        """
+        self._info("Right-clicking specified ROI or search region.")
+        rightClick()
+
     def click_pattern(self, pattern):
         """Perform a mouse `click` on the click point using the `left` button.
         Click point is at the `center` of the element identified by `pattern`.
@@ -241,24 +275,33 @@ class _ElementKeywords(KeywordGroup):
     For Windows, it should be put inside C:\Users\<user>\AppData\Roaming\Sikulix\SikulixTesseract
     Or: User must select the last two options in the SikuliX installation to install both the script and tesseract.
     """
-    def get_text_in_pattern(self, pattern):
-        """Returns the text in element identified by `pattern`
-        Example:
-        | Get Text In Pattern | pattern.png | # Returns the text in element identified by pattern.png |
-        """
-        self._info("Getting texts in pattern '%s'." % (pattern))
-        return self._pattern_find(pattern, None, None).text()
 
-    def get_text_in_pattern_at_location_and_area(self, pattern, location, search_area):
+    def get_text_in_pattern(self, pattern, search_location):
         """Returns the text in an `area` at a `spatial location` in reference to an element identified by `pattern`
+
         Examples:
-        | Get Text In Pattern At Location And Area | pattern.png | left  | 300 | # Returns the text within 300px left of element identified by pattern.png  |
-        | Get Text In Pattern At Location And Area | pattern.png | right | 400 | # Returns the text within 400px right of element identified by pattern.png |
-        | Get Text In Pattern At Location And Area | pattern.png | above | 500 | # Returns the text within 500px above of element identified by pattern.png |
-        | Get Text In Pattern At Location And Area | pattern.png | below | 600 | # Returns the text within 600px below of element identified by pattern.png |
+        | Get Text In Pattern | pattern.png | None        | # Returns the text within 300px left of element identified by pattern.png  |
+        | Get Text In Pattern | pattern.png | left = 300  | # Returns the text within 300px left of element identified by pattern.png  |
+        | Get Text In Pattern | pattern.png | right = 400 | # Returns the text within 400px right of element identified by pattern.png |
+        | Get Text In Pattern | pattern.png | above = 500 | # Returns the text within 500px above of element identified by pattern.png |
+        | Get Text In Pattern | pattern.png | below = 600 | # Returns the text within 600px below of element identified by pattern.png |
         """
-        self._info("Getting texts in pattern at '%s' '%s' of pattern '%s'." % (search_area, location, pattern))
-        return self._read_text(pattern, location, search_area)
+        self._info("Getting texts in pattern at '%s' of pattern '%s'." % (search_location, pattern))
+        return self._read_text_in_pattern(pattern, search_location)
+
+    def get_text_in_search_region(self, search_location):
+        """Returns the text from a specified search region. This keyword must be paired with the keywords 
+        Set New Search Region In Active App or Set New Search Region In Active Screen.
+
+        Examples:
+        | Set New Search Region In Active App | 10, 60, -20, -270 | # Sets offset values to a region of active app.        |
+        | Get Text In Search Region           | region            | # Returns the text within the specified search region. |
+        | Get Text In Search Region           | left 300          | # Returns the text within the specified search region. |
+        | Get Text In Search Region           | right 400         | # Returns the text within the specified search region. |
+        | Get Text In Search Region           | above 500         | # Returns the text within the specified search region. |
+        """
+        self._info("Getting texts from at '%s' of specified ROI." % (search_location))
+        return self._read_text_in_region(search_location)
 
     """***************************** DO SOMETHING IN MATCHING PATTERNS IN ACTIVE WINDOW ************************************
     Keywords used when multiple patterns on screen is present.
@@ -361,7 +404,7 @@ class _ElementKeywords(KeywordGroup):
         Pattern sensitivity must be set at max level (0.99) inorder to avoid false positives during image detections.
         Search for matching patterns is set to top > down > left > right.
 
-        Example:
+        Examples:
         | Drag Nth Pattern In Active App    | pattern.png = 0.99 | 1  | # Drags the first instance of an element identified by pattern.png   |
         | Drop At Nth Pattern In Active App | pattern.png = 0.99 | 13 | # Drops at the 13th instance of an element identified by pattern.png |
         """
@@ -377,7 +420,7 @@ class _ElementKeywords(KeywordGroup):
         Pattern sensitivity must be set at max level (0.99) inorder to avoid false positives during image detections.
         Search for matching patterns is set to top > down > left > right.
 
-        Example:
+        Examples:
         | Drag Nth Pattern In Active App    | pattern.png = 0.99 | 13  | # Drags the 13th instance of an element identified by pattern.png   |
         | Drop At Nth Pattern In Active App | pattern.png = 0.99 | 1 | # Drops at the first instance of an element identified by pattern.png |
         """
@@ -392,7 +435,7 @@ class _ElementKeywords(KeywordGroup):
         Pattern sensitivity must be set at max level (0.99) inorder to avoid false positives during image detections.
         Search for matching patterns is set to top > down > left > right.
 
-        Example:
+        Examples:
         | Drag and drop | pattern1.png = 0.90 | 1 | pattern2.png = 0.90 | 2 | # Drag and drop the first instance of pattern1.png to the 2nd instance of pattern2.png |
         | Drag and drop | pattern.png = 0.90  | 3 | pattern.png = 0.90  | 4 | # Drag and drop the third instance to the fourth instance of pattern.png |
         """
@@ -402,6 +445,7 @@ class _ElementKeywords(KeywordGroup):
 
     def paste_text_in_nth_pattern_in_active_app(self, pattern, pattern_index, text):
         """Paste a `text` at `x/y` coordinates of the element identified by `pattern`.
+
         Example:
         | Type Text In Pattern | pattern.png = 0.90 | This is a sample text. | # Type a text in element identified by pattern.png |
         """
@@ -423,21 +467,9 @@ class _ElementKeywords(KeywordGroup):
         self._info("Typing text '%s' in '%s'nth pattern '%s' in active app." % (text, pattern_index, pattern))
         self._get_nth_pattern(pattern, pattern_index).type(text)
 
-    def get_text_in_nth_pattern(self, pattern, pattern_index):
-        """Return the `text` in nth element identified by `pattern`.
 
-        This Keyword is useful when multiple patterns on screen is present.
-        Search region or setROI() value is set to the application in focus as default.
-        Pattern sensitivity must be set at max level (0.99) inorder to avoid false positives during image detections.
-        Search for matching patterns is set to top > down > left > right.
 
-        Example:
-        | Get Text In Nth Pattern | pattern.png = 0.90 | 3 | This is a sample text. | # Return the text in third element identified by pattern.png |
-        """
-        self._info("Reading and getting texts in pattern '%s' nth '%s'." % (pattern_index, pattern))
-        return self._get_nth_pattern(pattern, pattern_index).text()
-
-    def get_text_in_nth_pattern_at_location_and_area(self, pattern, pattern_index, location, search_area):
+    def get_text_in_nth_pattern(self, pattern, pattern_index, search_location):
         """Return the `text` in nth element identified by `pattern`.
 
         This Keyword is useful when multiple patterns on screen is present.
@@ -446,14 +478,15 @@ class _ElementKeywords(KeywordGroup):
         Search for matching patterns is set to top > down > left > right.
 
         Examples:
-        | Get Text In Nth Pattern At Location And Area | pattern.png | 1 | left  | 300 | # Returns the text within 300px left of the first instance of pattern.png  |
-        | Get Text In Nth Pattern At Location And Area | pattern.png | 2 | right | 400 | # Returns the text within 400px right of the second instance of pattern.png |
-        | Get Text In Nth Pattern At Location And Area | pattern.png | 3 | above | 500 | # Returns the text within 500px above of the third instance of pattern.png |
-        | Get Text In Nth Pattern At Location And Area | pattern.png | 5 | below | 600 | # Returns the text within 600px below of the fifth instance of pattern.png |
+        | Get Text In Nth Pattern At Location And Area | pattern.png | 1 | None        | # Returns the text of the first instance of pattern.png                     |
+        | Get Text In Nth Pattern At Location And Area | pattern.png | 1 | left = 300  | # Returns the text within 300px left of the first instance of pattern.png   |
+        | Get Text In Nth Pattern At Location And Area | pattern.png | 2 | right = 400 | # Returns the text within 400px right of the second instance of pattern.png |
+        | Get Text In Nth Pattern At Location And Area | pattern.png | 3 | above = 500 | # Returns the text within 500px above of the third instance of pattern.png  |
+        | Get Text In Nth Pattern At Location And Area | pattern.png | 5 | below = 600 | # Returns the text within 600px below of the fifth instance of pattern.png  |
         """
-        self._info("Getting texts in pattern at '%s' '%s' of pattern '%s'." % (search_area, location, pattern))
+        self._info("Getting texts in '%s' nth pattern at '%s' of pattern '%s'." % (pattern_index, search_location, pattern))
         pattern = self._get_nth_pattern(pattern, pattern_index)
-        return self._read_text(pattern, location, search_area)
+        return self._read_text(pattern, search_location)
 
     # Private
     """***************************** Internal methods ************************************"""
@@ -491,26 +524,47 @@ class _ElementKeywords(KeywordGroup):
             scroll_direction = WHEEL_DOWN
         return self._pattern_find(pattern, xoffset, yoffset).wheel(scroll_direction, scroll_steps)
 
-    def _read_text(self, pattern, location, search_area):
-        assert location is not None and len(location) > 0
-        assert search_area is not None and len(search_area) > 0
-
-        Settings.OcrTextSearch = True
-        Settings.OcrTextRead = True
-
-        location = location.strip().lower()
-        search_area = int(search_area.strip().lower())
+    def _read_text_in_pattern(self, pattern, search_location):
+        (location, search_area) = self._parse_spatial_location(search_location)
         pattern = self._pattern_find(pattern, None, None)
         if (location == "left"):
-            _read_text_in_pattern = pattern.left(search_area).text()
+            pattern_text = pattern.left(search_area).text()
         elif (location == "right"):
-            _read_text_in_pattern = pattern.right(search_area).text()
+            pattern_text = pattern.right(search_area).text()
         elif (location == "above"):
-            _read_text_in_pattern = pattern.above(search_area).text()
+            pattern_text = pattern.above(search_area).text()
         elif (location == "below"):
-            _read_text_in_pattern = pattern.below(search_area).text()
-        #self._info(_read_text_in_pattern)
-        return _read_text_in_pattern
+            pattern_text = pattern.below(search_area).text()
+        else:
+            pattern_text = pattern.text()
+        return pattern_text
+
+    def _read_text_in_region(self, search_location):
+        (location, search_area) = self._parse_spatial_location(search_location)
+        if (location == "left"):
+            region_text = left(search_area).text()
+        elif (location == "right"):
+            region_text = right(search_area).text()
+        elif (location == "above"):
+            region_text = above(search_area).text()
+        elif (location == "below"):
+            region_text = below(search_area).text()
+        else:
+            region_text = text()
+        return region_text
+
+    def _parse_spatial_location(self, search_location):
+        assert search_location is not None and len(search_location) > 0
+        search_location = search_location.lower()
+        
+        if (search_location == "region") :
+            location = None
+            search_area = None
+        else:
+            search_location = search_location.partition('=')
+            location = search_location[0].strip()
+            search_area = int(search_location[2].strip())
+        return (location, search_area)
 
     def _mouse_button(self, mouse_button):
         assert mouse_button is not None and len(mouse_button) > 0

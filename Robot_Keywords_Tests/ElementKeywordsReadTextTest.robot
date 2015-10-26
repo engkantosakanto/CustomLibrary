@@ -7,12 +7,23 @@ Suite Setup        Set Image Library    C:/CustomLibrary/Images
 *** Test Cases ***
 Get Text In Pattern
     Switch Application Focus    Freelancer Desktop App
-    ${text}=    Get Text In Pattern    LoginButton.png
-Get Text In Pattern At 200px Area Right
-    ${text}=    Get Text In Pattern At Location And Area    LoginButton.png    Right    200
-Get Text In Pattern At 200px Area Left
-    ${text}=    Get Text In Pattern At Location And Area    LoginButton.png    Left    200
-Get Text In Pattern At 200px Area Above
-    ${text}=    Get Text In Pattern At Location And Area    LoginButton.png    Above    200
-Get Text In Pattern At 200px Area Below
-    ${text}=    Get Text In Pattern At Location And Area    LoginButton.png    Below    200
+    ${text}=    Get Text In Pattern    LoginButton.png    Region
+    ${text}=    Get Text In Pattern    LoginButton.png    Left = 200
+    ${text}=    Get Text In Pattern    LoginButton.png    Right = 300
+    ${text}=    Get Text In Pattern    LoginButton.png    Above = 400
+    ${text}=    Get Text In Pattern    LoginButton.png    Below = 500
+Get Text In Region
+    Switch Application Focus    Calculator
+    Set New Search Region In Active App    10, 60, -20, -270
+    ${text}=    Get Text In Search Region    Region
+    ${text}=    Get Text In Search Region    Left = 200
+    ${text}=    Get Text In Search Region    Right = 200
+    ${text}=    Get Text In Search Region    Above = 200
+    ${text}=    Get Text In Search Region    Below = 200
+Get Text In Pattern
+    Switch Application Focus    Freelancer Desktop App
+    ${text}=    Get Text In Pattern    PasswordField.png    Region
+    ${text}=    Get Text In Pattern    PasswordField.png    Left = 200
+    ${text}=    Get Text In Pattern    PasswordField.png    Right = 300
+    ${text}=    Get Text In Pattern    PasswordField.png    Above = 400
+    ${text}=    Get Text In Pattern    PasswordField.png    Below = 500

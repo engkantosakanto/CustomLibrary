@@ -10,7 +10,7 @@ that leverages the SikuliX version 1.1.0 methods.
 
 It is modeled after the Selenium2Library library.
 
-- More information about this library can be found in Confluence and in the `Keyword Documentation`_.
+- More information about this library can be found in the `Keyword Documentation`_.
 - Installation information is found in the `INSTALL.rst` file.
 
 
@@ -41,13 +41,13 @@ Running the Demo
 The demo directory contains an easily executable demo for Robot Framework
 using FreelancerSikuliXRobotLibrary. To run the demo, run::
 
-    jybot ...
+    jybot -d <output directory> -i <tag> <suite directory>
 
 E.g.::
 
-	jybot ...
+    jybot -d C:\demo\logs -i Win8CalculatorTest C:\demo\calc_test_suite
+    Note: C:\demo\logs directory must be created before running the script
 	
 
-.. _Wiki: 
-.. _Keyword Documentation: 
+.. _Keyword Documentation: https://confluence.flnltd.com/display/FREEL/Custom+SikuliX+Robot+Library
 .. _Robot Framework User Guide: http://code.google.com/p/robotframework/wiki/UserGuide

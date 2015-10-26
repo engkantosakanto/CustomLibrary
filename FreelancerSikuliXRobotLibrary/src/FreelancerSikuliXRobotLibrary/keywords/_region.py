@@ -13,12 +13,43 @@ class _RegionKeywords(KeywordGroup):
     # Public
 
     def set_search_region(self, coordinates):
-        """Sets the ROI or the search area to a specified `coordintes`.
+        """Sets the ROI or the search area to a specified `coordinates`.
         Searching for pattern match is faster if the search region is smaller. 
         """
         self._info("Setting search region to '%s'." % coordinates)
         self._set_coordinates(coordinates)
         setROI(*self.target_coordinates)
+
+    def set_new_search_region_in_active_app(self, offsets):
+        """Sets new ROI or the search area to a specified `offsets` based on offsets of `active screen` region.
+
+        Example:
+        | Set New Search Region In Active App | 10, 60, -20, -270 | # Offsets x, y, height, width to 10, 60, -20, -270pixels respectively.|
+        """
+        (offsetx, offsety, offsetw, offseth) = self._parse_coordinate_offsets(offsets)
+        active_app_region = self.get_active_app_region()
+        new_coordinates = (active_app_region.x + offsetx, 
+                           active_app_region.y + offsety,
+                           active_app_region.w + offsetw,
+                           active_app_region.h + offseth
+                           )
+        setROI(*new_coordinates)
+
+    def set_new_search_region_in_active_screen(self, offsets):
+        """Sets new ROI or new search area to a specified `offsets` based on offsets of `active app` region.
+
+        Example:
+        | Set New Search Region In Active App | 10, 60, -20, -270 | # Offsets x, y, height, width to 10, 60, -20, -270pixels respectively.|
+        """
+        (offsetx, offsety, offsetw, offseth) = self._parse_coordinate_offsets(offsets)
+        active_screen_region = self.get_active_screen_region()
+        new_coordinates = (active_screen_region.x + offsetx, 
+                           active_screen_region.y + offsety,
+                           active_screen_region.w + offsetw,
+                           active_screen_region.h + offseth
+                           )
+        setROI(*new_coordinates)
+
 
     def get_active_screen_coordinates(self):
         """Returns the `coordinates` of the active screen.
@@ -30,7 +61,8 @@ class _RegionKeywords(KeywordGroup):
     def get_active_app_coordinates(self):
         """Returns the `coordinates` of the `application` in focus.
         Keyword must be combined with `Set Application Focus`.
-        Example:
+
+        Examples:
         | Set Application Focus      | My Awesome App | # Sets the focus to `My Awesome App`      |
         | Get Active App Coordinates |                |# Gets the coordinates of `My Awesome App` |
         """
@@ -41,6 +73,7 @@ class _RegionKeywords(KeywordGroup):
 
     def get_reference_pattern_coordinates(self, pattern):
         """Returns the `coordinates` of the element identified by `pattern`.
+
         Example:
         | Get Reference Pattern Coordinates | pattern.png = 0.90 | # Gets the coordinates of pattern.png |
         """
@@ -74,3 +107,11 @@ class _RegionKeywords(KeywordGroup):
 
     def _get_coordinates(self):
         return self.target_coordinates
+
+    def _parse_coordinate_offsets(self, offsets):
+        assert offsets is not None and len(offsets) > 0
+        offsets = offsets.split(',')
+        offset_list = []
+        for offset in offsets:
+            offset_list.append(int(self._clean_string(offset)))
+        return offset_list

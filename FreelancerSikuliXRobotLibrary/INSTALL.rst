@@ -20,7 +20,7 @@ Installing from source
 
 The source code can be retrieved either as a source distribution or as a clone
 of the main source repository. The installer requires Jython version 2.7 or
-newer. Install by running::
+newer. Install by running:
 
     jython setup.py install
 
@@ -40,8 +40,8 @@ Once you have installed FreelancerSikuliXRobotLibrary it is a good idea to verif
 
 and then at the Python prompt type::
 
-	>> import FreelancerSikuliXRobotLibrary
-	>>
+    >> import FreelancerSikuliXRobotLibrary
+    >>
 
 If the python command line interpretor returns with another prompt ('>>' as shown above) then your installation was successful.
 
@@ -53,9 +53,9 @@ The most common issue with installing FreelancerSikuliXRobotLibrary is missing d
     ImportError: No module named sikuli
 
 indicates that you are missing the sikulixapi.jar package.  To correct this problem, install the sikulixapi.jar with tesseract
-then ann the following in the environment variables::
+then add the following in the environment variables::
 
-	  CLASSPATH = <path to sikulixapi.jar>
+      CLASSPATH = <path to sikulixapi.jar>
       JYTHONPATH = <path to sikulixapi.jar>\Lib
 
 Similarly if you receive "No module named ..." error message then you have another missing dependency.  To correct, use easy_install to install the missing package.
