@@ -19,8 +19,8 @@ class FreelancerSikuliXRobotLibrary(
     _WaitingKeywords
     ):
 
-    """FreelancerSikuliXRobotLibrary is a gui recognition testing library for Robot Framework that leverages the SikuliX version 1.1.0 methods 
-    to control matching PSMRL (pattern, string, match, region or location).
+    """FreelancerSikuliXRobotLibrary is a ``gui recognition`` testing library for Robot Framework that leverages the ``SikuliX version 1.1.0`` methods 
+    to control matching ``PSMRL`` (pattern, string, match, region or location).
     See http://sikulix-2014.readthedocs.org/en/latest/index.html for more information on SikuliX.
     It should work in most modern OS.
 
@@ -37,26 +37,34 @@ class FreelancerSikuliXRobotLibrary(
     | `JYTHONPATH` = <sikulixapi.jar's directory>/Lib | # Must be setup in the environment variable in the test PC or Node |
 
     = Installing the FreelancerSikuliXRobotLibrary =
-    | 1. Copy the FreelancerSikuliXRobotLibrary to a local directory.     |
-    | 2. Open a terminal or command prompt then install via easy_install. |
-    | 3. Installation is successful if error: None                        |
+    | 1. Copy the ``FreelancerSikuliXRobotLibrary`` to a local directory.                | 
+    | 2. cd to the FreelancerSikuliXRobotLibrary where ``setup.py`` is located           |
+    | 3. Open a terminal or command prompt then install via ``jython setup.py install``. |
+
+    = Verify Installation =
+    Once you have installed FreelancerSikuliXRobotLibrary it is a good idea to verify the installation. To verify installation start jython and then at the Jython prompt type:
+
+    >>> import FreelancerSikuliXRobotLibrary
+    >>>
+
+    If the jython command line interpreter returns with another prompt ('>>>' as shown above) then your installation was successful.
 
     = Locating or specifying elements =
-    All keywords in FreelancerSikuliXRobotLibrary that need to find an pattern or any of the PSMRL on the screen take an argument that serves as the `locator` (for more information about PSMRL, see http://sikulix-2014.readthedocs.org/en/latest/) . 
+    All keywords in FreelancerSikuliXRobotLibrary that need to find a ``pattern`` or any of the PSMRL on the screen take an argument that serves as the `locator` (for more information about ``PSMRL``, see http://sikulix-2014.readthedocs.org/en/latest/) . 
     `locator` is a string that describes how to locate an element 
     using a syntax specifying a pattern to search for in a screen, which is a representation of the element.
 
     PNG format must be used for reference patterns for better image resolution and better image detection.
 
     *Using locators*
-    By default, when a locator value is provided, it is checked if a png with image sensitivity otherwise,
-    it is treated as a string. When a locator is a string, the Ocr setting must be set to `True`.
+    By default, when a ``locator`` value is provided, it is checked if a png with image sensitivity otherwise,
+    it is treated as a string. When a locator is a string, the ``OCR`` (Optical Character Recognition) setting must be set to `True`.
 
     For example:
-    | *Keywords*     | *Locators or PSMRL* | *Description*                                                                            |
-    | Click Pattern  |  pattern.png = 0.90 | Locator is a PNG image format with image sensitivity set to 0.90                         |
-    | Click Pattern  |  pattern.png        | Locator is a PNG image format with image sensitivity set to the default value 0.70.      |
-    | Click Pattern  |  Password           | Locator as a string or non-PNG images are matched against any string or image on screen. |
+    | *Keywords*     | *Locators or PSMRL* | *Description*                                                                              |
+    | Click Pattern  |  pattern.png = 0.90 | # Locator is a PNG image format with image sensitivity set to 0.90                         |
+    | Click Pattern  |  pattern.png        | # Locator is a PNG image format with image sensitivity set to the default value 0.70.      |
+    | Click Pattern  |  Password           | # Locator as a string or non-PNG images are matched against any string or image on screen. |
     """
     ROBOT_LIBRARY_SCOPE = 'GLOBAL'
     ROBOT_LIBRARY_VERSION = VERSION

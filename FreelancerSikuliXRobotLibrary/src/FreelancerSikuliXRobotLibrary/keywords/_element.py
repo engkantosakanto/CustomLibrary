@@ -24,8 +24,8 @@ class _ElementKeywords(KeywordGroup):
         Must be paired with Set New Search Region In Active App or Set New Search Region In Active Screen.
 
         Example:
-        | Set New Search Region In Active App | 10, 60, -20, -270 | # Sets offset values to a region of active app.        |
-        | Click Region                        |                   | # Returns the text within the specified search region. |
+        | Set New Search Region In Active App | 10, 60, -20, -270 | # Sets offset values to a region of active app.            |
+        | Click Region                        |                   | # Clicks the center of the specified ROI or search region. |
         """
         self._info("Clicking specified ROI or search region.")
         click()
@@ -35,8 +35,8 @@ class _ElementKeywords(KeywordGroup):
         Must be paired with Set New Search Region In Active App or Set New Search Region In Active Screen.
 
         Example:
-        | Set New Search Region In Active App | 10, 60, -20, -270 | # Sets offset values to a region of active app.        |
-        | Double Click Region                 |                   | # Returns the text within the specified search region. |
+        | Set New Search Region In Active App | 10, 60, -20, -270 | # Sets offset values to a region of active app.                   |
+        | Double Click Region                 |                   | # Double-clicks the center of the specified ROI or search region. |
         """
         self._info("Double-clicking specified ROI or search region.")
         doubleClick()
@@ -46,15 +46,27 @@ class _ElementKeywords(KeywordGroup):
         Must be paired with Set New Search Region In Active App or Set New Search Region In Active Screen.
 
         Example:
-        | Set New Search Region In Active App | 10, 60, -20, -270 | # Sets offset values to a region of active app.        |
-        | Right Click Region                  |                   | # Returns the text within the specified search region. |
+        | Set New Search Region In Active App | 10, 60, -20, -270 | # Sets offset values to a region of active app.                   |
+        | Right Click Region                  |                   | # Right-clicks the center of the specified ROI or search region. |
         """
         self._info("Right-clicking specified ROI or search region.")
         rightClick()
 
+    def highlight_region(self, highlight_duration):
+        """Highlights the specified ROI or search region for a specified ``highlight_duration`` in seconds.
+        Must be paired with Set New Search Region In Active App or Set New Search Region In Active Screen.
+
+        Example:
+        | Set New Search Region In Active App | 10, 60, -20, -270 | # Sets offset values to a region of active app.                 |
+        | Highlight Region                    | 2                 | # Highlights the specified ROI or search region. for 2 seconds. |
+        """
+        self._info("Highlighting specified ROI or search region for '%s'second(s)." % (highlight_duration))
+        highlight(highlight_duration)
+
+
     def click_pattern(self, pattern):
         """Perform a mouse `click` on the click point using the `left` button.
-        Click point is at the `center` of the element identified by `pattern`.
+        Click point is at the `center` of the element identified by ``pattern``.
 
         Key attributes for arbitrary patterns are `images` which is advisably in PNG format or `strings`. 
         See `introduction` for details about locating elements.
@@ -64,7 +76,7 @@ class _ElementKeywords(KeywordGroup):
 
     def click_pattern_at_coordinates(self, pattern, xoffset, yoffset):
         """Perform a mouse `click` on the click point using the `left` button.
-        Click point is at `x/y` coordinates of the element identified by `pattern`.
+        Click point is at `x/y` coordinates of the element identified by ``pattern``.
 
         Key attributes for arbitrary patterns are `images` which is advisably in PNG format or `strings`. 
         See `introduction` for details about locating elements.
@@ -74,7 +86,7 @@ class _ElementKeywords(KeywordGroup):
 
     def right_click_pattern(self, pattern):
         """Perform a mouse `click` on the click point using the `right` button.
-        Click point is at the `center` of the element identified by `pattern`.
+        Click point is at the `center` of the element identified by ``pattern``.
 
         Key attributes for arbitrary patterns are `images` which is advisably in PNG format or `strings`. 
         See `introduction` for details about locating elements.
@@ -84,7 +96,7 @@ class _ElementKeywords(KeywordGroup):
 
     def right_click_pattern_at_coordinates(self, pattern, xoffset, yoffset):
         """Perform a mouse `click` on the click point using the `right` button.
-        Click point is at `x/y` coordinates of the element identified by `pattern`.
+        Click point is at `x/y` coordinates of the element identified by ``pattern``.
 
         Key attributes for arbitrary patterns are `images` which is advisably in PNG format or `strings`. 
         See `introduction` for details about locating elements.
@@ -94,7 +106,7 @@ class _ElementKeywords(KeywordGroup):
 
     def double_click_pattern(self, pattern):
         """Perform a mouse `double-click` on the click point using the `left` button.
-        Click point is at the `center` of the element identified by `pattern`.
+        Click point is at the `center` of the element identified by ``pattern``.
 
         Key attributes for arbitrary patterns are `images` which is advisably in PNG format or `strings`. 
         See `introduction` for details about locating elements.
@@ -104,7 +116,7 @@ class _ElementKeywords(KeywordGroup):
 
     def double_click_pattern_at_coordinates(self, pattern, xoffset, yoffset):
         """Perform a mouse `double-click` on the click point using the `left` button.
-        Click point is at `x/y` coordinates of the element identified by `pattern`.
+        Click point is at `x/y` coordinates of the element identified by ``pattern``.
 
         Key attributes for arbitrary patterns are `images` which is advisably in PNG format or `strings`. 
         See `introduction` for details about locating elements.
@@ -112,54 +124,59 @@ class _ElementKeywords(KeywordGroup):
         self._info("Double-clicking element '%s' in coordinates '%s', '%s'." % (pattern, xoffset, yoffset))
         self._pattern_find(pattern, xoffset, yoffset).doubleClick()
 
-    def highlight_pattern(self, pattern):
-        """Highlight element identified by `pattern`.
+    def highlight_pattern(self, pattern, highlight_duration):
+        """Highlight element identified by ``pattern`` for a specified ``highlight_duration`` in seconds.
 
-        Key attributes for arbitrary patterns are `images` which is advisably in PNG format or `strings`. 
+        Key attributes for arbitrary ``patterns`` are `images` which is advisably in PNG format or `strings`. 
         See `introduction` for details about locating elements.
+
+        Example:
+        | Highlight Pattern | pattern.png = 0.90 | 2   | This is a sample text. | # Type a text in element identified by pattern.png |
         """
-        self._info("Highlighting element '%s'." % pattern)
-        self._pattern_find(pattern, None, None).highlight(1)
+        self._info("Highlighting element '%s' for '%s' second(s)." % (pattern, highlight_duration))
+        self._pattern_find(pattern, None, None).highlight(highlight_duration)
 
     def hover_at_pattern(self, pattern):
-        """Hover mouse pointer at center of element identified by `pattern`.
+        """Hover mouse pointer at center of element identified by ``pattern``.
 
-        Key attributes for arbitrary patterns are `images` which is advisably in PNG format or `strings`. 
+        Key attributes for arbitrary ``patterns`` are `images` which is advisably in PNG format or `strings`. 
         See `introduction` for details about locating elements.
         """
         self._info("Hovering at element '%s'." % pattern)
         self._pattern_find(pattern, None, None).hover()
 
     def hover_at_pattern_at_coordinates(self, pattern, xoffset, yoffset):
-        """Hover mouse pointer at `x/y` coordinates of the element identified by `pattern`.
+        """Hover mouse pointer at `x/y` coordinates of the element identified by ``pattern``.
 
-        Key attributes for arbitrary patterns are `images` which is advisably in PNG format or `strings`. 
+        Key attributes for arbitrary ``patterns`` are `images` which is advisably in PNG format or `strings`. 
         See `introduction` for details about locating elements.
         """
         self._info("Hovering at element '%s' in coordinates '%s', '%s'." % (pattern, xoffset, yoffset))
         self._pattern_find(pattern, xoffset, yoffset).hover()
 
     def move_mouse_at_coordinates(self, xoffset, yoffset):
-        """Move mouse cursor coordinates at `x/y` coordinates of the `screen`.
+        """Move mouse cursor coordinates at ``x/y`` coordinates of the `screen`.
         """
         self._info("Moving mouse at coordinates '%s', '%s'." % (xoffset, yoffset))
         mouseMove(xoffset, yoffset)
 
     def mouse_button_down(self, mouse_button):
-        """Press the left mouse button `down`.
+        """Press the ``left`` mouse button `down`. 
+        Must be paired with `Mouse Button Up` keyword.
         """
         self._info("Mouse down at, '%s' button." % (mouse_button))
         mouseDown(self._mouse_button(mouse_button))
 
     def mouse_button_up(self, mouse_button):
-        """Release the mouse button previously pressed.
+        """Release the mouse button previously pressed. 
+        Must be paired with `Mouse Button Down` keyword.
         """
         self._info("Mouse up at, '%s' button." % (mouse_button))
         mouseUp(self._mouse_button(mouse_button))
 
     def scroll_from_pattern(self, pattern, scroll):
-        """Scroll up or down as specified by the scroll step at center of the element identified by `pattern`.
-        Key attributes for arbitrary patterns are `images` which is advisably in PNG format or `strings`. 
+        """Scroll up or down as specified by the `scroll step` at center of the element identified by ``pattern``.
+        Key attributes for arbitrary ``patterns`` are `images` which is advisably in PNG format or `strings`. 
         See `introduction` for details about locating elements.
 
         Examples:
@@ -171,9 +188,9 @@ class _ElementKeywords(KeywordGroup):
         self._scroll_direction_and_steps_from_pattern(pattern, scroll, None, None)
 
     def scroll_from_pattern_at_coordinates(self, pattern, scroll, xoffset, yoffset):
-        """Scroll up or down as specified by the scroll step at `x/y` coordinates of the element identified by `pattern`.
+        """Scroll up or down as specified by the `scroll` step at `x/y` coordinates of the element identified by ``pattern``.
 
-        Key attributes for arbitrary patterns are `images` which is advisably in PNG format or `strings`. 
+        Key attributes for arbitrary ``patterns`` are `images` which is advisably in PNG format or `strings`. 
         See `introduction` for details about locating elements.
         
         Examples:
@@ -185,9 +202,9 @@ class _ElementKeywords(KeywordGroup):
         self._scroll_direction_and_steps_from_pattern(pattern, scroll, xoffset, yoffset)
 
     def scroll_x_steps(self, scroll):
-        """Scroll up or down as specified by the scroll step.
+        """Scroll up or down as specified by the `scroll` step.
 
-        This keyword must be paired with Hover at image in order to execute scrolling action within the region.
+        This keyword must be paired with `Hover At Pattern` in order to execute scrolling action within the region.
         Examples:
         | Hover At Pattern | pattern.png | # Hover at element identified by pattern.png |
         | Scroll X Steps   | Up = 10     | # Scroll up 10 steps.                        |
@@ -216,19 +233,19 @@ class _ElementKeywords(KeywordGroup):
         dropAt(self._pattern_find(pattern, None, None))
 
     def drag_pattern_in_coordinates(self, pattern, xoffset, yoffset):
-        """Drag element at `x/y` coordinates of the element identified by `pattern`.
+        """Drag element at `x/y` coordinates of the element identified by ``pattern``.
         """
         self._info("Dragging element '%s' in coordinates '%s', '%s'." % (pattern, xoffset, yoffset))
         drag(self._pattern_find(pattern, xoffset, yoffset))
 
     def drop_pattern_at_coordinates(self, pattern, xoffset, yoffset):
-        """Drop or release mouse button element at `x/y` coordinates of the element identified by `pattern`.
+        """Drop or release mouse button element at `x/y` coordinates of the element identified by ``pattern``.
         """
         self._info("Dropping element '%s' in coordinates '%s', '%s'." % (pattern, xoffset, yoffset))
         dropAt(self._pattern_find(pattern, xoffset, yoffset))
 
     def drag_and_drop_element(self, pattern1, pattern2):
-        """Drag and drop an element identified by `pattern1` to another element identified by `pattern2`.
+        """Drag and drop an element identified by ``pattern1`` to another element identified by ``pattern2``.
         Example:
         | Drag and drop | pattern1.png = 0.90 | pattern2.png = 0.90 | # Drag element identified by pattern.png |
         """
@@ -237,7 +254,7 @@ class _ElementKeywords(KeywordGroup):
 
     """***************************** KEYBOARD ACTIONS ************************************"""
     def paste_text_in_pattern(self, pattern, text):
-        """Paste a `text` in element identified by `pattern`.
+        """Paste a `text` in element identified by ``pattern``.
         Example:
         | Paste Text In Pattern | pattern.png = 0.90 | This is a sample text. | # Paste a text in element identified by pattern.png |
         """
@@ -246,7 +263,7 @@ class _ElementKeywords(KeywordGroup):
         self._pattern_find(pattern, None, None).paste(text)
 
     def paste_text_in_pattern_at_coordinates(self, pattern, text, xoffset, yoffset):
-        """Paste a `text` at `x/y` coordinates of the element identified by `pattern`.
+        """Paste a `text` at `x/y` coordinates of the element identified by ``pattern``.
         Example:
         | Paste Text In Pattern | pattern.png = 0.90 | 30 | 30 | This is a sample text. | # Paste a text in x/y coordinates of element identified by pattern.png |
         """
@@ -254,7 +271,7 @@ class _ElementKeywords(KeywordGroup):
         self._pattern_find(pattern, xoffset, yoffset).paste(text)
 
     def type_text_in_pattern(self, pattern, text):
-        """Type a `text` in element identified by `pattern`.
+        """Type a `text` in element identified by ``pattern``.
         Example:
         | Type Text In Pattern | pattern.png = 0.90 | This is a sample text. | # Type a text in element identified by pattern.png |
         """
@@ -263,7 +280,7 @@ class _ElementKeywords(KeywordGroup):
         self._pattern_find(pattern, None, None).type(text)
 
     def type_text_in_pattern_at_coordinates(self, pattern, text, xoffset, yoffset):
-        """Paste a `text` at `x/y` coordinates of the element identified by `pattern`.
+        """Paste a `text` at `x/y` coordinates of the element identified by ``pattern``.
         Example:
         | Type Text In Pattern | pattern.png = 0.90 | 30 | 30 | This is a sample text. | # Type a text in x/y coordinates of element identified by pattern.png |
         """
@@ -277,7 +294,7 @@ class _ElementKeywords(KeywordGroup):
     """
 
     def get_text_in_pattern(self, pattern, search_location):
-        """Returns the text in an `area` at a `spatial location` in reference to an element identified by `pattern`
+        """Returns the text in an ``area`` at a ``spatial location`` in reference to an element identified by ``pattern``
 
         Examples:
         | Get Text In Pattern | pattern.png | None        | # Returns the text within 300px left of element identified by pattern.png  |
@@ -290,7 +307,7 @@ class _ElementKeywords(KeywordGroup):
         return self._read_text_in_pattern(pattern, search_location)
 
     def get_text_in_search_region(self, search_location):
-        """Returns the text from a specified search region. This keyword must be paired with the keywords 
+        """Returns the text from a specified ``search location``. This keyword must be paired with the keywords 
         Set New Search Region In Active App or Set New Search Region In Active Screen.
 
         Examples:
@@ -310,7 +327,7 @@ class _ElementKeywords(KeywordGroup):
     """
 
     def get_pattern_count_in_active_app(self, pattern):
-        """Returns the count of elements identified by `pattern` in the region of an active application.
+        """Returns the count of elements identified by ``pattern`` in the region of an active application.
 
         Search region or setROI() value is set to the application in focus as default.
         Pattern sensitivity must be set at max level (0.99) inorder to avoid false positives during image detections.
@@ -320,9 +337,9 @@ class _ElementKeywords(KeywordGroup):
         return len(self._get_all_patterns_in_active_app(pattern))
 
     def click_nth_pattern_in_active_app(self, pattern, pattern_index):
-        """Perform a mouse `click` on the click point using the `left` button.
+        """Perform a mouse ``click`` on the click point using the ``left`` button.
 
-        Click point is at the `center` of the nth element identified by `pattern`.
+        Click point is at the `center` of the nth element identified by ``pattern``.
         This Keyword is useful when multiple patterns on screen is present.
         Search region or setROI() value is set to the application in focus as default.
         Pattern sensitivity must be set at maximum level (0.99) inorder to avoid false positives during image detections.
@@ -335,9 +352,9 @@ class _ElementKeywords(KeywordGroup):
         self._get_nth_pattern(pattern, pattern_index).click()
 
     def right_click_nth_pattern_in_active_app(self, pattern, pattern_index):
-        """Perform a mouse `click` on the click point using the `right` button.
+        """Perform a mouse ``click`` on the click point using the ``right`` button.
 
-        Click point is at the `center` of the nth element identified by `pattern`.
+        Click point is at the `center` of the nth element identified by ``pattern``.
         This Keyword is useful when multiple patterns on screen is present.
         Search region or setROI() value is set to the application in focus as default.
         Pattern sensitivity must be set at max level (0.99) inorder to avoid false positives during image detections.
@@ -350,9 +367,9 @@ class _ElementKeywords(KeywordGroup):
         self._get_nth_pattern(pattern, pattern_index).rightClick()
 
     def double_click_nth_pattern_in_active_app(self, pattern, pattern_index):
-        """Perform a mouse `double-click` on the click point using the `left` button.
+        """Perform a mouse ``double-click`` on the click point using the ``left`` button.
 
-        Click point is at the `center` of the nth element identified by `pattern`.
+        Click point is at the `center` of the nth element identified by ``pattern``.
         This Keyword is useful when multiple patterns on screen is present.
         Search region or setROI() value is set to the application in focus as default.
         Pattern sensitivity must be set at max level (0.99) inorder to avoid false positives during image detections.
@@ -366,7 +383,7 @@ class _ElementKeywords(KeywordGroup):
         self._get_nth_pattern(pattern, pattern_index).doubleClick()
 
     def hover_at_nth_pattern_in_active_app(self, pattern, pattern_index):
-        """Hovers mouse pointer at the center the nth element identified by `pattern`.
+        """Hovers mouse pointer at the center the nth element identified by ``pattern``.
 
         This Keyword is useful when multiple patterns on screen is present.
         Search region or setROI() value is set to the application in focus as default.
@@ -374,14 +391,14 @@ class _ElementKeywords(KeywordGroup):
         Search for matching patterns is set to top > down > left > right.
 
         Example:
-        | Hover Nth Pattern In Active App | pattern.png = 0.99 | 7 | # Hovers mouse pointer the seventh instance of an element identified by pattern.png |
+        | Hover At Nth Pattern In Active App | pattern.png = 0.99 | 7 | # Hovers mouse pointer the seventh instance of an element identified by pattern.png |
         """
 
         self._info("Hovering at '%s'nth pattern '%s' in active app." % (pattern_index, pattern))
         self._get_nth_pattern(pattern, pattern_index).hover()
 
-    def highlight_nth_pattern_in_active_app(self, pattern, pattern_index):
-        """Highlights the nth element identified by `pattern`.
+    def highlight_nth_pattern_in_active_app(self, pattern, pattern_index, highlight_duration):
+        """Highlights the nth element identified by ``pattern`` for a specified `highlight_duration` in seconds.
 
         This Keyword is useful when multiple patterns on screen is present.
         Search region or setROI() value is set to the application in focus as default.
@@ -389,14 +406,16 @@ class _ElementKeywords(KeywordGroup):
         Search for matching patterns is set to top > down > left > right.
 
         Example:
-        | Right Click Nth Pattern In Active App | pattern.png = 0.99 | 6 | # Right-clicks the sixth instance of an element identified by pattern.png |
+        | Highlight Nth Pattern In Active App | pattern.png = 0.99 | 6   | 2   | 
+        # Highlights the sixth instance of an element identified by pattern.png for 2 seconds.
+       
         """
 
-        self._info("Highlighting '%s'nth pattern '%s' in active app." % (pattern_index, pattern))
-        self._get_nth_pattern(pattern, pattern_index).highlight()
+        self._info("Highlighting '%s'nth pattern '%s' in active app for '%s' second(s)." % (pattern_index, pattern, highlight_duration))
+        self._get_nth_pattern(pattern, pattern_index).highlight(highlight_duration)
 
     def drag_nth_pattern_in_active_app(self, pattern, pattern_index):
-        """Drag the nth element identified by `pattern`.
+        """Drag the nth element identified by ``pattern``.
         `Drag Nth Pattern In Active App` and `Drop At Nth Pattern In Active App` keywords must be used in pairs to complete a drag and drop action.
 
         This Keyword is useful when multiple patterns on screen is present.
@@ -412,7 +431,7 @@ class _ElementKeywords(KeywordGroup):
         drag(self._get_nth_pattern(pattern, pattern_index))
 
     def drop_at_nth_pattern_in_active_app(self, pattern, pattern_index):
-        """Drop at the nth element identified by `pattern`.
+        """Drop at the nth element identified by ``pattern``.
         `Drag Nth Pattern In Active App` and `Drop At Nth Pattern In Active App` keywords must be used in pairs to complete a drag and drop action.
 
         This Keyword is useful when multiple patterns on screen is present.
@@ -428,7 +447,7 @@ class _ElementKeywords(KeywordGroup):
         dropAt(self._get_nth_pattern(pattern, pattern_index))
 
     def drag_and_drop_from_nth_pattern(self, pattern1, pattern1_index, pattern2, pattern2_index):
-        """Drag and drop an nth element identified by `pattern1` to another nth element identified by `pattern2`.
+        """Drag and drop an nth element identified by ``pattern1`` to another nth element identified by ``pattern2``.
 
         This Keyword is useful when multiple patterns on screen is present.
         Search region or setROI() value is set to the application in focus as default.
@@ -444,7 +463,7 @@ class _ElementKeywords(KeywordGroup):
                  self._get_nth_pattern(pattern2, pattern2_index))
 
     def paste_text_in_nth_pattern_in_active_app(self, pattern, pattern_index, text):
-        """Paste a `text` at `x/y` coordinates of the element identified by `pattern`.
+        """Paste a `text` at `x/y` coordinates of the element identified by ``pattern``.
 
         Example:
         | Type Text In Pattern | pattern.png = 0.90 | This is a sample text. | # Type a text in element identified by pattern.png |
@@ -454,7 +473,7 @@ class _ElementKeywords(KeywordGroup):
         self._get_nth_pattern(pattern, pattern_index).type(text)
 
     def type_text_in_nth_pattern_in_active_app(self, pattern, pattern_index, text):
-        """Type a `text` in nth element identified by `pattern`.
+        """Type a `text` in nth element identified by ``pattern``.
 
         This Keyword is useful when multiple patterns on screen is present.
         Search region or setROI() value is set to the application in focus as default.
@@ -470,7 +489,7 @@ class _ElementKeywords(KeywordGroup):
 
 
     def get_text_in_nth_pattern(self, pattern, pattern_index, search_location):
-        """Return the `text` in nth element identified by `pattern`.
+        """Return the `text` in nth element identified by ``pattern``.
 
         This Keyword is useful when multiple patterns on screen is present.
         Search region or setROI() value is set to the application in focus as default.
@@ -491,7 +510,7 @@ class _ElementKeywords(KeywordGroup):
     # Private
     """***************************** Internal methods ************************************"""
     def _pattern_find(self, pattern, xoffset, yoffset):
-        """Finds pattern on search region set by active application.
+        """Finds ``pattern`` on search region set by active application.
         To do: dynamic search region where user can set the search region to either, active application, specific region or screen
         """
         active_app_window = App.focusedWindow();

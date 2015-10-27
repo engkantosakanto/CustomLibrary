@@ -15,7 +15,7 @@ class _WaitingKeywords(KeywordGroup):
     # Public
 
     def set_sikulix_timeout(self, timeout):
-        """Sets the `sikulix_timeout` value.
+        """Sets the ``sikulix imeout`` value.
 
         See `introduction` for details about `sikulix_timeout`.
         """
@@ -26,7 +26,7 @@ class _WaitingKeywords(KeywordGroup):
         Settings.AutoWaitTimeout(self.sikulix_timeout)
 
     def set_sikulix_scanrate(self, scanrate):
-        """Sets the `sikulix_scanrate` value.
+        """Sets the ``sikulix scanrate`` value.
 
         See `introduction` for details about `sikulix_scanrate`.
         """
@@ -37,7 +37,7 @@ class _WaitingKeywords(KeywordGroup):
         Settings.AutoWaitTimeout(self.sikulix_scanrate)
 
     def wait_in_seconds(self, timeout):
-        """Waits until `timeout` expires.
+        """Waits until ``timeout`` expires.
 
         See also `Wait For Pattern To Be Visible`, `Wait Until Pattern Is Visible`, 
         `Wait For Pattern To Vanish` and `Wait Until Pattern Vanish`.
@@ -47,8 +47,8 @@ class _WaitingKeywords(KeywordGroup):
         wait(timeout)
 
     def wait_for_pattern_to_be_visible(self, pattern):
-        """Waits until `pattern` appears on `application` in focus. 
-        Fails if `pattern` is not immediately visible on`application` in focus.
+        """Waits until ``pattern`` appears on `application` in focus. 
+        Fails if ``pattern`` is not immediately visible on `application` in focus.
         SikuliX's default timeout is 3 seconds.
 
         See also `Wait In Seconds`, `Wait Until Pattern Is Visible`, 
@@ -63,14 +63,14 @@ class _WaitingKeywords(KeywordGroup):
             raise AssertionError("Element locator '%s' did not match any elements" % (pattern))
 
     def wait_until_pattern_is_visible(self, pattern, timeout):
-        """Waits until `pattern` appears on `application` in focus at specified timeout.
+        """Waits until ``pattern`` appears on `application` in focus at specified ``timeout``.
         
-        `timeout` value may be set to a `float` or to "FOREVER".
+        ``timeout`` value may be set to a `float` or to ``FOREVER``.
 
-        Using "FOREVER" as timeout will execute the script
+        Using ``FOREVER`` as timeout will execute the script
         to inifinity unless the pattern appears
 
-        Otherwise, Fails if `timeout` expires before the `pattern` appears.
+        Otherwise, Fails if ``timeout`` expires before the ``pattern`` appears.
 
         See also `Wait In Seconds`, `Wait For Pattern To Be Visible`, 
         `Wait For Pattern To Vanish` and `Wait Until Pattern Vanish`.
@@ -89,8 +89,8 @@ class _WaitingKeywords(KeywordGroup):
             raise AssertionError("Element locator '%s' did not match any elements after %s" % (pattern, timeout))
 
     def wait_for_pattern_to_vanish(self, pattern):
-        """Waits until `pattern` disappears on `application` in focus.
-        Fails if `pattern` is not immediately hidden on`application` in focus.
+        """Waits until ``pattern`` disappears on `application` in focus.
+        Fails if ``pattern`` is not immediately hidden on`application` in focus.
         SikuliX's default timeout is 3 seconds.
 
         See also `Wait In Seconds`, `Wait For Pattern To Be Visible`,
@@ -107,14 +107,14 @@ class _WaitingKeywords(KeywordGroup):
 
     def wait_until_pattern_vanish(self, pattern, timeout):
 
-        """Waits until `pattern` disappears on `application` in focus at specified timeout.
+        """Waits until ``pattern`` disappears on `application` in focus at specified ``timeout``.
         
-        `timeout` value may be set to a `float` or to "FOREVER".
+        ``timeout`` value may be set to a `float` or to ``FOREVER``.
 
-        Using "FOREVER" as timeout will execute the script
+        Using ``FOREVER`` as timeout will execute the script
         to inifinity unless the pattern appears
 
-        Otherwise, Fails if `timeout` expires before the `pattern` appears.
+        Otherwise, Fails if ``timeout`` expires before the ``pattern`` appears.
 
         See also `Wait In Seconds`, `Wait For Pattern To Be Visible`
         `Wait For Pattern To Be Visible`, `Wait For Pattern To Vanish`.

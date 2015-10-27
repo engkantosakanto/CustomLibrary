@@ -9,20 +9,20 @@ class _OperatingSystemKeywords(KeywordGroup):
     # Public
 
     def get_env_OS(self):
-        """Returns the Operating System type of test pc.
+        """Returns the Operating System ``type`` of test pc.
         Example of Operating System `types`: WINDOWS, MAC, LINUX
         """
         self._info("OS version is '%s'." % self.env_OS)
         return self.env_OS
 
     def get_env_OS_version(self):
-        """Returns the Operating System `version` of test pc.
+        """Returns the Operating System ``version`` of test pc.
         """
         self._info("OS is '%s'." % self.env_OS_version)
         return self.env_OS_version
 
     def get_env_OS_type_and_version(self):
-        """Returns the Operating System `type` and `version` of test pc.
+        """Returns the Operating System ``type`` and ``version`` of test pc.
         """
         return str(self.env_OS) + " " + str(self.env_OS_version)
 

@@ -12,7 +12,7 @@ class _KeyboardActionsKeywords(KeywordGroup):
     """
 
     def press_keyboard_keys(self, keyboard_keys):
-        """ Simulates pressing keyboard keys.
+        """ Simulates pressing `keyboard keys`.
         Single key; 
         2-key combination example: Ctrl + Shift; 
         3-key combination example: Ctrl + Shift + Delete
@@ -34,7 +34,7 @@ class _KeyboardActionsKeywords(KeywordGroup):
             raise ValueError("Unsupported keys '%s'." % (keys))
 
     def press_key_n_times(self, keyboard_key, count):
-        """ Simulates pressing a key multiple times as specified by count value
+        """ Simulates pressing a `key` multiple times as specified by count value
 
         Examples:
         | Press Key N Times | BACKSPACE | 5 | # Press Backspace key five times |

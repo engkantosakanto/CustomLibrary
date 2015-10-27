@@ -14,7 +14,7 @@ class _RunOnFailureKeywords(KeywordGroup):
     def register_keyword_to_run_on_failure(self, keyword):
         """Sets the keyword to execute when a Selenium2Library keyword fails.
 
-        `keyword_name` is the name of a keyword (from any available
+        `keyword` is the name of a keyword (from any available
         libraries) that  will be executed if a Selenium2Library keyword fails.
         It is not possible to use a keyword that requires arguments.
         Using the value "Nothing" will disable this feature altogether.
