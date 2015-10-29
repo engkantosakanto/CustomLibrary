@@ -6,27 +6,56 @@ from FreelancerSikuliXRobotLibrary import utils
 class _RegionKeywords(KeywordGroup):
     def __init__(self):
         # Set target coordinates to Screen 1 as default
-        self.target_coordinates = (SCREEN.getX(), SCREEN.getY(), SCREEN.getW(), SCREEN.getH())
-        self.screen = Screen()
+        self.target_screen = None
         self._pattern_finder = PatternFinder()
 
     # Public
 
-    def set_search_region(self, coordinates):
-        """Sets the ROI or the search area to a specified ``coordinates``.
-        Searching for pattern match is faster if the search region is smaller. 
+    def set_search_region_to_target_screen(self, target_screen):
+        """Sets the ROI or the search area to a specified ``target_screen``.
+        Searching for pattern match is faster if the search region is smaller.
+
+        For more information on multi-monitor environment, see https://sikulix-2014.readthedocs.org/en/latest/screen.html
+
+        See also `Set Search Region To Active App`, `Set New Search Region In Active App`,
+        and `Set New Search Region In Target Screen`.
+
+        Example:
+        | Set Search Region To Target Screen | Screen 0 | # Sets ROI to the Primary Monitor  |
+        | Set Search Region To Target Screen | Screen 1 | # Sets ROI to Additional Monitor 1 |
+        | Set Search Region To Target Screen | Screen 2 | # Sets ROI to Additional Monitor 2 |
+        | Set Search Region To Target Screen | Screen 3 | # Sets ROI to Additional Monitor 3 |
+
         """
-        self._info("Setting search region to '%s'." % coordinates)
-        self._set_coordinates(coordinates)
-        setROI(*self.target_coordinates)
+        self._info("Setting search region to '%s'." % target_screen)
+        self.target_screen = target_screen
+        screen_number = self._parse_target_screen(self.target_screen)
+        setROI(Region(Screen(screen_number)))
+
+    def set_search_region_to_active_app(self):
+        """Sets the ROI or the search area to the application in focus.
+        Searching for pattern match is faster if the search region is smaller.
+
+        Example:
+        | Set Search Region To Active App | # Sets the search region to the application in focus | 
+
+        See also `Set Search Region To Target Screen`, `Set New Search Region In Active App`,
+        and `Set New Search Region In Target Screen`.
+        """
+        self._info("Setting the search region to the active application.")
+        setROI(*self.get_active_app_coordinates())
 
     def set_new_search_region_in_active_app(self, offsets):
-        """Sets new ROI or the search area to a specified ``offsets`` based on offsets of `active screen` region.
+        """Sets new ROI or the search area to a specified ``offsets`` based on original coordinate values of `active screen`.
+
+        See also `Set Search Region To Target Screen`, `Set Search Region To Active App`,
+        and `Set New Search Region In Target Screen`.
 
         Example:
         | Set New Search Region In Active App | 10, 60, -20, -270 | 
         # Offsets x, y, height, width to 10, 60, -20, -270 pixels respectively.
         """
+        self._info("Setting new search region to offsets '%s'." % offsets)
         (offsetx, offsety, offsetw, offseth) = self._parse_coordinate_offsets(offsets)
         active_app_region = self.get_active_app_region()
         new_coordinates = (active_app_region.x + offsetx, 
@@ -36,29 +65,36 @@ class _RegionKeywords(KeywordGroup):
                            )
         setROI(*new_coordinates)
 
-    def set_new_search_region_in_active_screen(self, offsets):
-        """Sets new ROI or new search area to a specified ``offsets`` based on offsets of `active app` region.
+    def set_new_search_region_in_target_screen(self, offsets, target_screen):
+        """Sets new ROI or new search area to a specified ``offsets`` based on original coordinate values of `target screen`.
+
+        See also `Set Search Region To Target Screen`, `Set New Search Region In Active App`,
+        and `Set Search Region To Active App`.
 
         Example:
-        | Set New Search Region In Active App | 10, 60, -20, -270 | 
-        # Offsets x, y, height, width to 10, 60, -20, -270 pixels respectively.
+        | Set New Search Region In Target Screen | 10, 60, -20, -270 | Screen 0 |
+        # Offsets x, y, height, width of the Primary Monitor to 10, 60, -20, -270 pixels respectively.
         """
+        self._info("Setting new search region to offsets '%s' of '%s'." % (offsets, target_screen))
+        self.target_screen = target_screen
         (offsetx, offsety, offsetw, offseth) = self._parse_coordinate_offsets(offsets)
-        active_screen_region = self.get_active_screen_region()
-        new_coordinates = (active_screen_region.x + offsetx, 
-                           active_screen_region.y + offsety,
-                           active_screen_region.w + offsetw,
-                           active_screen_region.h + offseth
+        screen_number = self._parse_target_screen(self.target_screen)
+        new_coordinates = (Sceen(screen_number).x + offsetx, 
+                           Sceen(screen_number).y + offsety,
+                           Sceen(screen_number).w + offsetw,
+                           Sceen(screen_number).h + offseth
                            )
         setROI(*new_coordinates)
 
-
-    def get_active_screen_coordinates(self):
-        """Returns the ``coordinates`` of the active screen.
+    def get_active_screen_coordinates(self, target_screen):
+        """Returns the ``coordinates`` of the screen as specified in `target_screen`.
         """
-        coordinates = (SCREEN.getX(), SCREEN.getY(), SCREEN.getW(), SCREEN.getH())
-        self._set_coordinates(coordinates)
-        return self.target_coordinates
+        screen_number = self._parse_target_screen(target_screen)
+        coordinates = (Screen(screen_number).getX(), 
+                       Screen(screen_number).getY(), 
+                       Screen(screen_number).getW(), 
+                       Screen(screen_number).getH())
+        return coordinates
 
     def get_active_app_coordinates(self):
         """Returns the ``coordinates`` of the `application` in focus.
@@ -69,9 +105,11 @@ class _RegionKeywords(KeywordGroup):
         | Get Active App Coordinates |                |# Gets the coordinates of `My Awesome App` |
         """
         activeWindow = App.focusedWindow();
-        coordinates = (activeWindow.getX(), activeWindow.getY(), activeWindow.getW(), activeWindow.getH())
-        self._set_coordinates(coordinates)
-        return self.target_coordinates
+        coordinates = (activeWindow.getX(), 
+                       activeWindow.getY(), 
+                       activeWindow.getW(), 
+                       activeWindow.getH())
+        return coordinates
 
     def get_reference_pattern_coordinates(self, pattern):
         """Returns the ``coordinates`` of the element identified by ``pattern``.
@@ -82,8 +120,7 @@ class _RegionKeywords(KeywordGroup):
         try:
             matched_pattern = find(self._pattern_finder._find_pattern(pattern))
             coordinates = (matched_pattern.getX(), matched_pattern.getY(), matched_pattern.getW(), matched_pattern.getH())
-            self._set_coordinates(coordinates)
-            return self.target_coordinates
+            return coordinates
         except FindFailed, err:
             raise AssertionError("Unable to find matching pattern '%s'." % (pattern))
 
@@ -104,11 +141,6 @@ class _RegionKeywords(KeywordGroup):
 
     # Private
     """***************************** Internal Methods ************************************"""
-    def _set_coordinates(self, target_coordinates):
-        self.target_coordinates = target_coordinates
-
-    def _get_coordinates(self):
-        return self.target_coordinates
 
     def _parse_coordinate_offsets(self, offsets):
         assert offsets is not None and len(offsets) > 0
@@ -117,3 +149,18 @@ class _RegionKeywords(KeywordGroup):
         for offset in offsets:
             offset_list.append(int(self._clean_string(offset)))
         return offset_list
+
+    def _parse_target_screen(self, target_screen):
+        assert target_screen is not None and len(target_screen) > 0
+        target_screen = target_screen.lower().replace("screen", "").strip()
+        target_screen = int(target_screen)
+
+        actual_screen_count = getNumberScreens()
+        if (actual_screen_count < target_screen):
+            raise ValueError("Actual screen count: '%s' is less than the specified target screen." % (actual_screen_count, target_screen))
+        return target_screen
+
+    def _get_target_screen(self):
+        if self.target_screen is not None:
+            return self.target_screen
+

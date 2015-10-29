@@ -47,11 +47,24 @@ class _KeyboardActionsKeywords(KeywordGroup):
     def type_string(self, string_param):
         """ Types a string as specified by `srtring_param`
 
+        See also `Paste String`.
+
         Example:
         | Type String | A quick cat fox jumps over the mat. | # Types the specified string |
         """
         string_param = self._clean_string(string_param)
         type(string_param)
+
+    def paste_string(self, string_param):
+        """ Pastes a string as specified by `srtring_param`
+
+        See also `Type String`.
+
+        Example:
+        | Paste String | A quick cat fox jumps over the mat. | # Types the specified string |
+        """
+        string_param = self._clean_string(string_param)
+        paste(string_param)
 
     # Private
     """***************************** INTERNAL METHODS ************************************"""

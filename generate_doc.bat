@@ -1,0 +1,1 @@
+jython -m robot.libdoc FreelancerSikuliXRobotLibrary\src\FreelancerSikuliXRobotLibrary FreelancerSikuliXRobotLibrary.html

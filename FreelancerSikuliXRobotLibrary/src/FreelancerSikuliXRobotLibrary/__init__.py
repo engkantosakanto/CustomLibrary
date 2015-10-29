@@ -74,8 +74,8 @@ class FreelancerSikuliXRobotLibrary(
     def __init__(self,
                  sikulix_timeout = 10.0,
                  sikulix_scanrate = 3.0,
-                 application_coordinates = (SCREEN.getX(), SCREEN.getY(), SCREEN.getW(), SCREEN.getH()),
                  screenshot_directory = None,
+                 target_screen = 'Screen 0',
                  run_on_failure ='Capture Screenshot Of Active App'
     ):
 
@@ -87,6 +87,9 @@ class FreelancerSikuliXRobotLibrary(
         `sikulix_scanrate` is the default search rate for the given Visual rate times per second
         until `pattern` is found or the `timeout` is reached. Default `sikulix_scanrate` value is 3.
         It can be later set with `Set SikuliX Scanrate`.
+
+        `target_screen` is the default screen for multi-monitor environments. For more information on multi-monitor environments,
+        see https://sikulix-2014.readthedocs.org/en/latest/screen.html
 
         `run_on_failure` specifies the name of a keyword (from any available
         libraries) to execute when a FreelancerSikuliXRobotLibrary keyword fails. By default
@@ -109,7 +112,7 @@ class FreelancerSikuliXRobotLibrary(
             base.__init__(self)
         self.sikulix_timeout = sikulix_timeout
         self.sikulix_scanrate = sikulix_scanrate
-        self.application_coordinates = application_coordinates
         self.screenshot_directory = screenshot_directory
+        self.target_screen = target_screen
         self.register_keyword_to_run_on_failure(run_on_failure)
         self.ROBOT_LIBRARY_LISTENER = LibraryListener()

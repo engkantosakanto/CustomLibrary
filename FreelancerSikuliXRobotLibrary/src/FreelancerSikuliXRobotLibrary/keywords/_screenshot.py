@@ -103,10 +103,11 @@ class _ScreenshotKeywords(KeywordGroup):
         target = target.lower()
         if (target == "activeapp"):
             target = self.get_active_app_coordinates()
-        elif(target == "screen"):
-            target = self.get_active_screen_coordinates()
         else:
-            target = self.get_reference_pattern_coordinates(target)
+            if(target.find('screen') != -1):
+                target = self.get_active_screen_coordinates(target)
+            else:
+                target = self.get_reference_pattern_coordinates(target)
         return target
 
     # Private

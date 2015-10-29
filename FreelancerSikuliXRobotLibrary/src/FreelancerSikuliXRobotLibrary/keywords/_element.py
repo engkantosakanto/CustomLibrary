@@ -63,7 +63,6 @@ class _ElementKeywords(KeywordGroup):
         self._info("Highlighting specified ROI or search region for '%s'second(s)." % (highlight_duration))
         highlight(highlight_duration)
 
-
     def click_pattern(self, pattern):
         """Perform a mouse `click` on the click point using the `left` button.
         Click point is at the `center` of the element identified by ``pattern``.
@@ -596,15 +595,11 @@ class _ElementKeywords(KeywordGroup):
             mouse_button = Button.RIGHT
         return mouse_button
 
-    def _set_ROI_to_active_app(self):
-        self._info("Setting the search region to the active application.")
-        setROI(*self.get_active_app_coordinates())
-
     def _set_image_order(self, match):
         return match.x, match.y
 
     def _get_all_patterns_in_active_app(self, pattern):
-        self._set_ROI_to_active_app()
+        self.set_search_region_to_active_app()
         active_app_region = Region(*self.get_active_app_coordinates())
         list_of_patterns = []; sorted_patterns = []
         try:

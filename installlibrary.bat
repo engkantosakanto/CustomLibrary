@@ -1,0 +1,1 @@
+jython FreelancerSikuliXRobotLibrary\setup.py install
