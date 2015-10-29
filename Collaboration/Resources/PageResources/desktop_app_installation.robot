@@ -12,6 +12,8 @@ The Desktop App Installer Exists In Download Directory
 User Runs The Freelancer Desktop App
     Open Application    Freelancer Desktop App    ${${OS_TYPE}_DESKTOP_APP_EXECUTABLE}
 
+
+
 #===============================================================#
 #                            WHEN
 #===============================================================#
@@ -24,9 +26,9 @@ User Runs the Desktop App Installer
     Start Process    ${${OS_TYPE}_DOWNLOAD_DIRECTORY}/${${OS_TYPE}_DESKTOPAPP_INSTALLER}
     Set Focus To "Setup - Freelancer Desktop App" Window
     Repeat Keyword    4 times    User Clicks Desktop App "Setup Next" "Button"
-    User Clicks Desktop App "Setup Install" "Button"
+    User Clicks OS "Setup Install" "Button"
     Wait Until Pattern Is Visible
-    User Clicks Desktop App "Setup Finish" "Button"
+    User Clicks OS "Setup Finish" "Button"
 #===============================================================#
 #                            THEN
 #===============================================================#

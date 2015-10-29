@@ -54,7 +54,7 @@ class _WaitingKeywords(KeywordGroup):
         See also `Wait In Seconds`, `Wait Until Pattern Is Visible`, 
         `Wait For Pattern To Vanish` and `Wait Until Pattern Vanish`.
         """
-        self._set_ROI_to_active_app()
+        self.set_search_region_to_active_app()
         self._info("Waiting for pattern '%s' to be visible." % (pattern))
         try:
             pattern = self._pattern_finder._find_pattern(pattern)
@@ -76,7 +76,7 @@ class _WaitingKeywords(KeywordGroup):
         `Wait For Pattern To Vanish` and `Wait Until Pattern Vanish`.
         """
         self._info("Setting wait value to '%s'." % (timeout))
-        self._set_ROI_to_active_app()
+        self.set_search_region_to_active_app()
         try:
             timeout = self._clean_string(timeout)
             pattern = self._pattern_finder._find_pattern(pattern)
@@ -97,7 +97,7 @@ class _WaitingKeywords(KeywordGroup):
         `Wait Until Pattern Is Visible`, and `Wait Until Pattern Vanish`.
         """
         self._info("Waiting for pattern '%s' to vanish." % (pattern))
-        self._set_ROI_to_active_app()
+        self.set_search_region_to_active_app()
         pattern = self._pattern_finder._find_pattern(pattern)
         hidden = waitVanish(pattern)
         self._debug(hidden)
@@ -120,7 +120,7 @@ class _WaitingKeywords(KeywordGroup):
         `Wait For Pattern To Be Visible`, `Wait For Pattern To Vanish`.
         """
         self._info("Setting wait value to '%s'." % (timeout))
-        self._set_ROI_to_active_app()
+        self.set_search_region_to_active_app()
         timeout = self._clean_string(timeout)
         pattern = self._pattern_finder._find_pattern(pattern)
         hidden = None

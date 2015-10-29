@@ -23,7 +23,7 @@ class _AssertionKeywords(KeywordGroup):
         # Asserts that pattern is visible in the new search region in active app as defined by offset values.
         """
         self._info("Asserting that pattern, '%s' is visible in app." % (pattern))
-        self._set_ROI_to_active_app()
+        self.set_search_region_to_active_app()
         try:
             assert exists(self._pattern_finder._find_pattern(pattern))
         except AssertionError, err:
@@ -56,7 +56,7 @@ class _AssertionKeywords(KeywordGroup):
         See `introduction` for details about locating elements.
         """
         self._info("Asserting that pattern, '%s' is not visible in app." % (pattern))
-        self._set_ROI_to_active_app()
+        self.set_search_region_to_active_app()
         try:
             assert not exists(self._pattern_finder._find_pattern(pattern))
         except AssertionError, err:
