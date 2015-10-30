@@ -6,47 +6,46 @@ Resource          ../Variables/desktop_app_installation_constants.robot
 #===============================================================#
 #                            GIVEN
 #===============================================================#
-The Desktop App Installer Exists In Download Directory
-    Installer Should Exist In "${OS_TYPE}" Download Directory
+The Freelancer Desktop App Installer Exists In Download Directory
+    File "Desktop App Installer" Should Exist
 
 User Runs The Freelancer Desktop App
-    Open Application    Freelancer Desktop App    ${${OS_TYPE}_DESKTOP_APP_EXECUTABLE}
-
-
+    Run Application "Freelancer Desktop App" Via "Desktop App Executable"
 
 #===============================================================#
 #                            WHEN
 #===============================================================#
-User Downloads The Desktop App Installer
-    User Clicks "${OS_TYPE} Select" "Button"
-    User Clicks "Desktop App Download Now" "Button"
-    Run And Wait Until Keyword Succeeds    User Clicks "Save File" Region
+User Downloads The Freelancer Desktop App Installer
+    Click "${OS_TYPE} Select" "Button"
+    Click "Desktop App Download Now" "Button"
+    Run And Wait Until Keyword Succeeds    Click OS "Save File" "Button"
 
-User Runs the Desktop App Installer
-    Start Process    ${${OS_TYPE}_DOWNLOAD_DIRECTORY}/${${OS_TYPE}_DESKTOPAPP_INSTALLER}
-    Set Focus To "Setup - Freelancer Desktop App" Window
-    Repeat Keyword    4 times    User Clicks Desktop App "Setup Next" "Button"
-    User Clicks OS "Setup Install" "Button"
-    Wait Until Pattern Is Visible
-    User Clicks OS "Setup Finish" "Button"
+User Runs the Freelancer Desktop App Installer
+    Run Keyword If    '${OS_TYPE}' == 'Windows'
+    ...    Install Freelancer Desktop App in Windows
+
+User Uninstalls The Freelancer Desktop App
+    Run Keyword If    '${OS_TYPE}' == 'Windows'
+    ...    Uninstall Freelancer Desktop App in Windows
+
 #===============================================================#
 #                            THEN
 #===============================================================#
-The Desktop App Installer Should Be Successfully Downloaded
-    Wait Until Created    ${${OS_TYPE}_DOWNLOAD_DIRECTORY}/${${OS_TYPE}_DESKTOPAPP_INSTALLER}
-    The Desktop App Installer Should Exist In Download Directory
-    The File Size of Desktop App Installer Should be Correct
+The Freelancer Desktop App Installer Should Be Successfully Downloaded
+    Wait Until "Desktop App Installer" Is Created
+    File "Desktop App Installer" Should Exist
+    The File Size of Freelancer Desktop App Installer Should be Correct
 
-The Desktop App Installer Should Be Successfully Installed
-    Directory Should Not Be Empty    ${${OS_TYPE}_APPLICATION_INSTALLATION_DIRECTORY}
-    File Should Exist    ${${OS_TYPE}_DESKTOP_APP_EXECUTABLE}
+The Freelancer Desktop App Installer Should Be Successfully Installed
+    Directory "Application Installation Directory" Should Not Be Empty
+    File "Desktop App Executable" Should Exist
 
-The File Size of Desktop App Installer Should be Correct
+The File Size of Freelancer Desktop App Installer Should be Correct
     Should Be Equal As Strings    ${DESKTOP_APP_INSTALLER_FILE_SIZE}
     ...    ${${OS_TYPE}_DESKTOPAPP_INSTALLER_FILE_SIZE}
 
-The Desktop App Installer Should Exist In Download Directory
-    File Should Exist    ${${OS_TYPE}_DOWNLOAD_DIRECTORY}/${${OS_TYPE}_DESKTOPAPP_INSTALLER}
+The Freelancer Desktop App Installer Should Exist In Download Directory
+    File "Desktop App Installer" Should Exist
 
 The Update Checker Should Be Displayed
     List Of Patterns Should Be Visible    @{UPDATE_CHECKER_CORE_ELEMENTS_LIST}
@@ -56,8 +55,34 @@ The Update Checker Should Be Displayed
 #===============================================================#
 
 Get File Size Of Windows Desktop App Installer
-    ${t_DesktopAppInstallerFileSize}=
-    ...    Get File Size    ${${OS_TYPE}_DOWNLOAD_DIRECTORY}/${${OS_TYPE}_DESKTOPAPP_INSTALLER}
+    ${t_DesktopAppInstallerFileSize}=    Get "Desktop App Installer" File Size
     ${t_DesktopAppInstallerFileSize}=    Convert To String    ${t_DesktopAppInstallerFileSize}
     Set Test Variable    ${DESKTOP_APP_INSTALLER_FILE_SIZE}    ${t_DesktopAppInstallerFileSize}
 
+Install Freelancer Desktop App in Windows
+    Open "Desktop App Installer" Application
+    Wait Until "Setup - Freelancer Desktop App" Window Is Visible
+    Set Focus To "Setup - Freelancer Desktop App" Window
+    Repeat Keyword    4 times    Click OS "Setup Next" "Button"
+    Click OS "Setup Install" "Button"
+    Element "${WINDOWS_COMPLETING_INSTALLATION_DIALOG}" Should Be Visible Before Timeout
+    Click OS "Setup Launch App" "Button"    # Unchecks the Launch Application checkbox
+    Click OS "Setup Finish" "Button"
+
+
+Uninstall Freelancer Desktop App in Windows
+    [Documentation]    Uninstalls the Freelancer Desktop App from Control Panel. Note that unsinstallation using unins000.exe leaves traces of the application in Windows and may pose issues during installation.
+    Run Command    control appwiz.cpl
+    Element "${WINDOWS_PROGRAMS_CONTROL_PANEL} " Should Be Visible Before Timeout
+    Press Keyboard Key    CTRL + F
+    Type String    ${FREELANCER_DESKTOP_APP_NAME}
+    Wait In Seconds    1
+    Hover At Pattern    ${WINDOWS_DESKTOP_APP_IN_CONTROL_PANEL}
+    Right Click At Pattern    ${WINDOWS_DESKTOP_APP_IN_CONTROL_PANEL}
+    Press Keyboard Key    DOWN
+    Press Keyboard Key    ENTER
+    Wait Until "Uninstall" Window Is Visible
+    Click Desktop App "Uninstall Yes" "Button"
+    Element "${WINDOWS_UNINSTALL_SUCCESSFULL_DIALOG}" Should Be Visible Before Timeout
+    Click Desktop App "Uninstall Complete OK" "Button"
+    Press Keyboard Key    CTRL + W

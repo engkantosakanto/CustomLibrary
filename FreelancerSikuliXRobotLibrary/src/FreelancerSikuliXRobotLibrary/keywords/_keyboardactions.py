@@ -11,16 +11,17 @@ class _KeyboardActionsKeywords(KeywordGroup):
     is typed instead as a string or character respectively.
     """
 
-    def press_keyboard_keys(self, keyboard_keys):
+    def press_keyboard_key(self, keyboard_keys):
         """ Simulates pressing `keyboard keys`.
         Single key; 
         2-key combination example: Ctrl + Shift; 
         3-key combination example: Ctrl + Shift + Delete
 
         Examples:
-        | Press Two Key Combination   | CTRL + A              | # Press Ctrl + A              |
-        | Press Two Key Combination   | CTRL + Shift          | # Press Ctrl + Shift          |
-        | Press Three Key Combination | CTRL + Shift + Delete | # Press Ctrl + Shift + Delete |
+        | Press Keyboard Key | DELETE                | # Presses the Delete button           |
+        | Press Keyboard Key | CTRL + A              | # Presses the keys Ctrl + A              |
+        | Press Keyboard Key | CTRL + Shift          | # Presses the keys Ctrl + Shift          |
+        | Press Keyboard Key | CTRL + Shift + Delete | # Presses the keys Ctrl + Shift + Delete |
         """
         (keys, len_keys) =self._split_and_map_keys(keyboard_keys)
         try:

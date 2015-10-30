@@ -1,4 +1,5 @@
 from sikuli import *
+import os
 from keywordgroup import KeywordGroup
 
 class _ApplicationKeywords(KeywordGroup):
@@ -35,23 +36,104 @@ class _ApplicationKeywords(KeywordGroup):
         except FinFailed, err:
             raise AssertionError("Application '%s' not found." % (app_name))
 
-    def open_application(self, path, app_name):
-        """Opens application matching the given ``app_name`` and ``path``."""
+    def check_and_open_application(self, path, app_name):
+        """Checks if application is running and sets the focus to the application, 
+        otherwise, opens application matching the given ``app_name`` and ``path``.
+
+        Example:
+        | Open Application | My Awesome App | C:/Program Files (x86)/Awesome App/awesomeapp.exe | # Opens `My Awesome App`, if app is already running, sets the focus to the app |
+
+        See also `Close Application`, `Open Application`, 
+        `Run Command` and `Application Is Running`
+        """
         self._info("Opening application '%s' in path '%s'." % (app_name, path))
-        self._set_application_path(path)
-        self._set_application_name(app_name)
-        try:
+        if os.path.exists(path):
+            self._set_application_path(path)
+            self._set_application_name(app_name)
+
             if not App(self.application_name).isRunning():
                 App.open(self.application_path)
-        except FindFailed, err:
-            raise AssertionError("Application '%s' not found." % (app_name))
+            else:
+                App.focus(app_name)
+        else:
+            raise AssertionError("Application path '%s' not found." % (path))
 
     def close_application(self, app_name):
-        """Closes the open application matching the given ``app_name``."""
+        """Checks if the application matching the given ``app_name`` is running then closes it.
+
+        See also `Check And Open Application`, `Open Application` and `Application Is Running`
+        """
         self._info("Closing application '%s'." % app_name)
         self._set_application_name(app_name)
         if App(self.application_name).isRunning():
             App.close(self.application_name)
+
+    def open_application(self, application_path):
+        """opens the application matching the given ``application_path``.
+
+        See also `Check And Open Application`, `Close Application` and `Application Is Running`
+        """
+        if os.path.exists(path):
+            App.open(application_path)
+        else:
+            raise AssertionError("Application path '%s' not found." % (path))
+
+    def application_is_running(self, app_name):
+        """Returns `True` if application as specified in `app_name` is running, else, returns `False`.
+
+        See also `Check And Open Application`, `Close Application`, and `Open Application`.
+        """
+        return App(app_name).isRunning()
+
+    def run_command(self, command):
+        """Runs a command, script or application path as specified in `command`.
+
+        Example:
+        | Run Command | control appwiz.cpl | # Opens the Windows Control Panel > Programs and Features window. |
+        """
+        run(script)
+
+    def app_has_window(self, app_name):
+        """Returns `True` if application's window or dialog as specified in `app_name` is open,
+        else, returns `False`.
+
+        See also `App Get Process ID`, `App Get Name` and `App Get Window`.
+        Example:
+        | App Has Window | Calculator | # Returns `True` Calculator app is running in windows, else `False`. |
+        """
+        return App(app_name).hasWindow()
+
+    def app_get_process_ID(self, app_name):
+        """Returns the application's process ID as number if app is running, -1 otherwise.
+
+        See also `App Has Window`, `App Get Name` and `App Get Window`.
+
+        Example:
+        | App Get Process ID | Calculator | # Returns a number if Calculator app is running in windows, else `-1`. |
+        """
+        return App(app_name).getPID()
+
+    def app_get_name(self, app_name):
+        """Returns the application's short name as show in the process list.
+
+        See also `App Has Window`, `App Get Process ID` and `App Get Window`.
+
+        Example:
+        | App Get Name | Calculator | # Returns `calc.exe` if Calculator app is running in windows. |
+        """
+        return App(app_name).getName()
+
+
+    def app_get_window(self, app_name):
+        """Returns the title of the frontmost window of the application as specified in `app_name`, 
+        might be an empty string
+
+        See also `App Has Window`, `App Get Process ID` and `App Get Name`.
+
+        Example:
+        | App Get Window | Calculator | # Returns `Calculator` if Calculator app is running in windows. |
+        """
+        return App(app_name).getWindow()
 
     # Private
     """***************************** Internal Methods ************************************"""
