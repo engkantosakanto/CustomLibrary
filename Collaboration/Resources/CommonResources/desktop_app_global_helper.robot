@@ -33,6 +33,8 @@ Click Desktop App "${p_element}" "${p_element_type}"
 Run Application "${p_application_name}" Via "${p_application_executable}"
     Get OS Type
     Check And Open Application    ${p_application_name}    ${${OS_TYPE}_${p_application_executable}}
+    Wait Until Keyword Succeeds    ${TIMEOUT}    ${RETRY_INTERVAL}
+    ...    Window "${p_application_name}" Should Be Open
 
 Input "${p_field_value}" In "${p_element}" "${p_element_type}"
     Set New Search Region In Active App    ${${p_element}_${p_element_type}_REGION}
