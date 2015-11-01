@@ -6,7 +6,6 @@ Default Tags      EndToEndDesktopInstallationTest    ENDTOEND    DESKTOP    COLL
 Resource          ../Resources/PageResources/desktop_app_installation.robot
 Resource          ../../Resources/CommonResources/global_helper.robot
 
-
 *** Variables ***
 ${freelancerUsername}    botFLNFTDTLogin
 ${freelancerFBUsername}    thecrimsonhog@gmail.com

@@ -21,7 +21,14 @@ class _ElementKeywords(KeywordGroup):
     
     def click_region(self):
         """Left-clicks the center x,y coordinate of a specified ROI or search region.
-        Must be paired with Set New Search Region In Active App or Set New Search Region In Active Screen.
+
+        This keyword must be paired with any of the following keywords:
+        `Set Search Region To Target Screen`, `Set New Search Region In Active App`, 
+        `Set Search Region To Application`, `Set New Search Region In Target Screen` or 
+        `Set New Search Region In Application`.
+
+        See also `Double Click Region`, `Right Click Region`, `Get Text In Search Region`
+        and `Highlight Region`.
 
         Example:
         | Set New Search Region In Active App | 10, 60, -20, -270 | # Sets offset values to a region of active app.            |
@@ -32,7 +39,14 @@ class _ElementKeywords(KeywordGroup):
 
     def double_click_region(self):
         """Double-clicks the center x,y coordinate of a specified ROI or search region.
-        Must be paired with Set New Search Region In Active App or Set New Search Region In Active Screen.
+
+        This keyword must be paired with any of the following keywords:
+        `Set Search Region To Target Screen`, `Set New Search Region In Active App`, 
+        `Set Search Region To Application`, `Set New Search Region In Target Screen` or 
+        `Set New Search Region In Application`.
+
+        See also `Click Region`, `Right Click Region`, `Get Text In Search Region`
+        and `Highlight Region`.
 
         Example:
         | Set New Search Region In Active App | 10, 60, -20, -270 | # Sets offset values to a region of active app.                   |
@@ -43,7 +57,14 @@ class _ElementKeywords(KeywordGroup):
 
     def right_click_region(self):
         """Right-clicks the center x,y coordinate of a specified ROI or search region.
-        Must be paired with Set New Search Region In Active App or Set New Search Region In Active Screen.
+
+        This keyword must be paired with any of the following keywords:
+        `Set Search Region To Target Screen`, `Set New Search Region In Active App`, 
+        `Set Search Region To Application`, `Set New Search Region In Target Screen` or 
+        `Set New Search Region In Application`.
+
+        See also `Click Region`, `Double Click Region`, `Get Text In Search Region`
+        and `Highlight Region`.
 
         Example:
         | Set New Search Region In Active App | 10, 60, -20, -270 | # Sets offset values to a region of active app.                   |
@@ -54,7 +75,13 @@ class _ElementKeywords(KeywordGroup):
 
     def highlight_region(self, highlight_duration):
         """Highlights the specified ROI or search region for a specified ``highlight_duration`` in seconds.
-        Must be paired with Set New Search Region In Active App or Set New Search Region In Active Screen.
+
+        This keyword must be paired with any of the following keywords:
+        `Set Search Region To Target Screen`, `Set New Search Region In Active App`, 
+        `Set Search Region To Application`, `Set New Search Region In Target Screen` or 
+        `Set New Search Region In Application`.
+
+        See also `Click Region`, `Double Click Region`, `Right Click Region` and `Get Text In Search Region`.
 
         Example:
         | Set New Search Region In Active App | 10, 60, -20, -270 | # Sets offset values to a region of active app.                 |
@@ -215,6 +242,7 @@ class _ElementKeywords(KeywordGroup):
     """************************** MOUSE ACTIONS DRAG AND DROP *****************************"""
     def drag_pattern(self, pattern):
         """`Drag Pattern` and `Drop At Pattern` keywords must be used in pairs to complete a drag and drop action.
+
         Examples:
         | Drag Pattern    | pattern.png = 0.90 | # Drag element identified by pattern.png    |
         | Drop At Pattern | pattern.png = 0.90 | # Drag at element identified by pattern.png |
@@ -224,6 +252,7 @@ class _ElementKeywords(KeywordGroup):
 
     def drop_at_pattern(self, pattern):
         """`Drag Pattern` and `Drop At Pattern` keywords must be used in pairs to complete a drag and drop action.
+
         Examples:
         | Drag Pattern    | pattern.png | # Drag element identified by pattern.png    |
         | Drop At Pattern | pattern.png | # Drag at element identified by pattern.png |
@@ -245,6 +274,7 @@ class _ElementKeywords(KeywordGroup):
 
     def drag_and_drop_element(self, pattern1, pattern2):
         """Drag and drop an element identified by ``pattern1`` to another element identified by ``pattern2``.
+
         Example:
         | Drag and drop | pattern1.png = 0.90 | pattern2.png = 0.90 | # Drag element identified by pattern.png |
         """
@@ -254,6 +284,7 @@ class _ElementKeywords(KeywordGroup):
     """***************************** KEYBOARD ACTIONS ************************************"""
     def paste_text_in_pattern(self, pattern, text):
         """Paste a `text` in element identified by ``pattern``.
+
         Example:
         | Paste Text In Pattern | pattern.png = 0.90 | This is a sample text. | # Paste a text in element identified by pattern.png |
         """
@@ -262,6 +293,7 @@ class _ElementKeywords(KeywordGroup):
         self._pattern_find(pattern, None, None).paste(text)
 
     def paste_text_in_pattern_at_coordinates(self, pattern, text, xoffset, yoffset):
+
         """Paste a `text` at `x/y` coordinates of the element identified by ``pattern``.
         Example:
         | Paste Text In Pattern | pattern.png = 0.90 | 30 | 30 | This is a sample text. | # Paste a text in x/y coordinates of element identified by pattern.png |
@@ -271,6 +303,7 @@ class _ElementKeywords(KeywordGroup):
 
     def type_text_in_pattern(self, pattern, text):
         """Type a `text` in element identified by ``pattern``.
+
         Example:
         | Type Text In Pattern | pattern.png = 0.90 | This is a sample text. | # Type a text in element identified by pattern.png |
         """
@@ -280,6 +313,7 @@ class _ElementKeywords(KeywordGroup):
 
     def type_text_in_pattern_at_coordinates(self, pattern, text, xoffset, yoffset):
         """Paste a `text` at `x/y` coordinates of the element identified by ``pattern``.
+
         Example:
         | Type Text In Pattern | pattern.png = 0.90 | 30 | 30 | This is a sample text. | # Type a text in x/y coordinates of element identified by pattern.png |
         """
@@ -306,8 +340,15 @@ class _ElementKeywords(KeywordGroup):
         return self._read_text_in_pattern(pattern, search_location)
 
     def get_text_in_search_region(self, search_location):
-        """Returns the text from a specified ``search location``. This keyword must be paired with the keywords 
-        Set New Search Region In Active App or Set New Search Region In Active Screen.
+        """Returns the text from a specified ``search location``. 
+
+        This keyword must be paired with any of the following keywords:
+        `Set Search Region To Target Screen`, `Set New Search Region In Active App`, 
+        `Set Search Region To Application`, `Set New Search Region In Target Screen` or 
+        `Set New Search Region In Application`.
+
+        See also `Click Region`, `Double Click Region`, `Right Click Region`,
+        and `Highlight Region`.
 
         Examples:
         | Set New Search Region In Active App | 10, 60, -20, -270 | # Sets offset values to a region of active app.        |
@@ -322,14 +363,14 @@ class _ElementKeywords(KeywordGroup):
     """***************************** DO SOMETHING IN MATCHING PATTERNS IN ACTIVE WINDOW ************************************
     Keywords used when multiple patterns on screen is present.
     Search region or setROI() value is set to the application in focus as default.
-    Pattern sensitivity must be set at max level (0.99) inorder to avoid false positives during image detections.
+    Pattern sensitivity must be set at max level (0.99) in order to avoid false positives during image detections.
     """
 
     def get_pattern_count_in_active_app(self, pattern):
         """Returns the count of elements identified by ``pattern`` in the region of an active application.
 
         Search region or setROI() value is set to the application in focus as default.
-        Pattern sensitivity must be set at max level (0.99) inorder to avoid false positives during image detections.
+        Pattern sensitivity must be set at max level (0.99) in order to avoid false positives during image detections.
         Search for matching patterns is set to top > down > left > right.
         """
         self._info("Getting count of pattern '%s' in active app." % pattern)
@@ -341,7 +382,7 @@ class _ElementKeywords(KeywordGroup):
         Click point is at the `center` of the nth element identified by ``pattern``.
         This Keyword is useful when multiple patterns on screen is present.
         Search region or setROI() value is set to the application in focus as default.
-        Pattern sensitivity must be set at maximum level (0.99) inorder to avoid false positives during image detections.
+        Pattern sensitivity must be set at maximum level (0.99) in order to avoid false positives during image detections.
         Search for matching patterns is set to top > down > left > right.
 
         Example:
@@ -356,7 +397,7 @@ class _ElementKeywords(KeywordGroup):
         Click point is at the `center` of the nth element identified by ``pattern``.
         This Keyword is useful when multiple patterns on screen is present.
         Search region or setROI() value is set to the application in focus as default.
-        Pattern sensitivity must be set at max level (0.99) inorder to avoid false positives during image detections.
+        Pattern sensitivity must be set at max level (0.99) in order to avoid false positives during image detections.
         Search for matching patterns is set to top > down > left > right.
 
         Example:
@@ -371,7 +412,7 @@ class _ElementKeywords(KeywordGroup):
         Click point is at the `center` of the nth element identified by ``pattern``.
         This Keyword is useful when multiple patterns on screen is present.
         Search region or setROI() value is set to the application in focus as default.
-        Pattern sensitivity must be set at max level (0.99) inorder to avoid false positives during image detections.
+        Pattern sensitivity must be set at max level (0.99) in order to avoid false positives during image detections.
         Search for matching patterns is set to top > down > left > right.
 
         Example:
@@ -386,7 +427,7 @@ class _ElementKeywords(KeywordGroup):
 
         This Keyword is useful when multiple patterns on screen is present.
         Search region or setROI() value is set to the application in focus as default.
-        Pattern sensitivity must be set at max level (0.99) inorder to avoid false positives during image detections.
+        Pattern sensitivity must be set at max level (0.99) in order to avoid false positives during image detections.
         Search for matching patterns is set to top > down > left > right.
 
         Example:
@@ -401,7 +442,7 @@ class _ElementKeywords(KeywordGroup):
 
         This Keyword is useful when multiple patterns on screen is present.
         Search region or setROI() value is set to the application in focus as default.
-        Pattern sensitivity must be set at max level (0.99) inorder to avoid false positives during image detections.
+        Pattern sensitivity must be set at max level (0.99) in order to avoid false positives during image detections.
         Search for matching patterns is set to top > down > left > right.
 
         Example:
@@ -419,13 +460,14 @@ class _ElementKeywords(KeywordGroup):
 
         This Keyword is useful when multiple patterns on screen is present.
         Search region or setROI() value is set to the application in focus as default.
-        Pattern sensitivity must be set at max level (0.99) inorder to avoid false positives during image detections.
+        Pattern sensitivity must be set at max level (0.99) in order to avoid false positives during image detections.
         Search for matching patterns is set to top > down > left > right.
 
         Examples:
         | Drag Nth Pattern In Active App    | pattern.png = 0.99 | 1  | # Drags the first instance of an element identified by pattern.png   |
         | Drop At Nth Pattern In Active App | pattern.png = 0.99 | 13 | # Drops at the 13th instance of an element identified by pattern.png |
         """
+
         self._info("Dragging '%s'nth pattern '%s' in active app." % (pattern_index, pattern))
         drag(self._get_nth_pattern(pattern, pattern_index))
 
@@ -435,13 +477,14 @@ class _ElementKeywords(KeywordGroup):
 
         This Keyword is useful when multiple patterns on screen is present.
         Search region or setROI() value is set to the application in focus as default.
-        Pattern sensitivity must be set at max level (0.99) inorder to avoid false positives during image detections.
+        Pattern sensitivity must be set at max level (0.99) in order to avoid false positives during image detections.
         Search for matching patterns is set to top > down > left > right.
 
         Examples:
         | Drag Nth Pattern In Active App    | pattern.png = 0.99 | 13  | # Drags the 13th instance of an element identified by pattern.png   |
         | Drop At Nth Pattern In Active App | pattern.png = 0.99 | 1 | # Drops at the first instance of an element identified by pattern.png |
         """
+
         self._info("Dropping at '%s'nth pattern '%s' in active app." % (pattern_index, pattern))
         dropAt(self._get_nth_pattern(pattern, pattern_index))
 
@@ -450,13 +493,14 @@ class _ElementKeywords(KeywordGroup):
 
         This Keyword is useful when multiple patterns on screen is present.
         Search region or setROI() value is set to the application in focus as default.
-        Pattern sensitivity must be set at max level (0.99) inorder to avoid false positives during image detections.
+        Pattern sensitivity must be set at max level (0.99) in order to avoid false positives during image detections.
         Search for matching patterns is set to top > down > left > right.
 
         Examples:
         | Drag and drop | pattern1.png = 0.90 | 1 | pattern2.png = 0.90 | 2 | # Drag and drop the first instance of pattern1.png to the 2nd instance of pattern2.png |
         | Drag and drop | pattern.png = 0.90  | 3 | pattern.png = 0.90  | 4 | # Drag and drop the third instance to the fourth instance of pattern.png |
         """
+
         self._info("Performing drag and drop from element '%s' to element '%s'." % (pattern1, pattern2))
         dragDrop(self._get_nth_pattern(pattern1, pattern1_index),
                  self._get_nth_pattern(pattern2, pattern2_index))
@@ -476,23 +520,22 @@ class _ElementKeywords(KeywordGroup):
 
         This Keyword is useful when multiple patterns on screen is present.
         Search region or setROI() value is set to the application in focus as default.
-        Pattern sensitivity must be set at max level (0.99) inorder to avoid false positives during image detections.
+        Pattern sensitivity must be set at max level (0.99) in order to avoid false positives during image detections.
         Search for matching patterns is set to top > down > left > right.
 
         Example:
         | Type Text At Nth Pattern In Active App | pattern.png = 0.90 | 3 | This is a sample text. | # Type a text in third element identified by pattern.png |
         """
+
         self._info("Typing text '%s' in '%s'nth pattern '%s' in active app." % (text, pattern_index, pattern))
         self._get_nth_pattern(pattern, pattern_index).type(text)
-
-
 
     def get_text_in_nth_pattern(self, pattern, pattern_index, search_location):
         """Return the `text` in nth element identified by ``pattern``.
 
         This Keyword is useful when multiple patterns on screen is present.
         Search region or setROI() value is set to the application in focus as default.
-        Pattern sensitivity must be set at max level (0.99) inorder to avoid false positives during image detections.
+        Pattern sensitivity must be set at max level (0.99) in order to avoid false positives during image detections.
         Search for matching patterns is set to top > down > left > right.
 
         Examples:
@@ -502,6 +545,7 @@ class _ElementKeywords(KeywordGroup):
         | Get Text In Nth Pattern At Location And Area | pattern.png | 3 | above = 500 | # Returns the text within 500px above of the third instance of pattern.png  |
         | Get Text In Nth Pattern At Location And Area | pattern.png | 5 | below = 600 | # Returns the text within 600px below of the fifth instance of pattern.png  |
         """
+
         self._info("Getting texts in '%s' nth pattern at '%s' of pattern '%s'." % (pattern_index, search_location, pattern))
         pattern = self._get_nth_pattern(pattern, pattern_index)
         return self._read_text(pattern, search_location)
@@ -512,6 +556,7 @@ class _ElementKeywords(KeywordGroup):
         """Finds ``pattern`` on search region set by active application.
         To do: dynamic search region where user can set the search region to either, active application, specific region or screen
         """
+
         active_app_window = App.focusedWindow();
         app_coordinates = (active_app_window.getX(), active_app_window.getY(), active_app_window.getW(), active_app_window.getH())
         setROI(*app_coordinates)

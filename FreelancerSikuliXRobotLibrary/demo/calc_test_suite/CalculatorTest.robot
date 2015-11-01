@@ -1,29 +1,24 @@
 *** Settings ***
-Library           FreelancerSikuliXRobotLibrary
-Resource          CalculatorTestVariables.robot
-Resource          CalculatorTestHelpers.robot
-Suite Setup       Set Image Library    ${IMAGE_LIBRARY}
-Test Setup        Setup Calculator App
-Test Teardown     Close Application    Calculator
-Default Tags      DemoTest
+Documentation     Calculator test suite for the common operations. Does not use patterns as parameters in the keywords but uses offsets of regions instead
+Resource          CalculatorTestGivenWhenThen.robot
+Test Setup        Open "Calculator" Application
+Test Teardown     Close "Calculator" Application
+Default Tags      CalculatorTest    DemoTest
+Test Template     Functionality Test
 
-*** Test Cases ***
-Verify that 9 * 9 = 81
-    Given User Calculates "9" "Plus" "9"
-    When User Clicks "Equals" Button
-    Then Actual Result Should Be Equal To "18"
+*** Test Cases ***    NUM1    OPERATION    NUM2    EXPECTED RESULT
+12 + 100 = 112         12     Plus         100       112
+9 + 9 = 18              9     Plus           9        18
+112 - 100 = 12        112     Minus        100        12
+119 - 9 = 110         119     Minus          9       110    # Deliberately failed this to demonstrate the fail reporting in robot
+100 / 2 = 50          100     Divide         2        50
+1 / 4 = 0.25            1     Divide         4      0.25
+10 * 100 = 1000        10     Times        100      1000
+2 * 9 = 18              2     Times          9        18
 
-Verify that 9 + 9 = 18
-    Given User Calculates "9" "Times" "9"
+*** Keywords ***
+Functionality Test
+    [Arguments]    ${num1}    ${operation}    ${num2}    ${expected_result}
+    Given User Calculates "${num1}" "${operation}" "${num2}"
     When User Clicks "Equals" Button
-    Then Actual Result Should Be Equal To "81"
-
-Verify that 9 + 2 = 10
-    Given User Calculates "9" "Plus" "2"
-    When User Clicks "Equals" Button
-    Then Actual Result Should Be Equal To "11"
-
-Verify that 9 * 2 = 18
-    Given User Calculates "9" "Times" "2"
-    When User Clicks "Equals" Button
-    Then Actual Result Should Be Equal To "18"
+    Then Actual Result Should Be Equal To "${expected_result}"

@@ -17,6 +17,9 @@ class _AssertionKeywords(KeywordGroup):
         Note this keyword automatically searches on region of the app in focus and may be paired with the
         keyword Set Application Focus.
 
+        See also `Assert Pattern Is Not Visible In Active App`, `Assert Pattern Is Not Visible In Region`, 
+        and `Assert Pattern Is Visible In Region`.
+
         Example:
         | Set Application Focus                   | Calculator       |
         | Assert Pattern Is Visible in Active App | equalsbutton.png |
@@ -33,7 +36,13 @@ class _AssertionKeywords(KeywordGroup):
         """Assert that ``pattern`` is visible in search region
         See `introduction` for details about locating elements.
         
-        This keyword must be paired with Set New Search Region In Active App or Set New Search Region In Active Screen.
+        This keyword must be paired with any of the following keywords:
+        `Set Search Region To Target Screen`, `Set New Search Region In Active App`, 
+        `Set Search Region To Application`, `Set New Search Region In Target Screen` or 
+        `Set New Search Region In Application`.
+
+        See also `Assert Pattern Is Not Visible In Active App`, `Assert Pattern Is Not Visible In Region`, 
+        and `Assert Pattern Is Visible In Active App`.
 
         Example 1:
         | Set New Search Region In Active App | 10, 60, -20, -270 |
@@ -54,6 +63,17 @@ class _AssertionKeywords(KeywordGroup):
     def assert_pattern_is_not_visible_in_active_app(self, pattern):
         """Assert that ``pattern`` is not visible in active app.
         See `introduction` for details about locating elements.
+
+        Note this keyword automatically searches on region of the app in focus and may be paired with the
+        keyword Set Application Focus.
+
+        See also `Assert Pattern Is Not Visible In Active App`, `Assert Pattern Is Not Visible In Region`, 
+        and `Assert Pattern Is Visible In Region`.
+
+        Example:
+        | Set Application Focus                   | Calculator       |
+        | Assert Pattern Is Visible in Active App | equalsbutton.png |
+        # Asserts that pattern is visible in the new search region in active app as defined by offset values.
         """
         self._info("Asserting that pattern, '%s' is not visible in app." % (pattern))
         self.set_search_region_to_active_app()
@@ -66,7 +86,13 @@ class _AssertionKeywords(KeywordGroup):
         """Assert that ``pattern`` is not visible in search region.
         See `introduction` for details about locating elements.
 
-        This keyword must be paired with Set New Search Region In Active App or Set New Search Region In Active Screen.
+        This keyword must be paired with any of the following keywords:
+        `Set Search Region To Target Screen`, `Set New Search Region In Active App`, 
+        `Set Search Region To Application`, `Set New Search Region In Target Screen` or 
+        `Set New Search Region In Application`.
+
+        See also `Assert Pattern Is Not Visible In Active App`, 
+        `Assert Pattern Is Visible In Active App` and `Assert Pattern Is Visible In Region`.
 
         Example 1:
         | Set New Search Region In Active App     | 10, 60, -20, -270 |

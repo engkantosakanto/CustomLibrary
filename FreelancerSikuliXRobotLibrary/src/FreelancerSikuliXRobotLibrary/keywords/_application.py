@@ -36,7 +36,7 @@ class _ApplicationKeywords(KeywordGroup):
         except FinFailed, err:
             raise AssertionError("Application '%s' not found." % (app_name))
 
-    def check_and_open_application(self, path, app_name):
+    def check_and_open_application(self, app_name, path):
         """Checks if application is running and sets the focus to the application, 
         otherwise, opens application matching the given ``app_name`` and ``path``.
 
@@ -44,7 +44,7 @@ class _ApplicationKeywords(KeywordGroup):
         | Open Application | My Awesome App | C:/Program Files (x86)/Awesome App/awesomeapp.exe | # Opens `My Awesome App`, if app is already running, sets the focus to the app |
 
         See also `Close Application`, `Open Application`, 
-        `Run Command` and `Application Is Running`
+        and `Application Is Running`
         """
         self._info("Opening application '%s' in path '%s'." % (app_name, path))
         if os.path.exists(path):
@@ -99,7 +99,7 @@ class _ApplicationKeywords(KeywordGroup):
 
         See also `App Get Process ID`, `App Get Name` and `App Get Window`.
         Example:
-        | App Has Window | Calculator | # Returns `True` Calculator app is running in windows, else `False`. |
+        | App Has Window | Calculator | # Returns `True` if Calculator app is running in windows, else `False`. |
         """
         return App(app_name).hasWindow()
 
@@ -109,7 +109,7 @@ class _ApplicationKeywords(KeywordGroup):
         See also `App Has Window`, `App Get Name` and `App Get Window`.
 
         Example:
-        | App Get Process ID | Calculator | # Returns a number if Calculator app is running in windows, else `-1`. |
+        | App Get Process ID | Calculator | # Returns a PID number if Calculator app is running in windows, else `-1`. |
         """
         return App(app_name).getPID()
 

@@ -10,7 +10,7 @@ class _ImageLibraryKeywords(KeywordGroup):
     
     def set_image_library(self, path):
         """ Set the default image library ``path`` where all image references will be accessed.
-        This must be used during setup inorder to set the image library before the test cases are executed.
+        This must be used during setup in order to set the image library before the test cases are executed.
         """
         self._info("Setting image library at '%s'." % path)
         self._set_image_library_directory(path)

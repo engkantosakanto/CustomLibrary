@@ -15,7 +15,7 @@ class _WaitingKeywords(KeywordGroup):
     # Public
 
     def set_sikulix_timeout(self, timeout):
-        """Sets the ``sikulix imeout`` value.
+        """Sets the ``sikulix timeout`` value.
 
         See `introduction` for details about `sikulix_timeout`.
         """
@@ -68,7 +68,7 @@ class _WaitingKeywords(KeywordGroup):
         ``timeout`` value may be set to a `float` or to ``FOREVER``.
 
         Using ``FOREVER`` as timeout will execute the script
-        to inifinity unless the pattern appears
+        to infinity unless the pattern appears
 
         Otherwise, Fails if ``timeout`` expires before the ``pattern`` appears.
 
@@ -90,7 +90,7 @@ class _WaitingKeywords(KeywordGroup):
 
     def wait_for_pattern_to_vanish(self, pattern):
         """Waits until ``pattern`` disappears on `application` in focus.
-        Fails if ``pattern`` is not immediately hidden on`application` in focus.
+        Fails if ``pattern`` is not immediately hidden on `application` in focus.
         SikuliX's default timeout is 3 seconds.
 
         See also `Wait In Seconds`, `Wait For Pattern To Be Visible`,
@@ -112,7 +112,7 @@ class _WaitingKeywords(KeywordGroup):
         ``timeout`` value may be set to a `float` or to ``FOREVER``.
 
         Using ``FOREVER`` as timeout will execute the script
-        to inifinity unless the pattern appears
+        to infinity unless the pattern appears
 
         Otherwise, Fails if ``timeout`` expires before the ``pattern`` appears.
 
