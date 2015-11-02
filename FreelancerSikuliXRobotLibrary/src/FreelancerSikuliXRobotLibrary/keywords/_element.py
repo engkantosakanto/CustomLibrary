@@ -34,8 +34,9 @@ class _ElementKeywords(KeywordGroup):
         | Set New Search Region In Active App | 10, 60, -20, -270 | # Sets offset values to a region of active app.            |
         | Click Region                        |                   | # Clicks the center of the specified ROI or search region. |
         """
-        self._info("Clicking specified ROI or search region.")
-        click()
+        x = getX(); y = getY(); w = getW(); h = getH()
+        self._info("Clicking specified ROI or search region x:'%s' y:'%s' w:'%s h:'%s'" % (x, y, w, h))
+        Region(x, y, w, h).click()
 
     def double_click_region(self):
         """Double-clicks the center x,y coordinate of a specified ROI or search region.
@@ -52,8 +53,9 @@ class _ElementKeywords(KeywordGroup):
         | Set New Search Region In Active App | 10, 60, -20, -270 | # Sets offset values to a region of active app.                   |
         | Double Click Region                 |                   | # Double-clicks the center of the specified ROI or search region. |
         """
-        self._info("Double-clicking specified ROI or search region.")
-        doubleClick()
+        x = getX(); y = getY(); w = getW(); h = getH()
+        self._info("Double-clicking specified ROI or search region x:'%s' y:'%s' w:'%s h:'%s'" % (x, y, w, h))
+        Region(x, y, w, h).doubleClick()
 
     def right_click_region(self):
         """Right-clicks the center x,y coordinate of a specified ROI or search region.
@@ -70,8 +72,9 @@ class _ElementKeywords(KeywordGroup):
         | Set New Search Region In Active App | 10, 60, -20, -270 | # Sets offset values to a region of active app.                   |
         | Right Click Region                  |                   | # Right-clicks the center of the specified ROI or search region. |
         """
-        self._info("Right-clicking specified ROI or search region.")
-        rightClick()
+        x = getX(); y = getY(); w = getW(); h = getH()
+        self._info("Right-clicking specified ROI or search region x:'%s' y:'%s' w:'%s h:'%s'" % (x, y, w, h))
+        Region(x, y, w, h).rightClick()
 
     def highlight_region(self, highlight_duration):
         """Highlights the specified ROI or search region for a specified ``highlight_duration`` in seconds.
@@ -87,8 +90,9 @@ class _ElementKeywords(KeywordGroup):
         | Set New Search Region In Active App | 10, 60, -20, -270 | # Sets offset values to a region of active app.                 |
         | Highlight Region                    | 2                 | # Highlights the specified ROI or search region. for 2 seconds. |
         """
-        self._info("Highlighting specified ROI or search region for '%s'second(s)." % (highlight_duration))
-        highlight(float(highlight_duration))
+        x = getX(); y = getY(); w = getW(); h = getH()
+        self._info("Highlighting specified ROI or search region x:'%s' y:'%s' w:'%s h:'%s'" % (x, y, w, h))
+        Region(x, y, w, h).highlight(float(highlight_duration))
 
     def hover_at_region(self):
         """Hovers mouse pointer at center x,y coordinate of a specified ROI or search region.
@@ -105,7 +109,58 @@ class _ElementKeywords(KeywordGroup):
         | Set New Search Region In Active App | 10, 60, -20, -270 | # Sets offset values to a region of active app. |
         | Hover At Region                     |                   | # Hovers mouse pointer at the center of specified ROI or search region. |
         """
-        self._info("Clicking specified ROI or search region.")
+        x = getX(); y = getY(); w = getW(); h = getH()
+        self._info("Hovering at specified ROI or search region x:'%s' y:'%s' w:'%s h:'%s'" % (x, y, w, h))
+        Region(x, y, w, h).hover()
+
+
+    def click_last_match(self):
+        """Left-clicks the center x,y coordinate of a last match.
+
+        See also `Double Click Last Match`, `Right Click Last Match`, `Hover At Last Match`
+        and `Highlight Last Match`.
+
+        Example:
+        | Click Last Match  | # Clicks the last matched pattern. |
+        """
+        self._info("Clicking last matched pattern.")
+        click()
+
+    def double_click_last_match(self):
+        """Double-clicks the center x,y coordinate of a last match.
+
+        See also `Click Last Match`, `Right Click Last Match`, `Hover At Last Match`
+        and `Highlight Last Match`.
+
+        Example:
+        | Double Click Last Match  | # Double-clicks the last matched pattern. |
+        """
+        self._info("Double-clicking last matched pattern.")
+        doubleClick()
+
+    def right_click_last_match(self):
+        """Right-clicks the center x,y coordinate of a last match.
+
+        See also `Click Last Match`, `Double Click Last Match`, `Hover At Last Match`
+        and `Highlight Last Match`.
+
+        Example:
+        | Right Click Last Match  | # Right-clicks the last matched pattern. |
+        """
+        self._info("Right-clicking last matched pattern.")
+        rightClick()
+
+
+    def hover_at_last_match(self):
+        """Double-clicks the center x,y coordinate of a last match.
+
+        See also `Click Last Match`, `Double Click Last Match`, `Right Click Last Match`, `Hover At Last Match`
+        and `Highlight Last Match`.
+
+        Example:
+        | Hover At Last Match  | # Hovers at the last matched pattern. |
+        """
+        self._info("Hovering at last matched pattern.")
         hover()
 
     def click_pattern(self, pattern):
@@ -178,7 +233,7 @@ class _ElementKeywords(KeywordGroup):
         | Highlight Pattern | pattern.png = 0.90 | 2   | This is a sample text. | # Type a text in element identified by pattern.png |
         """
         self._info("Highlighting element '%s' for '%s' second(s)." % (pattern, highlight_duration))
-        self._pattern_find(pattern, None, None).highlight(highlight_duration)
+        self._pattern_find(pattern, None, None).highlight(float(highlight_duration))
 
     def hover_at_pattern(self, pattern):
         """Hover mouse pointer at center of element identified by ``pattern``.
@@ -202,7 +257,7 @@ class _ElementKeywords(KeywordGroup):
         """Move mouse cursor coordinates at ``x/y`` coordinates of the `screen`.
         """
         self._info("Moving mouse at coordinates '%s', '%s'." % (xoffset, yoffset))
-        mouseMove(xoffset, yoffset)
+        mouseMove(int(xoffset), int(yoffset))
 
     def mouse_button_down(self, mouse_button):
         """Press the ``left`` mouse button `down`. 
@@ -330,7 +385,7 @@ class _ElementKeywords(KeywordGroup):
         self._pattern_find(pattern, None, None).type(text)
 
     def type_text_in_pattern_at_coordinates(self, pattern, text, xoffset, yoffset):
-        """Paste a `text` at `x/y` coordinates of the element identified by ``pattern``.
+        """Type a `text` at `x/y` coordinates of the element identified by ``pattern``.
 
         Example:
         | Type Text In Pattern | pattern.png = 0.90 | 30 | 30 | This is a sample text. | # Type a text in x/y coordinates of element identified by pattern.png |
@@ -630,6 +685,8 @@ class _ElementKeywords(KeywordGroup):
             region_text = above(search_area).text()
         elif (location == "below"):
             region_text = below(search_area).text()
+        elif (location == "region"):
+            region_text = Region(getX(), getY(), getW(), getH()).text()
         else:
             region_text = text()
         return region_text

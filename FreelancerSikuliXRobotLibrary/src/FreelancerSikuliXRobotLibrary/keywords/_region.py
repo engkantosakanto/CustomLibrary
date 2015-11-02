@@ -31,6 +31,7 @@ class _RegionKeywords(KeywordGroup):
         self.target_screen = target_screen
         screen_number = self._parse_target_screen(self.target_screen)
         setROI(Region(Screen(screen_number)))
+        #setRect(Region(Screen(screen_number)))
 
     def set_search_region_to_active_app(self):
         """Sets the ROI or the search area to the application in focus.
@@ -43,7 +44,10 @@ class _RegionKeywords(KeywordGroup):
         `Set New Search Region In Target Screen` and `Set New Search Region In Application`.
         """
         self._info("Setting the search region to the active application.")
-        setROI(*self.get_active_app_coordinates())
+        search_region = self.get_active_app_region()
+        self._info("Setting the search region to '%s'." % (search_region))
+        setROI(search_region)
+        #setRect(search_region)
 
     def set_search_region_to_application(self, app_name):
         """Sets the ROI or the search area to the application as specified in `app_name`.
@@ -55,8 +59,10 @@ class _RegionKeywords(KeywordGroup):
         See also `Set Search Region To Target Screen`, `Set New Search Region In Active App`,
         `Set New Search Region In Target Screen` and `Set New Search Region In Application`.
         """
-        self._info("Setting the search region to the application '%s'." % app_name)
-        setROI(App(app_name).window())
+        search_region = App(app_name).window()
+        self._info("Setting the search region: '%s' to the application: '%s'." % (app_name, search_region))
+        setROI(search_region)
+        #setRect(search_region)
 
     def set_new_search_region_in_active_app(self, offsets):
         """Sets new ROI or the search area to a specified ``offsets`` based on original coordinate values of active application in focus.
@@ -80,6 +86,7 @@ class _RegionKeywords(KeywordGroup):
         
         self._info("New coordinates: x:'%s' y:'%s w:'%s h:'%s." % new_coordinates)
         setROI(*new_coordinates)
+        #setRect(*new_coordinates)
 
     def set_new_search_region_in_application(self, app_name, offsets):
         """Sets new ROI or the search area to a specified ``offsets`` based on original coordinate values of application as specified in `app_name`.
@@ -104,6 +111,7 @@ class _RegionKeywords(KeywordGroup):
         self._info("New coordinates: x:'%s' y:'%s w:'%s h:'%s." % new_coordinates)
 
         setROI(*new_coordinates)
+        #setRect(*new_coordinates)
 
     def set_new_search_region_in_target_screen(self, offsets, target_screen):
         """Sets new ROI or new search area to a specified ``offsets`` based on original coordinate values of `target screen`.
@@ -129,6 +137,7 @@ class _RegionKeywords(KeywordGroup):
         
         self._info("New coordinates: x:'%s' y:'%s w:'%s h:'%s." % new_coordinates)
         setROI(*new_coordinates)
+        #setRect(*new_coordinates)
 
     def get_active_screen_coordinates(self, target_screen):
         """Returns the ``coordinates`` of the screen as specified in `target_screen`.
@@ -157,7 +166,6 @@ class _RegionKeywords(KeywordGroup):
 
     def get_application_coordinates(self, app_name):
         """Returns the ``coordinates`` of the `application` in focus.
-        Keyword must be combined with `Set Application Focus`.
 
         Examples:
         | Set Application Focus      | My Awesome App | # Sets the focus to `My Awesome App`      |
@@ -169,6 +177,40 @@ class _RegionKeywords(KeywordGroup):
                        applicationWindow.getW(), 
                        applicationWindow.getH())
         return coordinates
+
+    def get_application_xywh_coordinate(self, app_name, coordinate):
+        """Returns the ``xy coordinate`` or the ``width`` or ``height`` of the `application` as specified in `app_name`.
+        """
+        self._info("Getting'%s' value for application '%s." % (coordinate, app_name))
+        assert coordinate is not None and len(coordinate) > 0
+        applicationWindow = App(app_name).window()
+        if (coordinate == x):
+            return applicationWindow.x
+        elif (coordinate == y):
+            return applicationWindow.y
+        elif (coordinate == w):
+            return applicationWindow.w
+        elif (coordinate == h):
+            return applicationWindow.h
+        else:
+            raise ValueError("Invalid value for coordinate type, input value is: '%s'" % (coordinate))
+
+    def get_active_app_xywh_coordinate(self, coordinate):
+        """Returns the ``xy coordinate`` or the ``width`` or ``height`` of the active application in focus.
+        """
+        self._info("Getting'%s' value for application '%s." % (coordinate, app_name))
+        assert coordinate is not None and len(coordinate) > 0
+        activeWindow = App.focusedWindow()
+        if (coordinate == x):
+            return activeWindow.x
+        elif (coordinate == y):
+            return activeWindow.y
+        elif (coordinate == w):
+            return activeWindow.w
+        elif (coordinate == h):
+            return activeWindow.h
+        else:
+            raise ValueError("Invalid value for coordinate type, input value is: '%s'" % (coordinate))
 
     def get_reference_pattern_coordinates(self, pattern):
         """Returns the ``coordinates`` of the element identified by ``pattern``.
@@ -228,4 +270,3 @@ class _RegionKeywords(KeywordGroup):
     def _get_target_screen(self):
         if self.target_screen is not None:
             return self.target_screen
-

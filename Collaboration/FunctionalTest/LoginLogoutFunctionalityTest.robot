@@ -15,8 +15,6 @@ ${freelancerInvalidUsername}    invalidUserName
 ${freelancerInvalidPassword}    invalidPassword
 
 *** Test Cases ***
-
-
 User Should Be Able to View the Update Checker
     Given The Freelancer Desktop App Is Installed
     When User Runs the Freelancer Desktop App

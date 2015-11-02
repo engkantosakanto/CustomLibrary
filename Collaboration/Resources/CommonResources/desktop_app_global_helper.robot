@@ -73,9 +73,17 @@ Wait Until "${p_window}" Window Is Visible
     Wait Until Keyword Succeeds    ${TIMEOUT}    ${RETRY_INTERVAL}
     ...    Window "${p_window}" Should Be Open
 
-Window "${p_window}" Should Be Open
-    ${has_window} =    Run Keyword and Return Status    App Has Window    ${p_window}
+Window "${p_application}" Should Be Open
+    ${has_window} =    Run Keyword and Return Status    App Get Window    ${p_application}
     Should Be True    ${has_window}    # Passes if ${has_window} is True
+
+Application Name "${p_application}" Should Be Correct
+    ${app_name} =    App Get Window    ${p_application}
+    Should Be Equal As Strings    ${app_name}    ${p_application}
+
+Application Executable "${p_application_executable}" Should Be Correct
+    ${app_exe} =    App Get Name    ${p_application_executable}
+    Should Be Equal As Strings    ${app_exe}    ${p_application_executable}
 
 Directory "${p_directory}" Should Be Not Empty
     Get OS Type
