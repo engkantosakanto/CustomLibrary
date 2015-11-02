@@ -4,6 +4,10 @@ Library           Operating System
 Library           String
 
 *** Keywords ***
+
+Assert That "${p_element}" Is Visible
+    Assert Pattern Is Visible In Active App    ${p_element}
+
 Set Default Pattern Library Directory
     ${new_PatternDirectory}=    Replace String   ${CURDIR}   CommonResources    PatternResources
     Log   ${new_PatternDirectory}
@@ -37,8 +41,7 @@ Run Application "${p_application_name}" Via "${p_application_executable}"
     ...    Window "${p_application_name}" Should Be Open
 
 Input "${p_field_value}" In "${p_element}" "${p_element_type}"
-    Set New Search Region In Active App    ${${p_element}_${p_element_type}_REGION}
-    Click Region
+    Click Desktop App "${p_element}" "${p_element_type}"
     Type String    ${p_field_value}
 
 Set Focus To "${p_window}" Window
@@ -60,12 +63,15 @@ Open "${p_application}" Application
 
 Element "${p_pattern}" Should Be "${p_visibility}" Before Timeout
     Run Keyword If    '${p_visibility}' == 'Visible'
-    ...    Wait Until Pattern Is Visible    ${p_pattern}    ${TIMEOUT}
+    ...    Wait Until Keyword Succeeds    ${TIMEOUT}    ${RETRY_INTERVAL}
+    ...    Wait For Pattern To Be Visible    ${p_pattern}
     ...    ELSE
-    ...    Wait Until Pattern Vanish    ${p_pattern}    ${TIMEOUT}
+    ...    Wait Until Keyword Succeeds    ${TIMEOUT}    ${RETRY_INTERVAL}
+    ...    Wait For Pattern To Vanish   ${p_pattern}
 
 Wait Until "${p_window}" Window Is Visible
-    Wait Until Keyword Succeeds    20    5    Window "${p_window}" Should Be Open
+    Wait Until Keyword Succeeds    ${TIMEOUT}    ${RETRY_INTERVAL}
+    ...    Window "${p_window}" Should Be Open
 
 Window "${p_window}" Should Be Open
     ${has_window} =    Run Keyword and Return Status    App Has Window    ${p_window}

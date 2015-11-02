@@ -5,6 +5,7 @@ Default Tags      LoginLogoutFunctionalityTest    FUNCTIONAL    DESKTOPAPP    CO
 Resource          ../Resources/PageResources/desktop_app_login_logout.robot
 Resource          ../Resources/PageResources/desktop_app_installation.robot
 Resource          ../Resources/CommonResources/desktop_app_global_helper.robot
+Library           FreelancerSikuliXRobotLibrary
 
 *** Variables ***
 ${freelancerUsername}           botFLNFTDTLogin
@@ -14,6 +15,8 @@ ${freelancerInvalidUsername}    invalidUserName
 ${freelancerInvalidPassword}    invalidPassword
 
 *** Test Cases ***
+
+
 User Should Be Able to View the Update Checker
     Given The Freelancer Desktop App Is Installed
     When User Runs the Freelancer Desktop App

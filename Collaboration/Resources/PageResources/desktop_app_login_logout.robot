@@ -18,8 +18,10 @@ User Is "${p_log_state}"
 #===============================================================#
 User Is In Freelancer Desktop App Login Page
     Element "${DESKTOP_APP_LOGIN_PAGE}" Should Be "Visible" Before Timeout
+    Assert That "${DESKTOP_APP_LOGIN_PAGE}" Is Visible
+    Switch Application Focus    Freelancer Desktop App
 
-User Submits Credentials Username "${p_username}" and Password "${p_password}" via "${p_login_form}"
+User Submits Credentials Username "${p_username}" and Password "${p_password}" Via "${p_login_form}"
     Run Keyword If    '${p_login_form}' == 'Login Page'
     ...    Run Keywords
     ...    Input "${p_username}" In "Login Username Email" "Textfield"    AND
@@ -29,10 +31,9 @@ User Submits Credentials Username "${p_username}" and Password "${p_password}" v
     ...    Run Keywords
     ...    Click Desktop App "Login With Facebook" "Button"    AND
     ...    Element "${FBLOGIN_LOGIN_PAGE}" Should Be "Visible" Before Timeout    AND
-    ...    Input "${p_username}" In "FB Login Email Or Phone" "Textfield"    ANDs
+    ...    Input "${p_username}" In "FB Login Email Or Phone" "Textfield"    AND
     ...    Input "${p_password}" In "FB Login Password" "Textfield"    AND
     ...    Click Desktop App "FB Login Login" "Button"
-
 
 User Logs Out From The Freelancer Desktop App
     Click Desktop App "Homepage Expand Context Menu" "Button"

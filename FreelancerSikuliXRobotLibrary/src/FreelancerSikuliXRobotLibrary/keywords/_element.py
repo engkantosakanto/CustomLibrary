@@ -27,7 +27,7 @@ class _ElementKeywords(KeywordGroup):
         `Set Search Region To Application`, `Set New Search Region In Target Screen` or 
         `Set New Search Region In Application`.
 
-        See also `Double Click Region`, `Right Click Region`, `Get Text In Search Region`
+        See also `Double Click Region`, `Right Click Region`, `Get Text In Search Region`, `Hover At Region`
         and `Highlight Region`.
 
         Example:
@@ -45,7 +45,7 @@ class _ElementKeywords(KeywordGroup):
         `Set Search Region To Application`, `Set New Search Region In Target Screen` or 
         `Set New Search Region In Application`.
 
-        See also `Click Region`, `Right Click Region`, `Get Text In Search Region`
+        See also `Click Region`, `Right Click Region`, `Get Text In Search Region`, `Hover At Region`
         and `Highlight Region`.
 
         Example:
@@ -63,7 +63,7 @@ class _ElementKeywords(KeywordGroup):
         `Set Search Region To Application`, `Set New Search Region In Target Screen` or 
         `Set New Search Region In Application`.
 
-        See also `Click Region`, `Double Click Region`, `Get Text In Search Region`
+        See also `Click Region`, `Double Click Region`, `Get Text In Search Region`, `Hover At Region`
         and `Highlight Region`.
 
         Example:
@@ -81,14 +81,32 @@ class _ElementKeywords(KeywordGroup):
         `Set Search Region To Application`, `Set New Search Region In Target Screen` or 
         `Set New Search Region In Application`.
 
-        See also `Click Region`, `Double Click Region`, `Right Click Region` and `Get Text In Search Region`.
+        See also `Click Region`, `Double Click Region`, `Right Click Region`, `Hover At Region` and `Get Text In Search Region`.
 
         Example:
         | Set New Search Region In Active App | 10, 60, -20, -270 | # Sets offset values to a region of active app.                 |
         | Highlight Region                    | 2                 | # Highlights the specified ROI or search region. for 2 seconds. |
         """
         self._info("Highlighting specified ROI or search region for '%s'second(s)." % (highlight_duration))
-        highlight(highlight_duration)
+        highlight(float(highlight_duration))
+
+    def hover_at_region(self):
+        """Hovers mouse pointer at center x,y coordinate of a specified ROI or search region.
+
+        This keyword must be paired with any of the following keywords:
+        `Set Search Region To Target Screen`, `Set New Search Region In Active App`, 
+        `Set Search Region To Application`, `Set New Search Region In Target Screen` or 
+        `Set New Search Region In Application`.
+
+        See also `Double Click Region`, `Right Click Region`, `Get Text In Search Region`
+        and `Highlight Region`.
+
+        Example:
+        | Set New Search Region In Active App | 10, 60, -20, -270 | # Sets offset values to a region of active app. |
+        | Hover At Region                     |                   | # Hovers mouse pointer at the center of specified ROI or search region. |
+        """
+        self._info("Clicking specified ROI or search region.")
+        hover()
 
     def click_pattern(self, pattern):
         """Perform a mouse `click` on the click point using the `left` button.
