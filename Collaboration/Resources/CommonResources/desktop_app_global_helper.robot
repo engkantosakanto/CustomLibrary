@@ -1,101 +1,118 @@
 *** Settings ***
-Library           FreelancerSikuliXRobotLibrary
-Library           Operating System
 Library           String
 
 *** Keywords ***
 
 Assert That "${p_element}" Is Visible
+    [Documentation]    This keyword asserts that pattern is visible in application in focus.
     Assert Pattern Is Visible In Active App    ${p_element}
 
 Set Default Pattern Library Directory
+    [Documentation]    This keyword sets the PatternResources directory as the default pattern library.
     ${new_PatternDirectory}=    Replace String   ${CURDIR}   CommonResources    PatternResources
     Log   ${new_PatternDirectory}
     Set Image Library    ${new_PatternDirectory}
 
 Get OS Type
     [Documentation]    This keyword sets the OS type, using the `Get Env OS Type` keyword from FreelancerSikuliXRobotLibrary
-    ${Env_OS_type} =    Get Env OS Type
-    Set Test Variable    ${OS_TYPE}    ${Env_OS_type}
+    ${t_OSType} =    Get Env OS Type
+    Set Test Variable    ${tc_OS_TYPE}    ${t_OSType}
 
-Click "${p_element}" "${p_element_type}"
+Click "${p_element}" "${p_elementType}"
     [Documentation]    This keyword do left click on web specific elements.
-    Run And Wait Until Keyword Succeeds    Element Should Be Visible    ${${p_element}_${p_element_type}}
-    Click Element    ${${p_element}_${p_element_type}}
+    Wait Until Keyword Succeeds    ${TIMEOUT}    ${INTERVAL}
+    ...    Element Should Be Visible    ${${p_element}_${p_elementType}}
+    Click Element    ${${p_element}_${p_elementType}}
 
-Click OS "${p_element}" "${p_element_type}"
+Click OS "${p_element}" "${p_elementType}"
     [Documentation]    This keyword do left click on OS specific elements and uses region offsets rather than patterns.
     Get OS Type
-    Set New Search Region In Active App    ${${OS_TYPE}_${p_element}_${p_element_type}_REGION}
+    Set New Search Region In Active App    ${${tc_OS_TYPE}_${p_element}_${p_elementType}_REGION}
     Click Region
 
-Click Desktop App "${p_element}" "${p_element_type}"
-    [Documentation]    This keyword do left click on Desktop App specific elements and uses region offsets rather than patterns.
-    Set New Search Region In Active App    ${${p_element}_${p_element_type}_REGION}
+Click Desktop App "${p_element}" "${p_elementType}"
+    [Documentation]    This keyword do left clicks on Desktop App's specific elements and uses region offsets rather than patterns.
+    Set New Search Region In Active App    ${${p_element}_${p_elementType}_REGION}
     Click Region
 
-Run Application "${p_application_name}" Via "${p_application_executable}"
+Run "${p_applicationName}" Application
+    [Documentation]    Checks if application is running then sets it to focus, otherwise runs the application executable from the path.
     Get OS Type
-    Check And Open Application    ${p_application_name}    ${${OS_TYPE}_${p_application_executable}}
-    Wait Until Keyword Succeeds    ${TIMEOUT}    ${RETRY_INTERVAL}
-    ...    Window "${p_application_name}" Should Be Open
+    Check And Open Application    ${p_applicationName}    ${${tc_OS_TYPE}_${p_applicationName}_EXECUTABLE_PATH}
 
-Input "${p_field_value}" In "${p_element}" "${p_element_type}"
-    Click Desktop App "${p_element}" "${p_element_type}"
-    Type String    ${p_field_value}
+Application "${p_applicationName}" In Focus Is Correct
+    [Documentation]    Checks if the application in focus is correct by verifying the application name.
+    Wait Until Keyword Succeeds    ${TIMEOUT}    ${INTERVAL}
+    ...    Window "${p_applicationName}" Should Be Open
+    Wait Until Keyword Succeeds    ${TIMEOUT}    ${INTERVAL}
+    ...    Application Name "${p_applicationName}" Is Correct
+    Wait Until Keyword Succeeds    ${TIMEOUT}    ${INTERVAL}
+    ...    Application Executable "${${tc_OS_TYPE}_${p_applicationName}_EXECUTABLE}" Is Correct
 
-Set Focus To "${p_window}" Window
-    Wait Until Keyword Succeeds    20    5    Set Application Focus    ${p_window}
+Input "${p_field_value}" In "${p_element}" "${p_elementType}"
+    [Documentation]    Inputs string in the field as specified in p_element and p_elementType
+    Click Desktop App "${p_element}" "${p_elementType}"
+    Type Text At Region    ${p_field_value}
 
-Switch Focus To "${p_window}" Window
-    Wait Until Keyword Succeeds    20    5    Switch Application Focus    ${p_window}
+Set Focus To "${p_applicationName}" Window
+    [Documentation]    Sets the focus to the application p_applicationName's window.
+    Wait Until Keyword Succeeds    ${TIMEOUT}    ${INTERVAL}
+    ...    Set Application Focus    ${p_applicationName}
 
-Close "${p_application_name}" Application
-    Close Application    ${p_application_name}
+Switch Focus To "${p_applicationName}" Window
+    [Documentation]    Switches focus to the application p_applicationName's window.
+    Wait Until Keyword Succeeds    ${TIMEOUT}    ${INTERVAL}
+    ...    Switch Application Focus    ${p_applicationName}
+
+Close "${p_applicationName}" Application
+    [Documentation]    Closes the application p_applicationName.
+    Close Application    ${p_applicationName}
 
 Get "${p_file}" File Size
-    Get OS Type
-    Open Application    ${${OS_TYPE}_${p_file}}
+    [Documentation]    Gets the file size of specified file and assign it to tc_FILE_SIZE
+    ${t_fileSize} =    Get File Size    ${${tc_OS_TYPE}_${p_file}}
+    ${t_fileSize} =    Convert To String    ${t_fileSize}
+    Set Test Variable    ${tc_FILE_SIZE}    ${t_fileSize}
 
-Open "${p_application}" Application
+Open "${p_applicationName}" Application
     Get OS Type
-    Open Application    ${${OS_TYPE}_${p_application}}
+    Open Application    ${${tc_OS_TYPE}_${p_applicationName}}
 
 Element "${p_pattern}" Should Be "${p_visibility}" Before Timeout
     Run Keyword If    '${p_visibility}' == 'Visible'
-    ...    Wait Until Keyword Succeeds    ${TIMEOUT}    ${RETRY_INTERVAL}
+    ...    Wait Until Keyword Succeeds    ${TIMEOUT}    ${INTERVAL}
     ...    Wait For Pattern To Be Visible    ${p_pattern}
     ...    ELSE
-    ...    Wait Until Keyword Succeeds    ${TIMEOUT}    ${RETRY_INTERVAL}
+    ...    Wait Until Keyword Succeeds    ${TIMEOUT}    ${INTERVAL}
     ...    Wait For Pattern To Vanish   ${p_pattern}
 
-Wait Until "${p_window}" Window Is Visible
-    Wait Until Keyword Succeeds    ${TIMEOUT}    ${RETRY_INTERVAL}
-    ...    Window "${p_window}" Should Be Open
+Window "${p_applicationName}" Should Be Open
+    ${t_hasWindow} =    Run Keyword and Return Status    App Get Window    ${p_applicationName}
+    Should Be True    ${t_hasWindow}    # Passes if ${t_hasWindow} is True
 
-Window "${p_application}" Should Be Open
-    ${has_window} =    Run Keyword and Return Status    App Get Window    ${p_application}
-    Should Be True    ${has_window}    # Passes if ${has_window} is True
+Application Name "${p_applicationName}" Is Correct
+    ${t_applicationName} =    App Get Window    ${p_applicationName}
+    Should Be Equal As Strings    ${t_applicationName}    ${p_applicationName}
 
-Application Name "${p_application}" Should Be Correct
-    ${app_name} =    App Get Window    ${p_application}
-    Should Be Equal As Strings    ${app_name}    ${p_application}
+Application Executable "${p_applicationExecutable}" Is Correct
+    ${t_applicationExecutable} =    App Get Name    ${p_applicationExecutable}
+    Should Be Equal As Strings    ${t_applicationExecutable}    ${p_applicationExecutable}
 
-Application Executable "${p_application_executable}" Should Be Correct
-    ${app_exe} =    App Get Name    ${p_application_executable}
-    Should Be Equal As Strings    ${app_exe}    ${p_application_executable}
+Application "${p_applicationName}" Is Running
+    ${t_isRunning} =    Run Keyword and Return Status    Application Is Running    ${p_applicationName}
+    Should Be True    ${t_isRunning}    # Passes if ${t_isRunning} is True
 
 Directory "${p_directory}" Should Be Not Empty
     Get OS Type
-    Directory Should Not Be Empty    ${${OS_TYPE}_${p_directory}}
+    Directory Should Not Be Empty    ${${tc_OS_TYPE}_${p_directory}}
 
 File "${p_file}" Should Exist
     Get OS Type
-    File Should Exist    ${${OS_TYPE}_${p_file}}
+    File Should Exist    ${${tc_OS_TYPE}_${p_file}_PATH}
 
 Wait Until "${p_file}" Is Created
     Get OS Type
-    Wait Until Created    ${${OS_TYPE}_${p_file}}
+    Wait Until Created    ${${tc_OS_TYPE}_${p_file}}
 
 List Of Patterns "${p_pattern}" Should Be "${p_visibility}" Before Timeout
     [Documentation]    This keyword accepts pre-created list of patterns or a number of patterns separated by a comma as an argument and

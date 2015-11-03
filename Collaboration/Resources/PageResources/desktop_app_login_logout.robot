@@ -1,5 +1,4 @@
 *** Settings ***
-Resource          ../CommonResources/desktop_app_global_helper.robot
 Resource          ../Variables/desktop_app_installation_constants.robot
 Resource          ../Variables/desktop_app_login_logout_constants.robot
 
@@ -8,25 +7,25 @@ Resource          ../Variables/desktop_app_login_logout_constants.robot
 #                            GIVEN
 #===============================================================#
 The Freelancer Desktop App Is Installed
-    Directory "Application Installation Directory" Should Be Not Empty
-    File "Desktop App Executable" Should Exist
+    Directory "Freelancer Desktop App Installation Path" Should Be Not Empty
+    File "Freelancer Desktop App Executable" Should Exist
 
-User Is "${p_log_state}"
-    User Should Be "${p_log_state}" Successfully
+User Is "${p_logInState}"
+    User Should Be "${p_logInState}" Successfully
 #===============================================================#
 #                            WHEN
 #===============================================================#
 User Is In Freelancer Desktop App Login Page
     Element "${DESKTOP_APP_LOGIN_PAGE}" Should Be "Visible" Before Timeout
-    Set Application Focus    Freelancer Desktop App
+    Application "Freelancer Desktop App" In Focus Is Correct
 
-User Submits Credentials Username "${p_username}" and Password "${p_password}" Via "${p_login_form}"
-    Run Keyword If    '${p_login_form}' == 'Login Page'
+User Submits Credentials Username "${p_username}" and Password "${p_password}" Via "${p_loginForm}"
+    Run Keyword If    '${p_loginForm}' == 'Login Page'
     ...    Run Keywords
     ...    Input "${p_username}" In "Login Username Email" "Textfield"    AND
     ...    Input "${p_password}" In "Login Password" "Text Field"    AND
     ...    Click Desktop App "Login" "Button"
-    Run Keyword If    '${p_login_form}' == 'Facebook Login'
+    Run Keyword If    '${p_loginForm}' == 'Facebook Login'
     ...    Run Keywords
     ...    Click Desktop App "Login With Facebook" "Button"    AND
     ...    Element "${FBLOGIN_LOGIN_PAGE}" Should Be "Visible" Before Timeout    AND
@@ -44,14 +43,14 @@ User Logs Out From The Freelancer Desktop App
 #===============================================================#
 #                            THEN
 #===============================================================#
-User Should Be "${p_log_state}" Successfully
+User Should Be "${p_logInState}" Successfully
     ${login_elements_visibility} =    Set Variable If
-    ...    '${p_log_state}' == 'Logged In'    Not Visible
-    ...    '${p_log_state}' == 'Logged Out'    Visible
+    ...    '${p_logInState}' == 'Logged In'    Not Visible
+    ...    '${p_logInState}' == 'Logged Out'    Visible
 
     ${logout_elements_visibility} =    Set Variable If
-    ...    '${p_log_state}' == 'Logged In'    Visible
-    ...    '${p_log_state}' == 'Logged Out'    Not Visible
+    ...    '${p_logInState}' == 'Logged In'    Visible
+    ...    '${p_logInState}' == 'Logged Out'    Not Visible
 
     Element "${DESKTOP_APP_LOGIN_PAGE}" Should Be "${login_elements_visibility}" Before Timeout
     List Of Patterns "@{NEW_USER_HOMEPAGE_CORE_PATTERNS_LIST}" Should Be "${logout_elements_visibility}" Before Timeout

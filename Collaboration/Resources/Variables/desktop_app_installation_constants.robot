@@ -2,9 +2,9 @@
 #******************************************************************************#
 #                             TEMP
 #******************************************************************************#
-${TIMEOUT}                                     20
+#${TIMEOUT}                                     20
 ${PASSWORD}                                    free123
-${RETRY_INTERVAL}                              5
+#${RETRY_INTERVAL}                              5
 
 ${BUTTON_0_REGION}                    18, 276, -157, -296
 ${BUTTON_1_REGION}                    18, 244, -195, -296
@@ -75,7 +75,7 @@ ${WINDOWS_SETUP_DIRECTORY}                             ${WINDOWS_DIRECTORY}/Setu
 ${WINDOWS_COMPLETING_INSTALLATION_DIALOG}              ${WINDOWS_SETUP_DIRECTORY}/WINDOWS_COMPLETING_INSTALLATION_DIALOG.png
 ${WINDOWS_UNINSTALL_CONFIRMATION_DIALOG}               ${WINDOWS_SETUP_DIRECTORY}/WINDOWS_UNINSTALL_CONFIRMATION_DIALOG.png
 ${WINDOWS_PROGRAMS_CONTROL_PANEL}                      ${WINDOWS_SETUP_DIRECTORY}/WINDOWS_PROGRAMS_CONTROL_PANEL.png
-${WINDOWS_DESKTOP_APP_IN_CONTROL_PANEL}                ${WINDOWS_SETUP_DIRECTORY}/WINDOWS_DESKTOP_APP_IN_CONTROL_PANEL.png
+${WINDOWS_FREELANCER_DESKTOP_APP_IN_CONTROL_PANEL}     ${WINDOWS_SETUP_DIRECTORY}/WINDOWS_DESKTOP_APP_IN_CONTROL_PANEL.png
 ${WINDOWS_UNINSTALL_SUCCESSFULL_DIALOG}                ${WINDOWS_SETUP_DIRECTORY}/WINDOWS_UNINSTALL_SUCCESSFULL_DIALOG.png
 
 ${COMMON_UPDATE_CHEKER_FOLDER}                         Common/UpdateChecker
@@ -87,10 +87,12 @@ ${UPDATE_CHECKER_STATUS}                               ${COMMON_UPDATE_CHEKER_FO
 #                             File Path/Directories
 #******************************************************************************#
 #Test pc or node should pre-set the download directory as specified
-${WINDOWS_DOWNLOAD_DIRECTORY}                    C:/Downloads
-${WINDOWS_DESKTOPAPP_INSTALLER}                  ${WINDOWS_DOWNLOAD_DIRECTORY}/freelancer-desktop-app_windows-installer.exe
-${WINDOWS_APPLICATION_INSTALLATION_DIRECTORY}    C:/Program Files (x86)/Freelancer.com/Freelancer Desktop App
-${WINDOWS_DESKTOP_APP_EXECUTABLE}                ${WINDOWS_APPLICATION_INSTALLATION_DIRECTORY}/freelancer-desktop-app.exe
+${WINDOWS_DOWNLOAD_DIRECTORY}                               C:/Downloads
+${WINDOWS_FREELANCER_DESKTOP_APP_INSTALLER}                 freelancer-desktop-app_windows-installer.exe
+${WINDOWS_FREELANCER_DESKTOP_APP_INSTALLER_PATH}            ${WINDOWS_DOWNLOAD_DIRECTORY}/${WINDOWS_FREELANCER_DESKTOP_APP_INSTALLER}
+${WINDOWS_FREELANCER_DESKTOP_APP_INSTALLATION_PATH}         C:/Program Files (x86)/Freelancer.com/Freelancer Desktop App
+${WINDOWS_FREELANCER_DESKTOP_APP_EXECUTABLE}                freelancer-desktop-app.exe
+${WINDOWS_FREELANCER_DESKTOP_APP_EXECUTABLE_PATH}           ${WINDOWS_FREELANCER_DESKTOP_APP_INSTALLATION_PATH}/${WINDOWS_FREELANCER_DESKTOP_APP_EXECUTABLE}
 
 #******************************************************************************#
 #                             Installer File Size

@@ -4,8 +4,8 @@ Suite Setup       Set Default Pattern Library Directory
 Default Tags      LoginLogoutFunctionalityTest    FUNCTIONAL    DESKTOPAPP    COLLABORATION
 Resource          ../Resources/PageResources/desktop_app_login_logout.robot
 Resource          ../Resources/PageResources/desktop_app_installation.robot
-Resource          ../Resources/CommonResources/desktop_app_global_helper.robot
-Library           FreelancerSikuliXRobotLibrary
+Resource          ../Resources/CommonResources/desktop_app_global_setup.robot
+Resource          ../../Resources/CommonResources/global_setup.robot
 
 *** Variables ***
 ${freelancerUsername}           botFLNFTDTLogin
