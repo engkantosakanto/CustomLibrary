@@ -11,5 +11,9 @@ Sikuli Screenshot Test
     Capture Screenshot    Screen 0
     Capture Screenshot    freelancerlogo.png
     Capture Screenshot    Screen 1
+
+    Set New Search Region In Active App    30, 150, -60, -512
+    Capture Screenshot    lastROI
+
     Capture Screenshot    Screen 2
     Capture Screenshot    Screen 3

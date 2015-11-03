@@ -246,6 +246,17 @@ class _RegionKeywords(KeywordGroup):
         """
         return Region(*self.get_reference_pattern_coordinates(pattern))
 
+    def get_last_matching_coordinates(self):
+        """Returns the ``coordinates`` of the last region of interest or ROI.
+        """
+        coordinates_last_match = (getX(), getY(), getW(), getH())
+        return coordinates_last_match
+
+    def get_last_matching_region(self):
+        """Returns the ``region`` of the last region of interest or ROI.
+        """
+        return Region(*self.get_last_matching_coordinates())
+
     # Private
     """***************************** Internal Methods ************************************"""
 
