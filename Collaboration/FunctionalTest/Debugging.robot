@@ -1,46 +1,43 @@
 *** Settings ***
-Documentation     This suite covers the test cases for login logout functionality test of the Desktop App
-Suite Setup       Set Default Pattern Library Directory
-Default Tags      Debugging
+Documentation     This suite is for the end to end installation of the Desktop App
+Resource          ../Resources/CommonResources/desktop_app_global_setup.robot
 Resource          ../Resources/PageResources/desktop_app_login_logout.robot
 Resource          ../Resources/PageResources/desktop_app_installation.robot
-Resource          ../Resources/CommonResources/desktop_app_global_helper.robot
+Suite Setup       Freelancer Desktop App Suite Setup
+Default Tags      Debugging
 
+*** Variables ***
+${freelancerUsername}           botFLNFTDTLogin
+${PASSWORD}                     free123
+${freelancerFBUsername}         thecrimsonhog@gmail.com
+${freelancerFBPassword}         PSalm23$$$
+${freelancerInvalidUsername}    invalidUserName
+${freelancerInvalidPassword}    invalidPassword
 
 *** Test Cases ***
+Freelancer Desktop App Should Be Successfully Installed
+    Given The Freelancer Desktop App Installer Exists In Download Directory
+    When User Installs the Freelancer Desktop App
+    Then The Freelancer Desktop App Should Be "Installed" Successfully
 
-Test 1
-    Switch Application Focus    Freelancer Desktop App
-    Element "${DESKTOP_APP_LOGIN_PAGE}" Should Be "Visible" Before Timeout
-    Set New Search Region In Active App    30, 255, -60, -512
-    Click Region
-    Type String    Hello World
-    Set New Search Region In Active App    30, 310, -60, -512
-    Click Region
-    Type String    Aloha
-    Set New Search Region In Active App    30, 370, -60, -512
-    Click Region
+User Should Successfully Login To The Windows Desktop App
+    Given The Freelancer Desktop App Is Installed
+    And User Runs the Freelancer Desktop App
+    And User Is In Freelancer Desktop App Login Page
+    When User Submits Credentials Username "${freelancerUsername}" and Password "${PASSWORD}" Via "Login Page"
+    Then User Should Be "Logged In" Successfully
+    [Teardown]    Close Freelancer Desktop App
 
-Test 2
-    User Runs The Freelancer Desktop App
-    User Is In Freelancer Desktop App Login Page
-    Type String In Textfield    Hello World    30, 255, -60, -512
-    Type String In Textfield    Aloha    30, 310, -60, -512
-    Click Button Region     30, 370, -60, -512
+User Should Successfully Login To The Windows Desktop App Via Facebook Login
+    Given The Freelancer Desktop App Is Installed
+    And User Runs the Freelancer Desktop App
+    And User Is In Freelancer Desktop App Login Page
+    When User Submits Credentials Username "${freelancerFBUsername}" and Password "${freelancerFBPassword}" Via "Facebook Login"
+    Then User Should Be "Logged In" Successfully
+    [Teardown]    Close Freelancer Desktop App
 
-
-*** Keywords ***
-Type String In Textfield
-    [Arguments]    ${string}    ${region_coordinates}
-    Set New Search Region In Active App    ${region_coordinates}
-    Highlight Region    2
-    Click Region
-    Type String    ${string}
-
-Click Button Region
-    [Arguments]    ${button_region}
-    Set New Search Region In Active App    ${button_region}
-    Highlight Region    2
-    Click Region
-
-
+Freelancer Desktop App Should Be Successfully Uninstalled
+    Given The Freelancer Desktop App Is Installed
+    When User Uninstalls The Freelancer Desktop App
+    Then The Freelancer Desktop App Should Be "Uninstalled" Successfully
+    [Teardown]    User Deletes The Freelancer Desktop App Installer

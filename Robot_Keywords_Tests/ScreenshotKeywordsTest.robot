@@ -1,6 +1,6 @@
 *** Settings ***
 #Library           Remote    http://${HOST_IP}:${PORT}
-Library            FreelancerSikuliXRobotLibrary
+Library            Remote    http://127.0.0.1:8082/
 Default Tags       ScreenshotKeywordsTest
 Suite Setup        Set Image Library    C:/CustomLibrary/Images
 

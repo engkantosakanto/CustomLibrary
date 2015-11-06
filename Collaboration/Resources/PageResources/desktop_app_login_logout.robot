@@ -7,8 +7,8 @@ Resource          ../Variables/desktop_app_login_logout_constants.robot
 #                            GIVEN
 #===============================================================#
 The Freelancer Desktop App Is Installed
-    Directory "Freelancer Desktop App Installation Path" Should Be Not Empty
-    File "Freelancer Desktop App Executable" Should Exist
+    Directory "Freelancer Desktop App Executable Path" Should Be "Not Empty"
+    File "Freelancer Desktop App Executable" Should "Exist"
 
 User Is "${p_logInState}"
     User Should Be "${p_logInState}" Successfully
@@ -17,7 +17,7 @@ User Is "${p_logInState}"
 #===============================================================#
 User Is In Freelancer Desktop App Login Page
     Element "${DESKTOP_APP_LOGIN_PAGE}" Should Be "Visible" Before Timeout
-    Application "Freelancer Desktop App" In Focus Is Correct
+    #Set Focus To "Freelancer Desktop App" Window
 
 User Submits Credentials Username "${p_username}" and Password "${p_password}" Via "${p_loginForm}"
     Run Keyword If    '${p_loginForm}' == 'Login Page'
@@ -44,19 +44,20 @@ User Logs Out From The Freelancer Desktop App
 #                            THEN
 #===============================================================#
 User Should Be "${p_logInState}" Successfully
-    ${login_elements_visibility} =    Set Variable If
+    ${t_loginElementsVisibility} =    Set Variable If
     ...    '${p_logInState}' == 'Logged In'    Not Visible
     ...    '${p_logInState}' == 'Logged Out'    Visible
 
-    ${logout_elements_visibility} =    Set Variable If
+    ${t_logoutElementsVisibility} =    Set Variable If
     ...    '${p_logInState}' == 'Logged In'    Visible
     ...    '${p_logInState}' == 'Logged Out'    Not Visible
 
-    Element "${DESKTOP_APP_LOGIN_PAGE}" Should Be "${login_elements_visibility}" Before Timeout
-    List Of Patterns "@{NEW_USER_HOMEPAGE_CORE_PATTERNS_LIST}" Should Be "${logout_elements_visibility}" Before Timeout
+    Element "${DESKTOP_APP_LOGIN_PAGE}" Should Be "${t_loginElementsVisibility}" Before Timeout
+    List Of Patterns "@{NEW_USER_HOMEPAGE_CORE_PATTERNS_LIST}" Should Be "${t_logoutElementsVisibility}" Before Timeout
 
 The "${p_alert}" Alert Should Be Displayed
     Element "${${p_alert}_ALERT}" Should Be "Visible" Before Timeout
+
 #===============================================================#
 #                    INTERNAL KEYWORDS
 #===============================================================#

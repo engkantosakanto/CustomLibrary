@@ -1,5 +1,6 @@
 *** Settings ***
-Library           FreelancerSikuliXRobotLibrary
+#Library           FreelancerSikuliXRobotLibrary
+Library           Remote    http://127.0.0.1:8082/
 Library           String
 
 *** Keywords ***

@@ -1,14 +1,5 @@
 *** Variables ***
-#******************************************************************************#
-#                             TEMP
-#******************************************************************************#
-#${TIMEOUT}                                     20
-${PASSWORD}                                    free123
-#${RETRY_INTERVAL}                              5
 
-${BUTTON_0_REGION}                    18, 276, -157, -296
-${BUTTON_1_REGION}                    18, 244, -195, -296
-${BUTTON_2_REGION}                    58, 244, -195, -296
 #******************************************************************************#
 #                             PATTERN LIBRARY
 #******************************************************************************#
@@ -17,8 +8,8 @@ ${WINDOWS_PATTERN_LIBRARY_DIRECTORY}           freelancer-desktop-app_windows-in
 #******************************************************************************#
 #      Desktop App Web Constants: https://www.freelancer.com/desktop-app/
 #******************************************************************************#
-${START_TRACKING_BUTTON}                       id = desktop-app-download-btn
-${DESKTOP_APP_MODAL}                           id = desktop-app-modal
+${START_TRACKING_BUTTON}                       css=#desktop-app-download-btn
+${DESKTOP_APP_MODAL}                           css=#desktop-app-modal
 ${DESKTOP_APP_MODAL_HEADER}                    ${DESKTOP_APP_MODAL} .modal-header
 ${DESKTOP_APP_MODAL_BODY}                      ${DESKTOP_APP_MODAL} .modal-body
 ${WINDOWS_SELECT_BUTTON}                       ${DESKTOP_APP_MODAL_BODY} .windows-select.select
@@ -30,7 +21,7 @@ ${WINDOWS_SELECTOR_DROPDOWN}                   ${WINDOWS_SELECTOR} #windows-sele
 ${WINDOWS_REQUIREMENT_LINK}                    ${WINDOWS_SELECTOR} #win-ver-require
 ${LINUX_SELECTOR_DROPDOWN}                     ${DESKTOP_APP_SELECTOR_FORM} #linux-select-opt
 ${MAC_SELECTOR_DROPDOWN}                       ${DESKTOP_APP_SELECTOR_FORM} #mac-select-opt
-${DESKTOP_APP_DOWNLOAD_NOW_BUTTON}             ${DESKTOP_APP_MODAL_BODY} .download-app-btn
+${DESKTOP_APP_DOWNLOAD_NOW_BUTTON}             ${DESKTOP_APP_MODAL_BODY} #download-app-btn
 
 #******************************************************************************#
 #                             Offsets: x, y, width, height
@@ -72,6 +63,7 @@ ${HOMEPAGE_LOGOUT_CLOSE_BUTTON_REGION}         312, 95, -345, -112
 #==================================================#
 ${WINDOWS_DIRECTORY}                                   Windows
 ${WINDOWS_SETUP_DIRECTORY}                             ${WINDOWS_DIRECTORY}/Setup
+${WINDOWS_SETUP_WIZARD}                                ${WINDOWS_SETUP_DIRECTORY}/WINDOWS_SETUP_WIZARD.png
 ${WINDOWS_COMPLETING_INSTALLATION_DIALOG}              ${WINDOWS_SETUP_DIRECTORY}/WINDOWS_COMPLETING_INSTALLATION_DIALOG.png
 ${WINDOWS_UNINSTALL_CONFIRMATION_DIALOG}               ${WINDOWS_SETUP_DIRECTORY}/WINDOWS_UNINSTALL_CONFIRMATION_DIALOG.png
 ${WINDOWS_PROGRAMS_CONTROL_PANEL}                      ${WINDOWS_SETUP_DIRECTORY}/WINDOWS_PROGRAMS_CONTROL_PANEL.png
@@ -87,19 +79,22 @@ ${UPDATE_CHECKER_STATUS}                               ${COMMON_UPDATE_CHEKER_FO
 #                             File Path/Directories
 #******************************************************************************#
 #Test pc or node should pre-set the download directory as specified
-${WINDOWS_DOWNLOAD_DIRECTORY}                               C:/Downloads
+#${WINDOWS_FREELANCER_DESKTOP_APP_INSTALLER_PATH}           ${g_DEFAULT_DOWNLOAD_DIRECTORY}
 ${WINDOWS_FREELANCER_DESKTOP_APP_INSTALLER}                 freelancer-desktop-app_windows-installer.exe
-${WINDOWS_FREELANCER_DESKTOP_APP_INSTALLER_PATH}            ${WINDOWS_DOWNLOAD_DIRECTORY}/${WINDOWS_FREELANCER_DESKTOP_APP_INSTALLER}
-${WINDOWS_FREELANCER_DESKTOP_APP_INSTALLATION_PATH}         C:/Program Files (x86)/Freelancer.com/Freelancer Desktop App
+${WINDOWS_FREELANCER_DESKTOP_APP_EXECUTABLE_PATH}           C:/Program Files (x86)/Freelancer.com/Freelancer Desktop App
 ${WINDOWS_FREELANCER_DESKTOP_APP_EXECUTABLE}                freelancer-desktop-app.exe
-${WINDOWS_FREELANCER_DESKTOP_APP_EXECUTABLE_PATH}           ${WINDOWS_FREELANCER_DESKTOP_APP_INSTALLATION_PATH}/${WINDOWS_FREELANCER_DESKTOP_APP_EXECUTABLE}
+${WINDOWS_FREELANCER_DESKTOP_APP_INSTALLER_PART_FILE}       freelancer-desktop-app_windows-installer.exe.part
+
+${WINDOWS_FREELANCER_DESKTOP_APP_WINDOW}                    ${FREELANCER_DESKTOP_APP_NAME}
+${WINDOWS_SETUP_FREELANCER_DESKTOP_APP_WINDOW}              InnoSetupLdrWindow
 
 #******************************************************************************#
 #                             Installer File Size
 #******************************************************************************#
-${WINDOWS_DESKTOPAPP_INSTALLER_FILE_SIZE}     58995885
+${WINDOWS_FREELANCER_DESKTOP_APP_INSTALLER_FILE_SIZE}     59004610
 
 #******************************************************************************#
 #                             Desktop App Name
 #******************************************************************************#
 ${FREELANCER_DESKTOP_APP_NAME}                 Freelancer Desktop App
+

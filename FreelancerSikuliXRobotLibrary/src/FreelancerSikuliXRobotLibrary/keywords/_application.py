@@ -19,6 +19,7 @@ class _ApplicationKeywords(KeywordGroup):
         self._set_application_name(app_name)
         try:
             App.focus(self.application_name)
+            App(self.application_name).focus()
         except FinFailed, err:
             raise AssertionError("Application '%s' not found." % (app_name))
 
@@ -52,8 +53,9 @@ class _ApplicationKeywords(KeywordGroup):
             self._set_application_name(app_name)
 
             if not App(self.application_name).isRunning():
-                App.open(self.application_path)
+                App(self.application_path).open()
             else:
+                App(app_name).focus()
                 App.focus(app_name)
         else:
             raise AssertionError("Application path '%s' not found." % (path))
@@ -65,18 +67,17 @@ class _ApplicationKeywords(KeywordGroup):
         """
         self._info("Closing application '%s'." % app_name)
         self._set_application_name(app_name)
-        if App(self.application_name).isRunning():
-            App.close(self.application_name)
+        App(self.application_name).close()
 
     def open_application(self, application_path):
         """opens the application matching the given ``application_path``.
 
         See also `Check And Open Application`, `Close Application` and `Application Is Running`
         """
-        if os.path.exists(path):
-            App.open(application_path)
+        if os.path.exists(application_path):
+            App(application_path).open()
         else:
-            raise AssertionError("Application path '%s' not found." % (path))
+            raise AssertionError("Application path '%s' not found." % (application_path))
 
     def application_is_running(self, app_name):
         """Returns `True` if application as specified in `app_name` is running, else, returns `False`.
@@ -91,7 +92,7 @@ class _ApplicationKeywords(KeywordGroup):
         Example:
         | Run Command | control appwiz.cpl | # Opens the Windows Control Panel > Programs and Features window. |
         """
-        run(script)
+        run(command)
 
     def app_has_window(self, app_name):
         """Returns `True` if application's window or dialog as specified in `app_name` is open,
