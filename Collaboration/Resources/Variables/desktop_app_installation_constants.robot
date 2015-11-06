@@ -1,10 +1,4 @@
 *** Variables ***
-
-#******************************************************************************#
-#                             PATTERN LIBRARY
-#******************************************************************************#
-${WINDOWS_PATTERN_LIBRARY_DIRECTORY}           freelancer-desktop-app_windows-installer.exe
-
 #******************************************************************************#
 #      Desktop App Web Constants: https://www.freelancer.com/desktop-app/
 #******************************************************************************#
@@ -85,9 +79,6 @@ ${WINDOWS_FREELANCER_DESKTOP_APP_EXECUTABLE_PATH}           C:/Program Files (x8
 ${WINDOWS_FREELANCER_DESKTOP_APP_EXECUTABLE}                freelancer-desktop-app.exe
 ${WINDOWS_FREELANCER_DESKTOP_APP_INSTALLER_PART_FILE}       freelancer-desktop-app_windows-installer.exe.part
 
-${WINDOWS_FREELANCER_DESKTOP_APP_WINDOW}                    ${FREELANCER_DESKTOP_APP_NAME}
-${WINDOWS_SETUP_FREELANCER_DESKTOP_APP_WINDOW}              InnoSetupLdrWindow
-
 #******************************************************************************#
 #                             Installer File Size
 #******************************************************************************#
@@ -96,5 +87,7 @@ ${WINDOWS_FREELANCER_DESKTOP_APP_INSTALLER_FILE_SIZE}     59004610
 #******************************************************************************#
 #                             Desktop App Name
 #******************************************************************************#
-${FREELANCER_DESKTOP_APP_NAME}                 Freelancer Desktop App
+${FREELANCER_DESKTOP_APP_NAME}                            Freelancer Desktop App
+${WINDOWS_FREELANCER_DESKTOP_APP_WINDOW}                  ${FREELANCER_DESKTOP_APP_NAME}
+${WINDOWS_SETUP_FREELANCER_DESKTOP_APP_WINDOW}            InnoSetupLdrWindow
 

@@ -39,30 +39,30 @@ Application Executable "${p_applicationName}" Is Correct
 Application "${p_applicationName}" Is Running
     ${t_isRunning} =    Run Keyword and Return Status
     ...    Application Is Running    ${p_applicationName}
-    Should Be True    ${t_isRunning}    # Passes if ${t_isRunning} is True
+    Should Be True    ${t_isRunning}    # Passes if ${t_isRunning} is True.
 
 Window "${p_applicationName}" Should Be Open
-    [Documentation]    Checks if the application window is open
+    [Documentation]    This keyword checks if the application window is open.
     ${t_hasWindow} =    Run Keyword and Return Status
     ...    App Get Window    ${p_applicationName}
     Should Be True    ${t_hasWindow}    # Passes if ${t_hasWindow} is True
 
 Directory "${p_directory}" Should Be "${p_directoryState}"
-    [Documentation]    Checks if the p_directory is empty or not empty
+    [Documentation]    This keyword checks if the p_directory is empty or not empty.
     Run Keyword If    '${p_directoryState}' == 'Not Empty'
     ...    Directory Should Not Be Empty    ${${g_OS_TYPE}_${p_directory}}
     Run Keyword If    '${p_directoryState}' == 'Empty'
     ...    Directory Should Be Empty    ${${g_OS_TYPE}_${p_directory}}
 
 Directory "${p_directory}" Should "${p_fileState}"
-    [Documentation]    Checks if the p_directory exists or not
+    [Documentation]    This keyword checks if the p_directory exists or not.
     Run Keyword If    '${p_fileState}' == 'Exist'
     ...    Directory Should Exist    ${${g_OS_TYPE}_${p_directory}}
     Run Keyword If    '${p_fileState}' == 'Not Exist'
     ...    Directory Should Not Exist    ${${g_OS_TYPE}_${p_directory}}
 
 File "${p_file}" Should "${p_fileState}"
-    [Documentation]    Checks if the p_file exists or not
+    [Documentation]    This keyword  checks if the p_file exists or not.
     Run Keyword If    '${p_fileState}' == 'Exist'
     ...    File Should Exist    ${${g_OS_TYPE}_${p_file}_PATH}/${${g_OS_TYPE}_${p_file}}
     Run Keyword If    '${p_fileState}' == 'Not Exist'
@@ -72,6 +72,7 @@ File "${p_file}" Should "${p_fileState}"
 #               Waiting Keywords
 #===================================================#
 Element "${p_pattern}" Should Be "${p_visibility}" Before Timeout
+    [Documentation]    This keyword checks if the pattern is visible before the timeout.
     Run Keyword If
     ...    '${p_visibility}' == 'Visible'
     ...    Wait Until Keyword Succeeds    ${TIMEOUT}    ${INTERVAL}
@@ -81,10 +82,12 @@ Element "${p_pattern}" Should Be "${p_visibility}" Before Timeout
     ...    Wait For Pattern To Vanish   ${p_pattern}
 
 Wait Until "${p_window}" Window Is Visible
+    [Documentation]    This keyword waits until the window is visible before the timeout.
     Wait Until Keyword Succeeds    ${TIMEOUT}    ${INTERVAL}
     ...    Window "${p_window}" Should Be Open
 
 Wait Until "${p_file}" Is Downloaded
+    [Documentation]    This keyword checks if the window is visible before the timeout.
     ${tc_filePath} =    Set Variable If
     ...    '${g_OS_TYPE}' == 'WINDOWS'    ${${g_OS_TYPE}_${p_file}_PATH}/${${g_OS_TYPE}_${p_file}_PART_FILE}
     ...    '${g_OS_TYPE}' != 'WINDOWS'    ${${g_OS_TYPE}_${p_file}_PATH}/${${g_OS_TYPE}_${p_file}}
@@ -95,7 +98,7 @@ Wait Until "${p_file}" Is Downloaded
 #                Cross Platform Keywords
 #===================================================#
 Get OS Type
-    [Documentation]    This keyword sets the OS type, using the `Get Env OS Type` keyword from FreelancerSikuliXRobotLibrary
+    [Documentation]    This keyword gets the Operating System Type then set it to a global variable.
     ${t_OSType} =    Get Env OS Type
     Set Global Variable    ${g_OS_TYPE}    ${t_OSType}
 
