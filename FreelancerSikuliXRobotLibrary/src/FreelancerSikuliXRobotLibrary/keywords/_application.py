@@ -18,7 +18,6 @@ class _ApplicationKeywords(KeywordGroup):
         self._info("Setting focus at application '%s'." % app_name)
         self._set_application_name(app_name)
         try:
-            App.focus(self.application_name)
             App(self.application_name).focus()
         except FinFailed, err:
             raise AssertionError("Application '%s' not found." % (app_name))
@@ -56,7 +55,6 @@ class _ApplicationKeywords(KeywordGroup):
                 App(self.application_path).open()
             else:
                 App(app_name).focus()
-                App.focus(app_name)
         else:
             raise AssertionError("Application path '%s' not found." % (path))
 
@@ -67,7 +65,7 @@ class _ApplicationKeywords(KeywordGroup):
         """
         self._info("Closing application '%s'." % app_name)
         self._set_application_name(app_name)
-        App(self.application_name).close()
+        App.close(self.application_name)
 
     def open_application(self, application_path):
         """opens the application matching the given ``application_path``.
@@ -75,7 +73,7 @@ class _ApplicationKeywords(KeywordGroup):
         See also `Check And Open Application`, `Close Application` and `Application Is Running`
         """
         if os.path.exists(application_path):
-            App(application_path).open()
+            App.open(application_path)
         else:
             raise AssertionError("Application path '%s' not found." % (application_path))
 
