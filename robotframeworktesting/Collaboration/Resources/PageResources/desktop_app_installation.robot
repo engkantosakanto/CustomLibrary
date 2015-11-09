@@ -63,7 +63,7 @@ Run "${p_file}" Installer
     Open Application    ${${g_OS_TYPE}_FREELANCER_DESKTOP_APP_INSTALLER_PATH}/${${g_OS_TYPE}_${p_file}_INSTALLER}
 
 Install Freelancer Desktop App in Windows
-    Run "Freelancer Desktop App" Installer
+    [Documentation]    This keyword installs the Freelancer Desktop App in Windows. Note that the UAC must be disabled in the Registry Editor inorder for sikuli to access the windows setup.
     Element "${WINDOWS_SETUP_WIZARD}" Should Be "Visible" Before Timeout
     Repeat Keyword    4 times    Click OS "Setup Next" "Button"
     Click OS "Setup Install" "Button"
@@ -86,6 +86,5 @@ Uninstall Freelancer Desktop App in Windows
     Element "${WINDOWS_UNINSTALL_SUCCESSFULL_DIALOG}" Should Be "Visible" Before Timeout
     Click OS "Uninstall Complete OK" "Button"
     Set Focus To "Programs and Features" Window
-    Press Keyboard Key    CTRL + W
-    #Close "Programs and Features" Application
+    Press Keyboard Key    CTRL + w
 

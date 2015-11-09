@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation     This suite covers the test cases for login logout functionality test of the Desktop App
+Documentation     This suite covers the test cases for login logout functionality test of the Freelancer Desktop App
 Resource          ../Resources/CommonResources/desktop_app_global_setup.robot
 Resource          ../Resources/PageResources/desktop_app_login_logout.robot
 Resource          ../Resources/PageResources/desktop_app_installation.robot
@@ -56,7 +56,7 @@ User With Invalid Password Should Not Be Able To Login
     And User Is In Freelancer Desktop App Login Page
     When User Submits Credentials Username "${freelancerUsername}" and Password "${freelancerInvalidPassword}" Via "Login Page"
     Then The "Login Invalid Username or Password" Alert Should Be Displayed
-    [Teardown]    Close "Freelancer Desktop App" Application
+    [Teardown]    Close Freelancer Desktop App
 
 User With Blank Username Or Password Should Not Be Able To Login
     Given The Freelancer Desktop App Is Installed

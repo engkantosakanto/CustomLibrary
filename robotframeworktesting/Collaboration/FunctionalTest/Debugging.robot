@@ -16,28 +16,5 @@ ${freelancerInvalidPassword}    invalidPassword
 
 *** Test Cases ***
 Freelancer Desktop App Should Be Successfully Installed
-    Given The Freelancer Desktop App Installer Exists In Download Directory
-    When User Installs the Freelancer Desktop App
-    Then The Freelancer Desktop App Should Be "Installed" Successfully
-
-User Should Successfully Login To The Windows Desktop App
-    Given The Freelancer Desktop App Is Installed
-    And User Runs the Freelancer Desktop App
-    And User Is In Freelancer Desktop App Login Page
-    When User Submits Credentials Username "${freelancerUsername}" and Password "${PASSWORD}" Via "Login Page"
-    Then User Should Be "Logged In" Successfully
-    [Teardown]    Close Freelancer Desktop App
-
-User Should Successfully Login To The Windows Desktop App Via Facebook Login
-    Given The Freelancer Desktop App Is Installed
-    And User Runs the Freelancer Desktop App
-    And User Is In Freelancer Desktop App Login Page
-    When User Submits Credentials Username "${freelancerFBUsername}" and Password "${freelancerFBPassword}" Via "Facebook Login"
-    Then User Should Be "Logged In" Successfully
-    [Teardown]    Close Freelancer Desktop App
-
-Freelancer Desktop App Should Be Successfully Uninstalled
-    Given The Freelancer Desktop App Is Installed
-    When User Uninstalls The Freelancer Desktop App
-    Then The Freelancer Desktop App Should Be "Uninstalled" Successfully
-    [Teardown]    User Deletes The Freelancer Desktop App Installer
+    Set Focus To "Programs and Features" Window
+    Press Keyboard Key    CTRL + w

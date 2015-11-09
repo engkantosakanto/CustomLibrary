@@ -17,7 +17,6 @@ User Is "${p_logInState}"
 #===============================================================#
 User Is In Freelancer Desktop App Login Page
     Element "${DESKTOP_APP_LOGIN_PAGE}" Should Be "Visible" Before Timeout
-    #Set Focus To "Freelancer Desktop App" Window
 
 User Submits Credentials Username "${p_username}" and Password "${p_password}" Via "${p_loginForm}"
     Run Keyword If    '${p_loginForm}' == 'Login Page'

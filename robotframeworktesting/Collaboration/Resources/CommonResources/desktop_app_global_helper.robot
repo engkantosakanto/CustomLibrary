@@ -2,9 +2,6 @@
 Library           String
 
 *** Keywords ***
-#===============================================================#
-#               Desktop App Generic Keywords
-#===============================================================#
 #===================================================#
 #                Setup Keywords
 #===================================================#
@@ -181,6 +178,9 @@ Check And Open "${p_applicationName}" Application
 Set Focus To "${p_applicationName}" Window
     [Documentation]    Sets the focus to the application p_applicationName's window.
     Set Application Focus    ${p_applicationName}
+
+Set Focus To Freelancer Desktop App
+    Set Application Focus    ${${g_OS_TYPE}_FREELANCER_DESKTOP_APP_EXECUTABLE}
 
 Switch Focus To "${p_applicationName}" Window
     [Documentation]    Switches focus to the application p_applicationName's window.

@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation     This suite is for the end to end installation of the Desktop App
+Documentation     This suite is for the end to end installation of the Freelancer Desktop App
 Resource          ../Resources/CommonResources/desktop_app_global_setup.robot
 Resource          ../Resources/PageResources/desktop_app_login_logout.robot
 Resource          ../Resources/PageResources/desktop_app_installation.robot
