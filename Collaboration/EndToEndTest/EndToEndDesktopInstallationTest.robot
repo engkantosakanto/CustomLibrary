@@ -8,7 +8,6 @@ Suite Setup       Freelancer Desktop App Suite Setup
 
 *** Variables ***
 ${freelancerUsername}           botFLNFTDTLogin
-${PASSWORD}                     free123
 ${freelancerFBUsername}         fagunday+fb1@freelancer.com
 ${freelancerFBPassword}         francisagundayfb1
 ${freelancerInvalidUsername}    invalidUserName
@@ -24,7 +23,7 @@ Freelancer Desktop App Should Be Successfully Downloaded
 
 Freelancer Desktop App Should Be Successfully Installed
     Given The Freelancer Desktop App Installer Exists In Download Directory
-    When User Installs the Freelancer Desktop App
+    When User "Installs" the Freelancer Desktop App
     Then The Freelancer Desktop App Should Be "Installed" Successfully
 
 User Should Successfully Login To The Windows Desktop App
@@ -45,6 +44,6 @@ User Should Successfully Login To The Windows Desktop App Via Facebook Login
 
 Freelancer Desktop App Should Be Successfully Uninstalled
     Given The Freelancer Desktop App Is Installed
-    When User Uninstalls The Freelancer Desktop App
+    When User "Uninstalls" The Freelancer Desktop App
     Then The Freelancer Desktop App Should Be "Uninstalled" Successfully
     [Teardown]    User Deletes The Freelancer Desktop App Installer

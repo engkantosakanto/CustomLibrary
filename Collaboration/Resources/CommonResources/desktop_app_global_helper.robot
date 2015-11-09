@@ -1,6 +1,3 @@
-*** Settings ***
-Library           String
-
 *** Keywords ***
 #===================================================#
 #                Setup Keywords
@@ -14,7 +11,9 @@ Freelancer Desktop App Suite Setup
 
 Set Default Pattern Library Directory
     [Documentation]    This keyword sets the PatternResources directory as the default pattern library.
-    ${new_PatternDirectory}=    Replace String   ${CURDIR}   CommonResources    PatternResources
+    ${new_PatternDirectory}=    Replace String
+    ...    ${CURDIR}   CommonResources    PatternResources
+
     Log   ${new_PatternDirectory}
     Set Image Library    ${new_PatternDirectory}
 
@@ -26,10 +25,12 @@ Assert That "${p_element}" Is Visible
     Assert Pattern Is Visible In Active App    ${p_element}
 
 Application Name "${p_applicationName}" Is Correct
+    [Documentation]    This keyword checks if the application name is correct.
     ${t_applicationName} =    App Get Window    ${p_applicationName}
     Should Be Equal As Strings    ${${g_OS_TYPE}_${p_applicationName}_WINDOW}    ${t_applicationName}
 
 Application Executable "${p_applicationName}" Is Correct
+    [Documentation]    This keyword checks if the application executable is correct.
     ${t_applicationExecutable} =    App Get Name    ${p_applicationName}
     Should Be Equal As Strings    ${${g_OS_TYPE}_${p_applicationName}_EXECUTABLE}    ${t_applicationExecutable}
 
@@ -44,18 +45,18 @@ Window "${p_applicationName}" Should Be Open
     ...    App Get Window    ${p_applicationName}
     Should Be True    ${t_hasWindow}    # Passes if ${t_hasWindow} is True
 
-Directory "${p_directory}" Should Be "${p_directoryState}"
+Directory "${p_directory}" Should Be "${p_directoryContent}"
     [Documentation]    This keyword checks if the p_directory is empty or not empty.
-    Run Keyword If    '${p_directoryState}' == 'Not Empty'
+    Run Keyword If    '${p_directoryContent}' == 'Not Empty'
     ...    Directory Should Not Be Empty    ${${g_OS_TYPE}_${p_directory}}
-    Run Keyword If    '${p_directoryState}' == 'Empty'
+    Run Keyword If    '${p_directoryContent}' == 'Empty'
     ...    Directory Should Be Empty    ${${g_OS_TYPE}_${p_directory}}
 
-Directory "${p_directory}" Should "${p_fileState}"
+Directory "${p_directory}" Should "${p_directoryState}"
     [Documentation]    This keyword checks if the p_directory exists or not.
-    Run Keyword If    '${p_fileState}' == 'Exist'
+    Run Keyword If    '${p_directoryState}' == 'Exist'
     ...    Directory Should Exist    ${${g_OS_TYPE}_${p_directory}}
-    Run Keyword If    '${p_fileState}' == 'Not Exist'
+    Run Keyword If    '${p_directoryState}' == 'Not Exist'
     ...    Directory Should Not Exist    ${${g_OS_TYPE}_${p_directory}}
 
 File "${p_file}" Should "${p_fileState}"
@@ -86,8 +87,9 @@ Wait Until "${p_window}" Window Is Visible
 Wait Until "${p_file}" Is Downloaded
     [Documentation]    This keyword sets wait until the Freelancer Desktop App Installer download is finished.
     ${tc_filePath} =    Set Variable If
-    ...    '${g_OS_TYPE}' == 'WINDOWS'    ${${g_OS_TYPE}_${p_file}_PATH}/${${g_OS_TYPE}_${p_file}_PART_FILE}
-    ...    '${g_OS_TYPE}' != 'WINDOWS'    ${${g_OS_TYPE}_${p_file}_PATH}/${${g_OS_TYPE}_${p_file}}
+    ...    '${g_OS_TYPE}' == 'WINDOWS'
+    ...    ${${g_OS_TYPE}_${p_file}_PATH}/${${g_OS_TYPE}_${p_file}_PART_FILE}
+    ...    ${${g_OS_TYPE}_${p_file}_PATH}/${${g_OS_TYPE}_${p_file}}
 
     Wait Until Removed    ${tc_filePath}    -1
 
@@ -102,20 +104,18 @@ Get OS Type
 Get OS User Name
     [Documentation]    This keyword gets the user name of the OS then assigns it to a global variable.
     ${t_command} =    Set Variable If
-    ...    '${g_OS_TYPE}' == 'WINDOWS'    echo %username%
-    ...    '${g_OS_TYPE}' != 'WINDOWS'    whoami
+    ...    '${g_OS_TYPE}' == 'WINDOWS'    echo %username%    whoami
 
     ${t_userName} =    Run    ${t_command}
-    ${t_userName} =    Set Variable If
-    ...    '${g_OS_TYPE}' == 'WINDOWS'    ${t_userName.strip()}
+    ${t_userName} =    Set Variable If    '${g_OS_TYPE}' == 'WINDOWS'    ${t_userName.strip()}
 
     Set Global Variable    ${g_USER_NAME}    ${t_userName}
 
 Get OS Home Directory
     [Documentation]    This keyword gets the home directory e of the OS then assigns it to a global variable.
     ${t_homeDirectory} =    Set Variable If
-    ...    '${g_OS_TYPE}' == 'WINDOWS'    C:/Users/${g_USER_NAME}
-    ...    '${g_OS_TYPE}' != 'WINDOWS'    /home/${g_USER_NAME}
+    ...    '${g_OS_TYPE}' == 'WINDOWS'    C:/Users/${g_USER_NAME}    /home/${g_USER_NAME}
+
     Set Global Variable    ${${g_OS_TYPE}_HOME_DIRECTORY}    ${t_homeDirectory}
 
 Get OS Default Download Directory
@@ -162,7 +162,7 @@ Get "${p_file}" File Size
 Input "${p_field_value}" In "${p_element}" "${p_elementType}"
     [Documentation]    This keyword inputs string in the field as specified in p_element and p_elementType.
     Click Desktop App "${p_element}" "${p_elementType}"
-    Type Text At Region    ${p_field_value}
+    Type String    ${p_field_value}
 
 Open "${p_applicationName}" Application
     Open Application    ${${g_OS_TYPE}_${p_applicationName}_EXECUTABLE_PATH}/${${g_OS_TYPE}_${p_applicationName}_EXECUTABLE}
