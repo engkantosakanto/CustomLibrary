@@ -20,8 +20,7 @@ User Submits Credentials Username "${p_username}" and Password "${p_password}" V
     ...    Input "${p_username}" In "Login Username Email" "Textfield"
     ...    AND    Input "${p_password}" In "Login Password" "Text Field"
     ...    AND    Click Desktop App "Login" "Button"
-    Run Keyword If    '${p_loginForm}' == 'Facebook Login'
-    ...    Run Keywords
+    ...    ELSE    Run Keywords
     ...    Click Desktop App "Login With Facebook" "Button"
     ...    AND    Element "${FBLOGIN_LOGIN_PAGE}" Should Be "Visible" Before Timeout
     ...    AND    Input "${p_username}" In "FB Login Email Or Phone" "Textfield"

@@ -71,8 +71,7 @@ User "${p_installUninstall}" Freelancer Desktop App In Windows
     ...    AND    Element "${WINDOWS_COMPLETING_INSTALLATION_DIALOG}" Should Be "Visible" Before Timeout
     ...    AND    Click OS "Setup Launch App" "Button"    # Unchecks the Launch Application checkbox
     ...    AND    Click OS "Setup Finish" "Button"
-
-    Run Keyword If    '${p_installUninstall}' == 'Uninstalls'    Run Keywords
+    ...    ELSE    Run Keywords
     ...    Run Command    control appwiz.cpl
     ...    AND    Element "${WINDOWS_PROGRAMS_CONTROL_PANEL}" Should Be "Visible" Before Timeout
     ...    AND    Element "${WINDOWS_FREELANCER_DESKTOP_APP_IN_CONTROL_PANEL}" Should Be "Visible" Before Timeout

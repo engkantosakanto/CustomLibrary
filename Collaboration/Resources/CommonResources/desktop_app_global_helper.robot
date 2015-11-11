@@ -49,30 +49,26 @@ Directory "${p_directory}" Should Be "${p_directoryContent}"
     [Documentation]    This keyword checks if the p_directory is empty or not empty.
     Run Keyword If    '${p_directoryContent}' == 'Not Empty'
     ...    Directory Should Not Be Empty    ${${g_OS_TYPE}_${p_directory}}
-    Run Keyword If    '${p_directoryContent}' == 'Empty'
-    ...    Directory Should Be Empty    ${${g_OS_TYPE}_${p_directory}}
+    ...    ELSE    Directory Should Be Empty    ${${g_OS_TYPE}_${p_directory}}
 
 Directory "${p_directory}" Should "${p_directoryState}"
     [Documentation]    This keyword checks if the p_directory exists or not.
     Run Keyword If    '${p_directoryState}' == 'Exist'
     ...    Directory Should Exist    ${${g_OS_TYPE}_${p_directory}}
-    Run Keyword If    '${p_directoryState}' == 'Not Exist'
-    ...    Directory Should Not Exist    ${${g_OS_TYPE}_${p_directory}}
+    ...    ELSE    Directory Should Not Exist    ${${g_OS_TYPE}_${p_directory}}
 
 File "${p_file}" Should "${p_fileState}"
     [Documentation]    This keyword  checks if the p_file exists or not.
     Run Keyword If    '${p_fileState}' == 'Exist'
     ...    File Should Exist    ${${g_OS_TYPE}_${p_file}_PATH}/${${g_OS_TYPE}_${p_file}}
-    Run Keyword If    '${p_fileState}' == 'Not Exist'
-    ...    File Should Not Exist    ${${g_OS_TYPE}_${p_file}_PATH}/${${g_OS_TYPE}_${p_file}}
+    ...    ELSE    File Should Not Exist    ${${g_OS_TYPE}_${p_file}_PATH}/${${g_OS_TYPE}_${p_file}}
 
 #===================================================#
 #               Waiting Keywords
 #===================================================#
 Element "${p_pattern}" Should Be "${p_visibility}" Before Timeout
     [Documentation]    This keyword checks if the pattern is visible before the timeout.
-    Run Keyword If
-    ...    '${p_visibility}' == 'Visible'
+    Run Keyword If    '${p_visibility}' == 'Visible'
     ...    Wait Until Keyword Succeeds    ${TIMEOUT}    ${INTERVAL}
     ...    Wait For Pattern To Be Visible    ${p_pattern}
     ...    ELSE
@@ -86,8 +82,7 @@ Wait Until "${p_window}" Window Is Visible
 
 Wait Until "${p_file}" Is Downloaded
     [Documentation]    This keyword sets wait until the Freelancer Desktop App Installer download is finished.
-    ${tc_filePath} =    Set Variable If
-    ...    '${g_OS_TYPE}' == 'WINDOWS'
+    ${tc_filePath} =    Set Variable If    '${g_OS_TYPE}' == 'WINDOWS'
     ...    ${${g_OS_TYPE}_${p_file}_PATH}/${${g_OS_TYPE}_${p_file}_PART_FILE}
     ...    ${${g_OS_TYPE}_${p_file}_PATH}/${${g_OS_TYPE}_${p_file}}
 
