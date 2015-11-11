@@ -52,9 +52,6 @@ The File Size of Freelancer Desktop App Installer Should be Correct
     Should Be Equal As Strings    ${tc_FILE_SIZE}
     ...    ${${g_OS_TYPE}_FREELANCER_DESKTOP_APP_INSTALLER_FILE_SIZE}
 
-The Update Checker Should Be Displayed
-    List Of Patterns "@{UPDATE_CHECKER_CORE_PATTERNS_LIST}" Should Be "Visible" Before Timeout
-
 #===============================================================#
 #                    INTERNAL KEYWORDS
 #===============================================================#

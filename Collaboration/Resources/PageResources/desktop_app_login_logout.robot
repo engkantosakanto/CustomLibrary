@@ -34,6 +34,13 @@ User Logs Out From The Freelancer Desktop App
     Element "${HOMEPAGE_LOGOUT_CONFIRMATION_DIALOG}" Should Be "Visible" Before Timeout
     Click Desktop App "Homepage Logout Confirm" "Button"
 
+User "${p_userAction}" Facebook Login
+    Run Keyword If    '${p_userAction}' == 'Launches'    Run Keywords
+    ...    Click Desktop App "Login With Facebook" "Button"
+    ...    AND    Element "${FBLOGIN_LOGIN_PAGE}" Should Be "Visible" Before Timeout
+    ...    ELSE IF    '${p_userAction}' == 'Cancels'
+    ...    Click Desktop App "FB Login Cancel" "Button"
+
 #===============================================================#
 #                            THEN
 #===============================================================#
@@ -46,6 +53,12 @@ User Should Be "${p_logInState}" Successfully
 
     Element "${DESKTOP_APP_LOGIN_PAGE}" Should Be "${t_loginElementsVisibility}" Before Timeout
     List Of Patterns "@{NEW_USER_HOMEPAGE_CORE_PATTERNS_LIST}" Should Be "${t_logoutElementsVisibility}" Before Timeout
+
+The Update Checker Should Be Displayed
+    List Of Patterns "@{UPDATE_CHECKER_CORE_PATTERNS_LIST}" Should Be "Visible" Before Timeout
+
+The "${p_alert}" Alert Should Be Displayed
+    Element "${${p_alert}_ALERT}" Should Be "Visible" Before Timeout
 
 #===============================================================#
 #                    INTERNAL KEYWORDS

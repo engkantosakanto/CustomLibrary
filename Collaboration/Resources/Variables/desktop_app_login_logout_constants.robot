@@ -17,6 +17,9 @@ ${FBLOGIN_CANCEL_BUTTON_REGION}                352, 272, -370, -288
 #==================================================#
 ${COMMON_LOGIN_FOLDER}                                 Common/Login
 ${DESKTOP_APP_LOGIN_PAGE}                              ${COMMON_LOGIN_FOLDER}/LOGIN_PAGE.PNG
+${LOGIN_INVALID_USERNAME_OR_PASSWORD_ALERT}            ${COMMON_LOGIN_FOLDER}/LOGIN_INVALID_USERNAME_OR_PASSWORD_ALERT.png
+${LOGIN_REQUIRED_FIELD_ALERT}                          ${COMMON_LOGIN_FOLDER}/LOGIN_REQUIRED_FIELD_ALERT.png
+${FBLOGIN_CANCELLED_ALERT}                             ${COMMON_LOGIN_FOLDER}/FACEBOOK_LOGIN_CANCELLED_ALERT.png
 ${FBLOGIN_LOGIN_PAGE}                                  ${COMMON_LOGIN_FOLDER}/FACEBOOK_LOGIN_PAGE.png
 
 #==================================================#
